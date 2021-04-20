@@ -13,6 +13,10 @@ var couldownAt = 0;
 var veneno = 0;
 var couldownDisp = 0;
 var disparo, disparoJ;
+var couldownBombs = 0;
+var explosio;
+var explosion;
+export var bombas;
 export var flechasList;
 
 export var monedasList;
@@ -73,6 +77,18 @@ export function createP()
 	armaV.flecha = false;
 	arma.flecha = false;
 	player.dinero = 0;
+	
+	bombas=this.physics.add.sprite(player.x, player.y, 'bomba');
+	bombas.visible = false;
+	bombas.body.enable = false;
+	bombas.setScale(0.1,0.1);
+	bombas.daño = 5;
+	bombas.setSize(1000, 1000);
+
+	this.anims.create({
+		key:'exp1',
+		frames: this.anims.generateFrameNames('explosionE',{start:1, end:16})
+	});
 
 	this.physics.add.overlap(player, monedasList, recogerDinero, null, this);
 
@@ -136,6 +152,7 @@ export function acciones()
 	morir.call(this);
 	disparar.call(this);
 	//movDisparos.call(this);
+	Bombs.call(this);
 }
 function cambioP()
 {
@@ -332,4 +349,30 @@ function movDisparos()
 			tiro.setVelocity(0,-300);
 		}
 	}	*/
+}
+
+function Bombs(){
+	couldownBombs = couldownBombs -1;
+	if(explosion.isDown && couldownBombs <= 0){
+		console.log(couldownBombs);
+		bombas.x = player.x;
+		bombas.y = player.y;
+		bombas.visible = true;
+		this.time.delayedCall(1000, explosao, [], this);
+		couldownBombs = 10;
+	}
+}
+
+function explosao(){
+	bombas.body.enable = true;
+	this.time.delayedCall(100, finexplosion, [], this);
+	
+}
+
+function finexplosion(){
+	
+	var explosive = this.add.sprite(bombas.x, bombas.y,'explosionE');
+	explosive.play('exp1');
+	bombas.visible = false;
+	bombas.body.enable = false;
 }
