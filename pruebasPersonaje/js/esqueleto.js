@@ -108,6 +108,7 @@ export function inicio()
 	this.physics.add.overlap(personaje.player, dispEnlList, destroyPlayer, null, this);
 	this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
+	this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
 	 
 }
 function perderVida(s, n)
