@@ -28,7 +28,7 @@ var espada;
 export var vida;
 var s;
 import * as esqueleto from './esqueleto.js';
-
+import * as arana from './arana.js';
 
 export function cargarSprites()
 {
@@ -88,6 +88,7 @@ export function createP()
 
 
 	this.physics.add.overlap(player, monedasList, recogerDinero, null, this);
+	
 
 
 }
@@ -97,9 +98,7 @@ function recogerDinero(n, s)
 	player.dinero = player.dinero + 1;
 	console.log("dinero = "+player.dinero)
 
-	s.disableBody(true, true);
-
-	monedasList.remove(s);
+	s.destroy();
 }
 
 
@@ -135,9 +134,10 @@ export function movimiento()
 		player.setVelocityX(0);
 	}
 }
-export function perderVida()
+export function perderVida(n, s)
 {
-	vida = vida-1;
+	vida = vida-s.damage;
+	s.destroy();
 	console.log(vida);
 	
 }

@@ -51,7 +51,12 @@ function dispEnemies()
 					disparoE.velocity = 10;
 					disparoE.direccion.normalize();
 					disparoE.angle = 180/Math.PI*Phaser.Math.Angle.Between(disparoE.x, disparoE.y, personaje.player.x, personaje.player.y);
+<<<<<<< Updated upstream
 				
+=======
+					disparoE.damage = 1;
+					this.physics.moveToObject(disparoE, personaje.player, 300);
+>>>>>>> Stashed changes
 
 				atacante.EnDisp = 100;
 			}
@@ -62,19 +67,15 @@ function dispEnemies()
 	}
 }
 
-function destroyPlayer(e, s)
-{
-	personaje.perderVida.call(this);	
-
-	s.disableBody(true, true);
-
-	dispEnlList.remove(s);
-}
 
 export function acciones()
 {
 	dispEnemies.call(this);
+<<<<<<< Updated upstream
 	movDisparosEn.call(this);
+=======
+	//movDisparosEn.call(this);
+>>>>>>> Stashed changes
 	couldowndamage--;
 }
 export function inicio()
@@ -103,11 +104,20 @@ export function inicio()
 
 	dispEnlList = this.physics.add.group();
 
-	this.physics.add.overlap(personaje.player, dispEnlList, destroyPlayer, null, this);
+	this.physics.add.overlap(personaje.player, dispEnlList, personaje.perderVida, null, this);
 	this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
+<<<<<<< Updated upstream
+=======
+	this.physics.add.collider(dispEnlList, escena2.suelo);
+    this.physics.add.collider(dispEnlList, escena2.objetos, destroyShot);
+>>>>>>> Stashed changes
 	 
+}
+function destroyShot(s, n)
+{
+	s.destroy();
 }
 function perderVida(s, n)
 {
@@ -125,17 +135,19 @@ function perderVida(s, n)
 				dinero=personaje.monedasList.create(n.x,n.y,'moneda');
 				dinero.setScale(0.01,0.01);
 			}
-			n.disableBody(true, true);
-
-			enemigosList.remove(n);
+			n.destroy();
 
 
 		}
-		if(s.flecha = true)
+		if(s.flecha == true)
 		{
+<<<<<<< Updated upstream
 			s.disableBody(true, true);
 
 			personaje.flechasList.remove(s);
+=======
+			s.destroy();
+>>>>>>> Stashed changes
 		}
 	}
 }

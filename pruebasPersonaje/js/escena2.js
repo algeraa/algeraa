@@ -2,6 +2,7 @@ var escalaEnemy = 0.4;
 var escapaDisparo = 0.05;
 var mapa;
 var fl;
+export var suelo, objetos;
 
 import * as esqueleto from './esqueleto.js';
 import * as personaje from './personaje.js';
@@ -38,8 +39,8 @@ create()
 	
 	mapa = this.make.tilemap({ key: 'mapa' });
 	var tilesets = mapa.addTilesetImage('buch-outdoor', 'tiles');
-	var suelo = mapa.createDynamicLayer('Suelo', tilesets, 0, 0);
-	var objetos = mapa.createDynamicLayer('oBJETOS', tilesets, 0, 0);
+	suelo = mapa.createDynamicLayer('Suelo', tilesets, 0, 0);
+	objetos = mapa.createDynamicLayer('oBJETOS', tilesets, 0, 0);
 	suelo.setCollisionByProperty({ colisiones: true });
 	objetos.setCollisionByProperty({ colisiones: true });
 
@@ -54,6 +55,15 @@ create()
 	this.physics.add.collider(personaje.player, objetos);
 	this.physics.add.collider(personaje.flechasList, suelo);
 	this.physics.add.collider(personaje.flechasList, objetos);
+
+	
+
+	/*this.physics.add.collider(planta.venenoso, suelo);
+	this.physics.add.collider(planta.venenoso, objetos);
+
+	this.physics.add.collider(esqueleto.dispEnlList, suelo);
+	this.physics.add.collider(esqueleto.dispEnlList, objetos);*/
+
 	esqueleto.inicio.call(this);
 	planta.inicio.call(this);
 	arana.inicio.call(this);

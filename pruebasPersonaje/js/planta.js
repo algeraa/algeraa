@@ -5,7 +5,7 @@ var i;
 var venenoso;
 var disparoE;
 var distancia;
-var venenoso;
+export var venenoso;
 var plantasList;
 var monedasList;
 var dinero;
@@ -47,7 +47,11 @@ function dispEnemies() {
 			disparoE.angle = 180 / Math.PI * Phaser.Math.Angle.Between(disparoE.x, disparoE.y, personaje.player.x, personaje.player.y);
 			disparoE.venenoso = true;
 
+<<<<<<< Updated upstream
 
+=======
+			this.physics.moveToObject(disparoE, personaje.player, 300);
+>>>>>>> Stashed changes
 
 			atacante.EnDisp = 100;
 		}
@@ -59,17 +63,23 @@ function dispEnemies() {
 
 function envenenar(e, s) {
 	personaje.envenenado.call(this);
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
 
 
-	s.disableBody(true, true);
-
-	venenoso.remove(s);
+	s.destroy();
 }
 
 export function acciones() {
 
 	dispEnemies.call(this);
+<<<<<<< Updated upstream
 	movDisparosEn.call(this);
+=======
+	//movDisparosEn.call(this);
+>>>>>>> Stashed changes
 	couldowndamage--;
 
 }
@@ -88,7 +98,18 @@ export function inicio() {
 	this.physics.add.overlap(personaje.arma, plantasList, perderVida, null, this);
 	this.physics.add.overlap(personaje.flechasList, plantasList, perderVida, null, this);
 	this.physics.add.overlap(personaje.bombas, plantasList, perderVida, null, this);
+<<<<<<< Updated upstream
 }
+=======
+
+	this.physics.add.collider(venenoso, escena2.suelo);
+    this.physics.add.collider(venenoso, escena2.objetos, destroyShot);
+}
+function destroyShot(s, n)
+{
+	s.destroy();
+}
+>>>>>>> Stashed changes
 function perderVida(s, n) {
 	if (couldowndamage <= 0) {
 		n.vida = n.vida - s.damage;
@@ -101,14 +122,17 @@ function perderVida(s, n) {
 				dinero = personaje.monedasList.create(n.x, n.y, 'moneda');
 				dinero.setScale(0.01, 0.01);
 			}
-			n.disableBody(true, true);
-
-			plantasList.remove(n);
+			n.destroy();
 		}
+<<<<<<< Updated upstream
 		if (s.flecha = true) {
 			s.disableBody(true, true);
 
 			personaje.flechasList.remove(s);
+=======
+		if (s.flecha == true) {
+			s.destroy();
+>>>>>>> Stashed changes
 		}
 
 	}
