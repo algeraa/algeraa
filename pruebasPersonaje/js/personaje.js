@@ -80,6 +80,7 @@ export function createP()
 	bombas.setScale(0.1,0.1);
 	bombas.damage = 5;
 	bombas.setSize(1000, 1000);
+	player.recibirdamage = 0;
 
 	this.anims.create({
 		key:'exp1',
@@ -136,9 +137,15 @@ export function movimiento()
 }
 export function perderVida(n, s)
 {
-	vida = vida-s.damage;
-	s.destroy();
+	if(player.recibirdamage <= 0){
+		vida = vida-s.damage;
+		player.recibirdamage = 15;
+	}
+	if(s.flecha == true){
+		s.destroy();
+	}
 	console.log(vida);
+	
 	
 }
 export function acciones()
@@ -149,6 +156,7 @@ export function acciones()
 	morir.call(this);
 	disparar.call(this);
 	Bombs.call(this);
+	player.recibirdamage--;
 }
 function cambioP()
 {
