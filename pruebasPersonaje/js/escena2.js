@@ -9,6 +9,7 @@ import * as personaje from './personaje.js';
 import * as planta from './planta.js';
 import * as arana from './arana.js';
 import * as pared from './pared.js';
+import * as zombie from './zombie.js';
 
 
 export default class Escena2 extends Phaser.Scene {
@@ -30,6 +31,7 @@ export default class Escena2 extends Phaser.Scene {
 		personaje.cargarSprites.call(this);
 		planta.cargarSprites.call(this);
 		arana.cargarSprites.call(this);
+		zombie.cargarSprites.call(this);
 		pared.cargarSprites.call(this);
 	}
 
@@ -67,7 +69,9 @@ create()
 	esqueleto.inicio.call(this);
 	planta.inicio.call(this);
 	arana.inicio.call(this);
+	zombie.inicio.call(this);
 	pared.inicio.call(this);
+
 
 	var pocionP = this.add.sprite(200,300,'pocion');
 }
@@ -78,8 +82,9 @@ create()
 		personaje.movimiento.call(this);
 		esqueleto.acciones.call(this);
 		planta.acciones.call(this);
-		personaje.acciones.call(this);
 		arana.acciones.call(this);
+		zombie.acciones.call(this);
+		personaje.acciones.call(this);
 	}
 }
 
