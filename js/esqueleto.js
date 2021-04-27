@@ -51,12 +51,8 @@ function dispEnemies()
 					disparoE.velocity = 10;
 					disparoE.direccion.normalize();
 					disparoE.angle = 180/Math.PI*Phaser.Math.Angle.Between(disparoE.x, disparoE.y, personaje.player.x, personaje.player.y);
-<<<<<<< Updated upstream
-				
-=======
 					disparoE.damage = 1;
 					this.physics.moveToObject(disparoE, personaje.player, 300);
->>>>>>> Stashed changes
 
 				atacante.EnDisp = 100;
 			}
@@ -71,11 +67,7 @@ function dispEnemies()
 export function acciones()
 {
 	dispEnemies.call(this);
-<<<<<<< Updated upstream
-	movDisparosEn.call(this);
-=======
 	//movDisparosEn.call(this);
->>>>>>> Stashed changes
 	couldowndamage--;
 }
 export function inicio()
@@ -108,11 +100,8 @@ export function inicio()
 	this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
-<<<<<<< Updated upstream
-=======
 	this.physics.add.collider(dispEnlList, escena2.suelo);
     this.physics.add.collider(dispEnlList, escena2.objetos, destroyShot);
->>>>>>> Stashed changes
 	 
 }
 function destroyShot(s, n)
@@ -141,13 +130,7 @@ function perderVida(s, n)
 		}
 		if(s.flecha == true)
 		{
-<<<<<<< Updated upstream
-			s.disableBody(true, true);
-
-			personaje.flechasList.remove(s);
-=======
 			s.destroy();
->>>>>>> Stashed changes
 		}
 	}
 }
