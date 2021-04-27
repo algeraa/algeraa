@@ -3,12 +3,15 @@ var escapaDisparo = 0.05;
 var mapa;
 var fl;
 export var suelo, objetos;
+export var cameras;
 
 import * as esqueleto from './esqueleto.js';
 import * as personaje from './personaje.js';
 import * as planta from './planta.js';
 import * as arana from './arana.js';
 import * as pared from './pared.js';
+import * as zombie from './zombie.js';
+import * as trampas from './trampas.js';
 
 
 export default class Escena2 extends Phaser.Scene {
@@ -28,9 +31,12 @@ export default class Escena2 extends Phaser.Scene {
 
 		esqueleto.cargarSprites.call(this);
 		personaje.cargarSprites.call(this);
+		personaje.cargarInventario.call(this);
 		planta.cargarSprites.call(this);
 		arana.cargarSprites.call(this);
+		zombie.cargarSprites.call(this);
 		pared.cargarSprites.call(this);
+		trampas.cargarSprites.call(this);
 	}
 
 
@@ -47,10 +53,12 @@ create()
 	suelo.setScale(2, 2);
 	objetos.setScale(2, 2);
 	
-	this.cameras.main.setBounds(0, 0, 800 * 2, 600 * 2);
+	cameras= this.cameras.main.setBounds(0, 0, 800 * 2, 600 * 2);
     this.physics.world.setBounds(0, 0, 800 * 2, 600 * 2);
     
 	personaje.createP.call(this);
+	personaje.crearInventario.call(this);
+	trampas.crearTrampas.call(this);
 	this.physics.add.collider(personaje.player, suelo);
 	this.physics.add.collider(personaje.player, objetos);
 	this.physics.add.collider(personaje.flechasList, suelo);
@@ -67,7 +75,9 @@ create()
 	esqueleto.inicio.call(this);
 	planta.inicio.call(this);
 	arana.inicio.call(this);
+	zombie.inicio.call(this);
 	pared.inicio.call(this);
+
 
 	var pocionP = this.add.sprite(200,300,'pocion');
 }
@@ -76,10 +86,13 @@ create()
 	{
 
 		personaje.movimiento.call(this);
+		personaje.inventario.call(this);
 		esqueleto.acciones.call(this);
 		planta.acciones.call(this);
-		personaje.acciones.call(this);
 		arana.acciones.call(this);
+		zombie.acciones.call(this);
+		personaje.acciones.call(this);
+
 	}
 }
 
