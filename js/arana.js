@@ -16,10 +16,7 @@ var enemigosList;
 var cono;
 var dinero;
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 import * as escena2 from './escena2.js';
 import * as personaje from './personaje.js';
 
@@ -27,7 +24,7 @@ export function cargarSprites() {
     this.load.image('arana', 'assets/sprites/arana.png');
     this.load.image('disparoarana', 'assets/sprites/disparoarana.png');
     this.load.image('moneda', 'assets/sprites/moneda.png');
-    this.load.image('pocionp', 'assets/sprites/pocionPequeña.png');
+    this.load.image('pocionp', 'assets/sprites/pocionPequeÃ±a.png');
 }
 
 export function inicio() {
@@ -35,14 +32,6 @@ export function inicio() {
     enemigosList = this.physics.add.group();
     creararana.call(this);
 
-<<<<<<< Updated upstream
-    this.physics.add.overlap(personaje.player, dispEnlList, destroyPlayer, null, this);
-    this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
-    this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
-    this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
-}
-
-=======
     this.physics.add.overlap(personaje.player, dispEnlList, personaje.perderVida, null, this);
     this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
     this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
@@ -55,7 +44,6 @@ function destroyShot(s, n)
 {
     s.destroy();
 }
->>>>>>> Stashed changes
 function creararana() {
     arana = enemigosList.create(800, 300, 'arana');
     arana.setScale(escalaaranax, escalaaranay);
@@ -78,16 +66,6 @@ export function acciones() {
     }
 }
 
-<<<<<<< Updated upstream
-function destroyPlayer(e, s) {
-    personaje.perderVida.call(this);
-
-    s.disableBody(true, true);
-
-    dispEnlList.remove(s);
-}
-=======
->>>>>>> Stashed changes
 
 function perderVida(s, n) {
         n.vida = n.vida - s.damage;
@@ -102,22 +80,11 @@ function perderVida(s, n) {
             }
             n.disableBody(true, true);
 
-<<<<<<< Updated upstream
-            enemigosList.remove(n);
-            n.destroy();
-
-        }
-        if (s.flecha = true) {
-            s.disableBody(true, true);
-
-            personaje.flechasList.remove(s);
-=======
             n.destroy();
 
         }
         if (s.flecha == true) {
             s.destroy();
->>>>>>> Stashed changes
         }
 }
 
@@ -147,10 +114,7 @@ function dispArana() {
     for (var i = 0; i < numCONO; i++) {
         cono = dispEnlList.create(arana.x, arana.y, 'disparoarana');
         cono.setScale(0.05, 0.05);
-<<<<<<< Updated upstream
-=======
         cono.damage = 1;
->>>>>>> Stashed changes
         if (i == 0) {
             cono.setVelocityX(-200);
             cono.setVelocityY(200);
