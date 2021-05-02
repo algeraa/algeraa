@@ -526,7 +526,7 @@ export function inventario(){
 		inven.setScale(0.5,0.5);
 		inven.x=escena.cameras.scrollX+400;
 		inven.y=escena.cameras.scrollY+300;
-		inven.setDepth(1);
+		inven.setDepth(3);
 
 		player.setVelocityX(0);
 		player.setVelocityY(0);
@@ -540,7 +540,7 @@ export function inventario(){
 				
 				sword.x=inven.x-190;
 				sword.y=inven.y+posYObjetos;
-				sword.setDepth(2);
+				sword.setDepth(4);
 				sword.alpha = 1;
 						
 			}
@@ -549,7 +549,7 @@ export function inventario(){
 
 				bow.x=inven.x-145;
 				bow.y=inven.y+posYObjetos;
-				bow.setDepth(2);
+				bow.setDepth(4);
 				bow.alpha = 1;
 				
 			}
@@ -558,7 +558,7 @@ export function inventario(){
 
 				bomb.x=inven.x-100;
 				bomb.y=inven.y+posYObjetos;
-				bomb.setDepth(2);
+				bomb.setDepth(4);
 				bomb.alpha = 1;
 				cantidadBomba=this.add.text(bomb.x+10,bomb.y+8,bomb.cantidad,{fontsize:'32px',fill:'#000000'});
 				cantidadBomba.setDepth(2);
@@ -569,7 +569,7 @@ export function inventario(){
 
 				cura.x=inven.x-55;
 				cura.y=inven.y+posYObjetos;
-				cura.setDepth(2);
+				cura.setDepth(4);
 				cura.alpha = 1;
 				cantidadBotiquin=this.add.text(cura.x+10,cura.y+8,cura.cantidad,{fontsize:'40px',fill:'#000000'});
 				cantidadBotiquin.setDepth(2);
@@ -580,7 +580,7 @@ export function inventario(){
 
 				lg_escudo.x=inven.x-10;
 				lg_escudo.y=inven.y+posYObjetos;
-				lg_escudo.setDepth(2);
+				lg_escudo.setDepth(4);
 				lg_escudo.alpha = 1;
 				cantidadEscudo=this.add.text(lg_escudo.x+10,lg_escudo.y+8,lg_escudo.cantidad,{fontsize:'40px',fill:'#000000'});
 				cantidadEscudo.setDepth(2);
