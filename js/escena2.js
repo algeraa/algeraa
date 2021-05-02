@@ -14,6 +14,7 @@ import * as planta from './planta.js';
 import * as arana from './arana.js';
 import * as pared from './pared.js';
 import prueba from './pruebaCambio.js';
+import * as trampas from './trampas.js';
 
 var entrar = 0;
 
@@ -35,9 +36,11 @@ export default class Escena2 extends Phaser.Scene {
 
 		esqueleto.cargarSprites.call(this);
 		personaje.cargarSprites.call(this);
+		personaje.cargarInventario.call(this);
 		planta.cargarSprites.call(this);
 		arana.cargarSprites.call(this);
 		pared.cargarSprites.call(this);
+		trampas.cargarSprites.call(this);
 	}
 
 
@@ -110,6 +113,7 @@ create()
 	{
 
 		personaje.movimiento.call(this);
+		personaje.inventario.call(this);
 		esqueleto.acciones.call(this);
 		/*planta.acciones.call(this);
 		arana.acciones.call(this);*/
