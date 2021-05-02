@@ -21,16 +21,7 @@ export function cargarSprites()
 	this.load.image('moneda','assets/sprites/moneda.png');
 }
 
-function movDisparosEn()
-{
-	for (i = 0;i<dispEnlList.getChildren().length;i++)	
-	{
-		var tiro = dispEnlList.getChildren()[i];
-		tiro.x=tiro.x + tiro.velocity * tiro.direccion.x;
-		tiro.y=tiro.y + tiro.velocity * tiro.direccion.y;
 
-	}	
-}
 function dispEnemies()
 {
 	
@@ -67,7 +58,7 @@ function dispEnemies()
 export function acciones()
 {
 	dispEnemies.call(this);
-	//movDisparosEn.call(this);
+	
 	couldowndamage--;
 }
 export function inicio()
@@ -76,7 +67,7 @@ export function inicio()
 	enemigosList = this.physics.add.group();
 	monedasList = this.physics.add.group();
 
-	for(var e = 0; e < 2; e++)
+	/*for(var e = 0; e < 2; e++)
 	{
 		if(e ==0)
 		{
@@ -90,9 +81,9 @@ export function inicio()
 		esqueleto.vida = 5;
 		esqueleto.distancia = 0;
 		esqueleto.EnDisp = 10;
-	}
+	}*/
 		
-	esqueleto.setScale(0.05, 0.05);
+	//esqueleto.setScale(0.05, 0.05);
 
 	dispEnlList = this.physics.add.group();
 
@@ -102,6 +93,21 @@ export function inicio()
 	this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
 	this.physics.add.collider(dispEnlList, escena2.suelo);
     this.physics.add.collider(dispEnlList, escena2.objetos, destroyShot);
+
+
+    escena2.spawnSkeleton.forEach(obj=>{
+
+		obj.setAlpha(0);
+		esqueleto= enemigosList.create(obj.x, obj.y,'arquero');
+		esqueleto.setScale(0.05, 0.05);
+		esqueleto.vida = 5;
+		esqueleto.distancia = 0;
+		esqueleto.EnDisp = 10;
+		esqueleto.setScale(0.05, 0.05);
+
+
+	}
+		);
 	 
 }
 function destroyShot(s, n)

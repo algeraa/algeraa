@@ -29,6 +29,7 @@ export var vida;
 var s;
 import * as esqueleto from './esqueleto.js';
 import * as arana from './arana.js';
+import * as escena2 from './escena2.js';
 
 export function cargarSprites()
 {
@@ -45,7 +46,12 @@ export function createP()
 	pocionSelect = 1;
 	monedasList = this.physics.add.group();
 
-	player=this.physics.add.sprite(400,300,'player');
+	escena2.spawn.forEach(obj=>{
+
+		obj.setAlpha(0);
+		player=this.physics.add.sprite(obj.x,obj.y,'player').setDepth(2);
+	})
+	
 	
 	escala.call(this);
 
@@ -86,8 +92,6 @@ export function createP()
 		frames: this.anims.generateFrameNames('explosionE',{start:1, end:16})
 	});
 
-
-	this.physics.add.overlap(player, monedasList, recogerDinero, null, this);
 	
 
 
@@ -350,6 +354,10 @@ function finexplosion(){
 	
 	var explosive = this.add.sprite(bombas.x, bombas.y,'explosionE');
 	explosive.play('exp1');
+	 explosive.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
+    explosive.destroy();
+ 	console.log("fin explosion")
+	  })
 	bombas.visible = false;
 	bombas.body.enable = false;
 }
