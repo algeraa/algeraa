@@ -524,8 +524,8 @@ export function inventario(){
 		inven=this.add.sprite(0,0,'inventario');
 		inven.setOrigin(0.5,0.5);
 		inven.setScale(0.5,0.5);
-		inven.x=escena.cameras.scrollX+400;
-		inven.y=escena.cameras.scrollY+300;
+		inven.x=escena2.cameras.scrollX+400;
+		inven.y=escena2.cameras.scrollY+300;
 		inven.setDepth(3);
 
 		player.setVelocityX(0);
