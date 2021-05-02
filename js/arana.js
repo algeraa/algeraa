@@ -24,7 +24,7 @@ export function cargarSprites() {
     this.load.image('arana', 'assets/sprites/arana.png');
     this.load.image('disparoarana', 'assets/sprites/disparoarana.png');
     this.load.image('moneda', 'assets/sprites/moneda.png');
-    this.load.image('pocionp', 'assets/sprites/pocionPequeña.png');
+    this.load.image('pocionp', 'assets/sprites/pocionPequena.png');
 }
 
 export function inicio() {
