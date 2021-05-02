@@ -5,6 +5,7 @@ var fl;
 var ArbolesC;
 export var spawnSkeleton, entradaTaberna;
 export var spawn;
+export var cameras;
 //var entrarTaberna;
 //export var suelo, objetos, arboles1, arboles2, arboles3, arboles4;
 
@@ -85,7 +86,7 @@ create()
     })
 	
 	
-	this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
+	cameras=this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
     this.physics.world.setBounds(0, 0, 800 * 3, 600 * 3);
     
 	personaje.createP.call(this);
