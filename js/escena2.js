@@ -3,9 +3,10 @@ var escapaDisparo = 0.05;
 var map;
 var fl;
 var ArbolesC;
+
+export var cameras;
 export var spawnSkeleton, entradaTaberna;
 export var spawn;
-export var cameras;
 //var entrarTaberna;
 //export var suelo, objetos, arboles1, arboles2, arboles3, arboles4;
 
@@ -86,10 +87,12 @@ create()
     })
 	
 	
-	cameras=this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
+	cameras = this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
     this.physics.world.setBounds(0, 0, 800 * 3, 600 * 3);
     
 	personaje.createP.call(this);
+	personaje.crearInventario.call(this);
+
 	this.physics.add.collider(personaje.player, suelo);
 	this.physics.add.collider(personaje.player, objetos);
 	this.physics.add.collider(personaje.player, Taberna);
