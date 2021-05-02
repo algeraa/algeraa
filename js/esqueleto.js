@@ -91,6 +91,8 @@ export function inicio()
 	this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
+	this.physics.add.overlap(personaje.aura, dispEnlList, personaje.eliminarEscudo, null, this);
+	
 	this.physics.add.collider(dispEnlList, escena2.suelo);
     this.physics.add.collider(dispEnlList, escena2.objetos, destroyShot);
 
