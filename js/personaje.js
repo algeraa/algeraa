@@ -130,9 +130,19 @@ export function createP()
 	});
 
 	
-
+	this.physics.add.overlap(player, monedasList, recogerDinero, null, this);
 
 }
+
+function recogerDinero(n, s)
+{
+	player.dinero = player.dinero + 1;
+	console.log("dinero = "+player.dinero)
+
+	s.destroy();
+}
+
+
 
 export function crearInventario(){
 
