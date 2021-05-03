@@ -52,7 +52,8 @@ var escudoActivo=false;
 
 import * as esqueleto from './esqueleto.js';
 import * as arana from './arana.js';
-import * as escena from './escena2.js';
+import * as escena2 from './escena2.js';
+import * as escenaCastillo from './escenaCastillo.js';
 
 export function cargarSprites()
 {
@@ -83,8 +84,12 @@ export function createP()
 	pocionSelect = 1;
 	monedasList = this.physics.add.group();
 
-	player=this.physics.add.sprite(400,300,'player');
-	player.setDepth(1);
+	escenaCastillo.spawn.forEach(obj=>{
+
+		obj.setAlpha(0);
+		player=this.physics.add.sprite(obj.x,obj.y,'player').setDepth(2);
+	})
+	
 	
 	escala.call(this);
 
@@ -119,15 +124,12 @@ export function createP()
 	bombas.setScale(0.1,0.1);
 	bombas.damage = 5;
 	bombas.setSize(1000, 1000);
-	player.recibirdamage = 0;
 
 	this.anims.create({
 		key:'exp1',
 		frames: this.anims.generateFrameNames('explosionE',{start:1, end:16})
 	});
 
-
-	this.physics.add.overlap(player, monedasList, recogerDinero, null, this);
 	
 
 
@@ -197,7 +199,7 @@ function recogerDinero(n, s)
 
 export function movimiento()
 {
-	time--;
+time--;
 	if (invent==false) {
 		if(UP.isDown)
 		{
@@ -246,15 +248,9 @@ export function movimiento()
 }
 export function perderVida(n, s)
 {
-	if(player.recibirdamage <= 0){
-		vida = vida-s.damage;
-		player.recibirdamage = 15;
-	}
-	if(s.flecha == true){
-		s.destroy();
-	}
+	vida = vida-s.damage;
+	s.destroy();
 	console.log(vida);
-	
 	
 }
 export function acciones()
@@ -265,7 +261,6 @@ export function acciones()
 	morir.call(this);
 	disparar.call(this);
 	Bombs.call(this);
-	player.recibirdamage--;
 }
 function cambioP()
 {
@@ -467,6 +462,10 @@ function finexplosion(){
 	
 	var explosive = this.add.sprite(bombas.x, bombas.y,'explosionE');
 	explosive.play('exp1');
+	 explosive.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
+    explosive.destroy();
+ 	console.log("fin explosion")
+	  })
 	bombas.visible = false;
 	bombas.body.enable = false;
 }
@@ -526,9 +525,9 @@ export function inventario(){
 		inven=this.add.sprite(0,0,'inventario');
 		inven.setOrigin(0.5,0.5);
 		inven.setScale(0.5,0.5);
-		inven.x=escena.cameras.scrollX+400;
-		inven.y=escena.cameras.scrollY+300;
-		inven.setDepth(1);
+		inven.x=escenaCastillo.cameras.scrollX+400;
+		inven.y=escenaCastillo.cameras.scrollY+300;
+		inven.setDepth(3);
 
 		player.setVelocityX(0);
 		player.setVelocityY(0);
@@ -542,7 +541,7 @@ export function inventario(){
 				
 				sword.x=inven.x-190;
 				sword.y=inven.y+posYObjetos;
-				sword.setDepth(2);
+				sword.setDepth(4);
 				sword.alpha = 1;
 						
 			}
@@ -551,7 +550,7 @@ export function inventario(){
 
 				bow.x=inven.x-145;
 				bow.y=inven.y+posYObjetos;
-				bow.setDepth(2);
+				bow.setDepth(4);
 				bow.alpha = 1;
 				
 			}
@@ -560,10 +559,10 @@ export function inventario(){
 
 				bomb.x=inven.x-100;
 				bomb.y=inven.y+posYObjetos;
-				bomb.setDepth(2);
+				bomb.setDepth(4);
 				bomb.alpha = 1;
 				cantidadBomba=this.add.text(bomb.x+10,bomb.y+8,bomb.cantidad,{fontsize:'32px',fill:'#000000'});
-				cantidadBomba.setDepth(2);
+				cantidadBomba.setDepth(4);
 				
 			}
 
@@ -571,10 +570,10 @@ export function inventario(){
 
 				cura.x=inven.x-55;
 				cura.y=inven.y+posYObjetos;
-				cura.setDepth(2);
+				cura.setDepth(4);
 				cura.alpha = 1;
 				cantidadBotiquin=this.add.text(cura.x+10,cura.y+8,cura.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadBotiquin.setDepth(2);
+				cantidadBotiquin.setDepth(4);
 				
 			}
 
@@ -582,10 +581,10 @@ export function inventario(){
 
 				lg_escudo.x=inven.x-10;
 				lg_escudo.y=inven.y+posYObjetos;
-				lg_escudo.setDepth(2);
+				lg_escudo.setDepth(4);
 				lg_escudo.alpha = 1;
 				cantidadEscudo=this.add.text(lg_escudo.x+10,lg_escudo.y+8,lg_escudo.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadEscudo.setDepth(2);
+				cantidadEscudo.setDepth(4);
 				
 			}
 

@@ -17,9 +17,10 @@ export function cargarSprites()
 export function crearTrampas()
 {
 
-	trampa_suelo=trampasList.create(100,700,'trampa_suelo');
+	trampa_suelo=trampasList.create(600,400,'trampa_suelo');
 	trampa_suelo.setOrigin(0.5, 0.5);
 	trampa_suelo.setScale(0.3,0.3);
+
 
 	//trampa_suelo=this.physics.add.sprite(100,700,'trampa_suelo');
 	

@@ -13,9 +13,8 @@ var n;
 var s;
 export var dispEnlList;
 var enemigosList;
-export var cono;
+var cono;
 var dinero;
-var couldowndamage = 0;
 
 
 import * as escena2 from './escena2.js';
@@ -25,7 +24,7 @@ export function cargarSprites() {
     this.load.image('arana', 'assets/sprites/arana.png');
     this.load.image('disparoarana', 'assets/sprites/disparoarana.png');
     this.load.image('moneda', 'assets/sprites/moneda.png');
-    this.load.image('pocionp', 'assets/sprites/pocionPequeña.png');
+    this.load.image('pocionp', 'assets/sprites/pocionPequena.png');
 }
 
 export function inicio() {
@@ -33,24 +32,18 @@ export function inicio() {
     enemigosList = this.physics.add.group();
     creararana.call(this);
 
-    this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
-    this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
-    this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
     this.physics.add.overlap(personaje.player, dispEnlList, personaje.perderVida, null, this);
     this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
     this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
     this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
-    this.physics.add.overlap(personaje.aura, dispEnlList, personaje.eliminarEscudo, null, this);
     this.physics.add.collider(dispEnlList, escena2.suelo);
     this.physics.add.collider(dispEnlList, escena2.objetos, destroyShot);
-}
    
-
+}
 function destroyShot(s, n)
 {
     s.destroy();
 }
-
 function creararana() {
     arana = enemigosList.create(800, 300, 'arana');
     arana.setScale(escalaaranax, escalaaranay);
@@ -61,7 +54,7 @@ export function acciones() {
     if (arana.vida > 0) {
         tempoaranita.call(this);
         moverarana.call(this);
-        couldowndamage--;
+        couldownMal--;
 
         if (temps <= 0) {
             dispArana.call(this);
@@ -73,31 +66,26 @@ export function acciones() {
     }
 }
 
-function perderVida(s, n)
-{
-	if(couldowndamage <= 0)
-	{
-		n.vida = n.vida - s.damage;
-		console.log("esqueleto="+n.vida);
-		couldowndamage = 30;
-		if(n.vida <= 0)
-		{
-			var drop = Phaser.Math.Between(1,2);
 
-			if(drop == 1)
-			{
-				dinero=personaje.monedasList.create(n.x,n.y,'moneda');
-				dinero.setScale(0.01,0.01);
-			}
-			n.destroy();
-		}
-		if(s.flecha == true)
-		{
-			s.disableBody(true, true);
-			personaje.flechasList.remove(s);
-			s.destroy();
-		}
-	}
+function perderVida(s, n) {
+        n.vida = n.vida - s.damage;
+        console.log("arana=" + n.vida);
+        couldownMal = 30;
+        if (n.vida <= 0) {
+            var drop = Phaser.Math.Between(1, 2);
+
+            if (drop == 1) {
+                dinero = personaje.monedasList.create(n.x, n.y, 'moneda');
+                dinero.setScale(0.01, 0.01);
+            }
+            n.disableBody(true, true);
+
+            n.destroy();
+
+        }
+        if (s.flecha == true) {
+            s.destroy();
+        }
 }
 
 function tempoaranita() {
@@ -127,7 +115,6 @@ function dispArana() {
         cono = dispEnlList.create(arana.x, arana.y, 'disparoarana');
         cono.setScale(0.05, 0.05);
         cono.damage = 1;
-        cono.flecha = true;
         if (i == 0) {
             cono.setVelocityX(-200);
             cono.setVelocityY(200);

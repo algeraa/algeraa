@@ -6,7 +6,6 @@ import * as personaje from './personaje.js';
 import * as aranas from './arana.js';
 import * as esqueleto from './esqueleto.js';
 import * as plantas from './planta.js';
-import * as zombies from './zombie.js';
 
 
 export function cargarSprites() {
@@ -20,7 +19,6 @@ export function inicio() {
 
     this.physics.add.overlap(personaje.bombas, rocasList, DestruirRoca, null, this);
     this.physics.add.collider(personaje.player, rocasList);
-    this.physics.add.collider(zombies.zombie, rocasList);
     this.physics.add.collider(personaje.flechasList, rocasList, destruirproyectiles);
     this.physics.add.collider(aranas.dispEnlList, rocasList, destruirproyectiles);
     this.physics.add.overlap(esqueleto.dispEnlList, rocasList, destruirproyectiles, null, this);
