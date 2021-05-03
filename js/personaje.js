@@ -461,10 +461,10 @@ function finexplosion(){
 	
 	var explosive = this.add.sprite(bombas.x, bombas.y,'explosionE');
 	explosive.play('exp1');
-	 explosive.once(Phaser.Animations.Events.SPRITE_ANIMATION_COMPLETE, () => {
-    explosive.destroy();
- 	console.log("fin explosion")
-	  })
+	  explosive.once('animationcomplete', () => {
+    console.log('animationcomplete')
+    explosive.destroy()
+  })
 	bombas.visible = false;
 	bombas.body.enable = false;
 }
