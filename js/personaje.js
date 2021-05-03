@@ -128,28 +128,19 @@ export function createP()
 		key:'exp1',
 		frames: this.anims.generateFrameNames('explosionE',{start:1, end:16})
 	});
+	this.physics.add.overlap(player, monedasList, recogerDinero);
 
 	
-	this.physics.add.overlap(player, monedasList, recogerDinero, null, this);
+
 
 }
-
-function recogerDinero(n, s)
-{
-	player.dinero = player.dinero + 1;
-	console.log("dinero = "+player.dinero)
-
-	s.destroy();
-}
-
-
 
 export function crearInventario(){
 
 	Inventory=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.I);
 	KeyZ=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 	
-	botiquin=botiquinList.create(200,400,'botiquin');
+	botiquin=botiquinList.create(200,200,'botiquin');
 	this.physics.add.overlap(botiquinList, player, cogerBotiquin, null, this);
 
 	sword=this.add.sprite(0,0,'espada2').setInteractive();
@@ -196,7 +187,7 @@ export function crearInventario(){
 	soltarObjeto.call(this);
 }
 
-function recogerDinero(n, s)
+export function recogerDinero(n, s)
 {
 	player.dinero = player.dinero + 1;
 	console.log("dinero = "+player.dinero)
@@ -399,7 +390,7 @@ function disparar()
 			
 			disparoJ=flechasList.create(player.x, player.y,'flecha');
 			disparoJ.setScale(0.1,0.1);
-			disparoJ.angle = -player.direccion;
+			
 			
 			disparoJ.damage = 1;
 			disparoJ.flecha = true;
@@ -409,21 +400,25 @@ function disparar()
 			{
 				disparoJ.setVelocity(300, 0);
 				disparoJ.body.setSize(disparoJ.width, disparoJ.height);
+				disparoJ.angle = 180;
 			}
 			else if(player.direccion == 90)
 			{
 				disparoJ.setVelocity(0, 300);
 				disparoJ.body.setSize(disparoJ.height, disparoJ.width);
+				disparoJ.angle = -player.direccion;
 			}
 			else if(player.direccion == 180)
 			{
 				disparoJ.setVelocity(-300, 0);
 				disparoJ.body.setSize(disparoJ.width, disparoJ.height);
+				disparoJ.angle = 0;
 			}
 			else if(player.direccion == 270)
 			{
 				disparoJ.setVelocity(0, -300);
 				disparoJ.body.setSize(disparoJ.height, disparoJ.width);
+				disparoJ.angle = -player.direccion;
 			}		
 		
 
@@ -452,7 +447,6 @@ function movDisparos()
 function Bombs(){
 	couldownBombs = couldownBombs -1;
 	if(explosion.isDown && couldownBombs <= 0){
-		console.log(couldownBombs);
 		bombas.x = player.x;
 		bombas.y = player.y;
 		bombas.visible = true;
@@ -471,8 +465,8 @@ function finexplosion(){
 	
 	var explosive = this.add.sprite(bombas.x, bombas.y,'explosionE');
 	explosive.play('exp1');
-	  explosive.once('animationcomplete', () => {
-    console.log('animationcomplete')
+	explosive.once('animationcomplete', () => {
+    
     explosive.destroy()
   })
 	bombas.visible = false;

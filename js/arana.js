@@ -45,7 +45,7 @@ function destroyShot(s, n)
     s.destroy();
 }
 function creararana() {
-    arana = enemigosList.create(800, 300, 'arana');
+    arana = enemigosList.create(2200, 900, 'arana');
     arana.setScale(escalaaranax, escalaaranay);
     arana.vida = 5;
 }
@@ -113,7 +113,7 @@ function moverarana() {
 function dispArana() {
     for (var i = 0; i < numCONO; i++) {
         cono = dispEnlList.create(arana.x, arana.y, 'disparoarana');
-        cono.setScale(0.05, 0.05);
+        cono.setScale(0.02, 0.02);
         cono.damage = 1;
         if (i == 0) {
             cono.setVelocityX(-200);

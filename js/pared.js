@@ -28,7 +28,7 @@ export function inicio() {
 }
 
 function crearroca() {
-    paredes = rocasList.create(350, 600, 'roca');
+    paredes = rocasList.create(2150, 300, 'roca');
     paredes.setScale(0.3, 0.3);
     paredes.setImmovable(true);
 }

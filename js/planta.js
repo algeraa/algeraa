@@ -67,14 +67,14 @@ function envenenar(e, s) {
 export function acciones() {
 
 	dispEnemies.call(this);
-	//movDisparosEn.call(this);
+	
 	couldowndamage--;
 
 }
 
 export function inicio() {
 	plantasList = this.physics.add.group();
-	planta = plantasList.create(250, 450, 'planta');
+	planta = plantasList.create(300, 1650, 'planta');
 
 	planta.setScale(0.02, 0.02);
 	planta.distancia = 0;
@@ -88,9 +88,9 @@ export function inicio() {
 	this.physics.add.overlap(personaje.bombas, plantasList, perderVida, null, this);
 
 	this.physics.add.collider(venenoso, escena2.suelo);
-    this.physics.add.collider(venenoso, escena2.objetos, destroyShot);
+    
 }
-function destroyShot(s, n)
+export function destroyShot(s, n)
 {
 	s.destroy();
 }

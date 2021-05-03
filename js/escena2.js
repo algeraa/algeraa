@@ -92,6 +92,8 @@ create()
     
 	personaje.createP.call(this);
 	personaje.crearInventario.call(this);
+	esqueleto.inicio.call(this);
+	trampas.crearTrampas.call(this);
 
 	this.physics.add.collider(personaje.player, suelo);
 	this.physics.add.collider(personaje.player, objetos);
@@ -99,16 +101,13 @@ create()
 	this.physics.add.collider(personaje.player, Taberna2);
 	this.physics.add.collider(personaje.player, ArbolesC);
 	this.physics.add.overlap(personaje.player, entradaTaberna, entrarTaberna);
-
+	this.physics.add.collider(esqueleto.dispEnlList, objetos, esqueleto.destroyShot);
 
 	
-	
-	
-
-	esqueleto.inicio.call(this);
-	/*planta.inicio.call(this);
+	planta.inicio.call(this);
+	this.physics.add.collider(planta.venenoso, objetos, planta.destroyShot);
 	arana.inicio.call(this);
-	pared.inicio.call(this);*/
+	pared.inicio.call(this);
 
 	//var pocionP = this.add.sprite(200,300,'pocion');
 }
@@ -119,8 +118,8 @@ create()
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
 		esqueleto.acciones.call(this);
-		/*planta.acciones.call(this);
-		arana.acciones.call(this);*/
+		planta.acciones.call(this);
+		arana.acciones.call(this);
 		personaje.acciones.call(this);
 		if(entrar == 1)
 		{
