@@ -17,6 +17,7 @@ import * as arana from './arana.js';
 import * as pared from './pared.js';
 import prueba from './pruebaCambio.js';
 import * as trampas from './trampas.js';
+import * as zombie from './zombie.js';
 
 var entrar = 0;
 
@@ -43,6 +44,7 @@ export default class Escena2 extends Phaser.Scene {
 		arana.cargarSprites.call(this);
 		pared.cargarSprites.call(this);
 		trampas.cargarSprites.call(this);
+		zombie.cargarSprites.call(this);
 	}
 
 
@@ -100,7 +102,7 @@ create()
 	this.physics.add.collider(personaje.player, Taberna);
 	this.physics.add.collider(personaje.player, Taberna2);
 	this.physics.add.collider(personaje.player, ArbolesC);
-	this.physics.add.overlap(personaje.player, entradaTaberna, entrarTaberna);
+	this.physics.add.overlap(personaje.player, entradaTaberna, entrarTaberna, null, this);
 	this.physics.add.collider(esqueleto.dispEnlList, objetos, esqueleto.destroyShot);
 
 	
@@ -108,6 +110,7 @@ create()
 	this.physics.add.collider(planta.venenoso, objetos, planta.destroyShot);
 	arana.inicio.call(this);
 	pared.inicio.call(this);
+	zombie.inicio.call(this);
 
 	//var pocionP = this.add.sprite(200,300,'pocion');
 }
@@ -121,11 +124,8 @@ create()
 		planta.acciones.call(this);
 		arana.acciones.call(this);
 		personaje.acciones.call(this);
-		if(entrar == 1)
-		{
-			this.scene.start("prueba");
-		}
-		
+		zombie.acciones.call(this);
+	
 	}
 
 
@@ -134,5 +134,6 @@ create()
 
 function entrarTaberna()
 	{
-		entrar = 1;
+		
+		this.scene.start("prueba");
 	}

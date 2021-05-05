@@ -249,7 +249,10 @@ time--;
 export function perderVida(n, s)
 {
 	vida = vida-s.damage;
-	s.destroy();
+	if(s.flecha == true)
+	{
+		s.destroy();
+	}
 	console.log(vida);
 	
 }

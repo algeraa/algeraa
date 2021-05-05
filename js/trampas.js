@@ -33,7 +33,7 @@ export function crearTrampas()
 
 	this.physics.add.overlap(personaje.player, trampasList, salirPinchos, null, this);
 	this.physics.add.overlap(personaje.player, pinchos, personaje.perderVida, null, this);
-
+	pinchos.flecha =false;
 
 }
 

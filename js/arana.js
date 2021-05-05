@@ -130,6 +130,7 @@ function dispArana() {
             cono.setVelocityY(200);
             cono.angle = 225;
         }
+        cono.flecha = true;
     }
 
 }

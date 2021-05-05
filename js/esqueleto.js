@@ -44,7 +44,7 @@ function dispEnemies()
 					disparoE.angle = 180/Math.PI*Phaser.Math.Angle.Between(disparoE.x, disparoE.y, personaje.player.x, personaje.player.y);
 					disparoE.damage = 1;
 					this.physics.moveToObject(disparoE, personaje.player, 300);
-
+					disparoE.flecha = true;
 				atacante.EnDisp = 100;
 			}
 		else
