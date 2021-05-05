@@ -56,12 +56,13 @@ import * as escena2 from './escena2.js';
 
 export function cargarSprites()
 {
-	this.load.image('player', 'assets/sprites/personaje.png');
+	//this.load.image('player', 'assets/sprites/personaje.png');
 	this.load.image('espada', 'assets/sprites/espada.png');
 	this.load.image('flecha','assets/sprites/flecha.png');
 	this.load.image('bomba','assets/sprites/bomba.png');
 	this.load.image('invisible','assets/sprites/invisible.png');
 	this.load.spritesheet('explosionE', 'assets/sprites/ExplosionE.png',{frameWidth:64, frameHeight:64});
+	this.load.spritesheet('playerAnim', 'assets/sprites/jugador.png',{frameWidth:24, frameHeight:26});
 }
 
 export function cargarInventario(){
@@ -83,10 +84,52 @@ export function createP()
 	pocionSelect = 1;
 	monedasList = this.physics.add.group();
 
+	this.anims.create({
+		key:'idle',
+		frames: this.anims.generateFrameNames('playerAnim',{start:0, end:2}),
+		frameRate: 2.5
+	});
+	this.anims.create({
+		key:'walkLeft',
+		frames: this.anims.generateFrameNames('playerAnim',{start:21, end:29}),
+		frameRate: 10
+	});
+	this.anims.create({
+		key:'walkRight',
+		frames: this.anims.generateFrameNames('playerAnim',{start:40, end:49}),
+		frameRate: 10
+	});
+	this.anims.create({
+		key:'walkDown',
+		frames: this.anims.generateFrameNames('playerAnim',{start:10, end:19}),
+		frameRate: 10
+	});
+	this.anims.create({
+		key:'walkUp',
+		frames: this.anims.generateFrameNames('playerAnim',{start:30, end:39}),
+		frameRate: 10
+	});
+	this.anims.create({
+		key:'idleUp',
+		frames: this.anims.generateFrameNames('playerAnim',{start:6, end:6}),
+		frameRate: 2.5
+	});
+	this.anims.create({
+		key:'idleRight',
+		frames: this.anims.generateFrameNames('playerAnim',{start:7, end:9}),
+		frameRate: 2.5
+	});
+	this.anims.create({
+		key:'idleLeft',
+		frames: this.anims.generateFrameNames('playerAnim',{start:3, end:5}),
+		frameRate: 2.5
+	});
 	escena2.spawn.forEach(obj=>{
 
 		obj.setAlpha(0);
-		player=this.physics.add.sprite(obj.x,obj.y,'player').setDepth(2);
+		player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
+		player.play("idle", true);
+		
 	})
 	
 	
@@ -128,6 +171,7 @@ export function createP()
 		key:'exp1',
 		frames: this.anims.generateFrameNames('explosionE',{start:1, end:16})
 	});
+	
 	this.physics.add.overlap(player, monedasList, recogerDinero);
 
 	
@@ -200,21 +244,25 @@ export function recogerDinero(n, s)
 export function movimiento()
 {
 time--;
+var quieto = 0;
 	if (invent==false) {
 		if(UP.isDown)
 		{
 			player.setVelocityY(-200);
 			player.direccion = 270;
 			if (escudoActivo==true) {aura.y=player.y;}
+			player.play("walkUp", true);
 		}
 		else if(DOWN.isDown)
 		{
 			player.setVelocityY(200);
 			player.direccion = 90;
 			if (escudoActivo==true) {aura.y=player.y;}
+			player.play("walkDown", true);
 		}
 		else
 		{
+			quieto++;
 			player.setVelocityY(0);
 		}
 		if(RIGHT.isDown)
@@ -222,12 +270,14 @@ time--;
 			player.setVelocityX(200); 
 			player.direccion = 0;
 			if (escudoActivo==true) {aura.x=player.x;}
+			player.play("walkRight", true);
 		}
 		else if(LEFT.isDown)
 		{
 			player.setVelocityX(-200);
 			player.direccion = 180;
 			if (escudoActivo==true) {aura.x=player.x;}
+			player.play("walkLeft", true);
 		}
 		else if(KeyZ.isDown && time<0)
 		{	
@@ -242,7 +292,24 @@ time--;
 		}
 		else
 		{
+			quieto++;
 			player.setVelocityX(0);
+		}
+		if(quieto == 2 && player.direccion == 90)
+		{
+			player.play("idle", true);
+		}
+		else if(quieto == 2 && player.direccion == 270)
+		{
+			player.play("idleUp", true);
+		}
+		else if(quieto == 2 && player.direccion == 0)
+		{
+			player.play("idleRight", true);
+		}
+		else if(quieto == 2 && player.direccion == 180)
+		{
+			player.play("idleLeft", true);
 		}
 	}
 }
@@ -314,7 +381,7 @@ function escala()
 {
 	var escalaPlayer = 0.1;
 	player.setOrigin(0.5,0.7);
-	player.setScale(escalaPlayer,escalaPlayer);
+//player.setScale(escalaPlayer,escalaPlayer);
 	
 	
 }
