@@ -1,5 +1,6 @@
 
 import * as personaje from './personaje.js';
+import * as escenaCastillo from './escenaCastillo.js';
 
 var trampa_suelo;
 var pinchos;
@@ -17,12 +18,9 @@ export function cargarSprites()
 export function crearTrampas()
 {
 
-	trampa_suelo=trampasList.create(600,400,'trampa_suelo');
+	trampa_suelo=trampasList.create(600,500,'trampa_suelo');
 	trampa_suelo.setOrigin(0.5, 0.5);
 	trampa_suelo.setScale(0.3,0.3);
-
-
-	//trampa_suelo=this.physics.add.sprite(100,700,'trampa_suelo');
 	
 
 
@@ -32,27 +30,26 @@ export function crearTrampas()
 	pinchos.alpha=0;
 	pinchos.damage=1;
 
-	this.physics.add.overlap(personaje.player, trampasList, salirPinchos, null, this);
 	this.physics.add.overlap(personaje.player, pinchos, personaje.perderVida, null, this);
 
 
 }
 
-function salirPinchos(e,s){
+export function salirPinchos(e,s){
 
 	setTimeout(function(){
-    	//console.log("Salen pinchos");
+    	console.log("Salen pinchos");
 		pinchos.x=trampa_suelo.x;
 		pinchos.y=trampa_suelo.y;
 		pinchos.alpha=1;
-	},1000);
+	},300);
 	
 	setTimeout(function(){
-    	//console.log("Se esconden pinchos");
+    	console.log("Se esconden pinchos");
 		pinchos.x=0;
 		pinchos.y=0;
 		pinchos.alpha=0;
-	},2000);
+	},1200);
 	
 
 }

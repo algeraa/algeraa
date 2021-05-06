@@ -1,10 +1,15 @@
 
 import * as personaje from './personaje.js';
 import * as trampas from './trampas.js';
+import * as armadura from './armadura.js';
 
 var map;
+var paredes;
 export var cameras;
 export var spawn;
+export var trampaPinchos;
+export var enemigoArmor;
+var animacion;
 
 export default class Castillo extends Phaser.Scene {
 
@@ -14,22 +19,17 @@ export default class Castillo extends Phaser.Scene {
 
 	preload() {
 
-		this.load.image('player', 'assets/sprites/personaje.png');
-
 		this.load.tilemapTiledJSON('mapa_castillo', 'assets/images/MapaCastillo2.json');
 
 		this.load.image('tiles', 'assets/images/Dungeon_tileset.png');
-		//this.load.image('tiles2', 'assets/images/T001.png');
 
 		this.load.image('flecha', 'assets/sprites/flecha.png');
 
 		//esqueleto.cargarSprites.call(this);
 		personaje.cargarSprites.call(this);
 		personaje.cargarInventario.call(this);
-		//planta.cargarSprites.call(this);
-		//arana.cargarSprites.call(this);
-		//pared.cargarSprites.call(this);
 		trampas.cargarSprites.call(this);
+		armadura.cargarSprites.call(this);
 	
 	}
 
@@ -39,69 +39,45 @@ export default class Castillo extends Phaser.Scene {
 		map = this.make.tilemap({ key: 'mapa_castillo' });
 
 		var tilesets = map.addTilesetImage('castillo_tileset', 'tiles');
-		//var tilesets2 = map.addTilesetImage('salaRey', 'tiles2');
 
 		var suelo = map.createLayer('Fondo', tilesets, 0, 0);
 		var paredes = map.createLayer('Paredes', tilesets, 0, 0);
 		var decoracion = map.createLayer('Decoracion', tilesets, 0, 0);
+		var pinchos = map.createLayer('Pinchos', tilesets, 0, 0);
 
-		/*var arboles1 = map.createLayer('Arboles/Arboles1', tilesets, 0, 0).setDepth(3);;
-		var arboles2 = map.createLayer('Arboles/Arboles2', tilesets, 0, 0).setDepth(3);;
-		var arboles3 = map.createLayer('Arboles/Arboles3', tilesets, 0, 0).setDepth(3);;
-		var arboles4 = map.createLayer('Arboles/Arboles4', tilesets, 0, 0).setDepth(3);;
-		var piedras = map.createLayer('Piedras', tilesets, 0, 0);
-		var Taberna = map.createLayer('Taberna', tilesets2, 0, 0);
-		var Taberna2 = map.createLayer('Taberna2', tilesets2, 0, 0);
-		var Arbustos = map.createLayer('Arbustos', tilesets, 0, 0);
-		
-		var ArbolesC = map.createLayer('ArbolesC', tilesets, 0, 0);
-		
-
-		entradaTaberna = map.createFromObjects('taberna');
-
-
-		spawnSkeleton = map.createFromObjects('Esqueletos');*/
-		spawn = map.createFromObjects('Spawn');
-
+		trampaPinchos= map.createFromObjects('Pinchos');
+		spawn = map.createFromObjects('Inicio');
+		enemigoArmor = map.createFromObjects('Armadura');
 
 		
-
-		//suelo.setCollisionByProperty({ collide: true });
-		paredes.setCollisionByProperty({ collide: true });
-
-		//Taberna.setCollisionByProperty({ collide: true });
-		//ArbolesC.setCollisionByProperty({ collide: true });
+		paredes.setCollisionByProperty({ Colisiones: true });
+		decoracion.setCollisionByProperty({ Colisiones: true });
 
 
 
-		/*entradaTaberna.forEach(entrada => {
-	        this.physics.world.enable(entrada);
-	    })*/
-		
+		trampaPinchos.forEach(pinchos => {
+			pinchos.setAlpha(0);
+	        this.physics.world.enable(pinchos);
+	    })
+
 		
 		cameras = this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
 	    this.physics.world.setBounds(0, 0, 800 * 3, 600 * 3);
 	    
 		personaje.createP.call(this);
 		personaje.crearInventario.call(this);
+		armadura.crearArmadura.call(this);
 
 		this.physics.add.collider(personaje.player, suelo);
 		this.physics.add.collider(personaje.player, paredes);
-
-		/*this.physics.add.collider(personaje.player, Taberna);
-		this.physics.add.collider(personaje.player, Taberna2);
-		this.physics.add.collider(personaje.player, ArbolesC);
-		this.physics.add.overlap(personaje.player, entradaTaberna, entrarTaberna);*/
-
-
-		
+		this.physics.add.collider(armadura.armor, paredes);
+		this.physics.add.collider(personaje.player, decoracion);
+		this.physics.add.overlap(personaje.player, trampaPinchos, trampas.salirPinchos, null, this);
+		//this.physics.add.overlap(personaje.player, armadura.armor, personaje.eliminarEscudo, null, this);
 		
 		
 
 		//esqueleto.inicio.call(this);
-		/*planta.inicio.call(this);
-		arana.inicio.call(this);
-		pared.inicio.call(this);*/
 		trampas.crearTrampas.call(this);
 		//var pocionP = this.add.sprite(200,300,'pocion');
 	}
@@ -112,9 +88,9 @@ export default class Castillo extends Phaser.Scene {
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
 		//esqueleto.acciones.call(this);
-		/*planta.acciones.call(this);
-		arana.acciones.call(this);*/
+		armadura.acciones.call(this);
 		personaje.acciones.call(this);
+		
 
 		
 	}
@@ -122,4 +98,5 @@ export default class Castillo extends Phaser.Scene {
 
 	
 }
+
 

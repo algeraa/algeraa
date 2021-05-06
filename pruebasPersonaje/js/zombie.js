@@ -20,16 +20,16 @@ export function inicio()
 	enemigosList = this.physics.add.group();
 	monedasList = this.physics.add.group();
 
-		zombie= enemigosList.create(800,800,'zombie');
+		zombie= enemigosList.create(2050,50,'zombie');
 
-		zombie.setScale(0.05, 0.05);
+		zombie.setScale(0.03, 0.03);
 		zombie.vida = 5;
 		zombie.distancia = 0;
 		zombie.damage = 1;
 		zombie.damagetimer = 10;
 		zombie.movetimer = 20;
 		zombie.direccion = 0;
-		zombie.flecha = false
+		zombie.flecha = false;
 
 	this.physics.add.overlap(personaje.player, enemigosList, personaje.perderVida, null, this);
 	this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
@@ -74,41 +74,47 @@ function moverzombie(){
 		atacante.distancia = Math.sqrt(Math.pow(personaje.player.x-atacante.x, 2) + Math.pow(personaje.player.y-atacante.y, 2));
 
 		if(atacante.distancia < 200){
-		atacante.atacar = true;
-	}
-	if(atacante.atacar == true){
-		this.physics.moveToObject(atacante, personaje.player, 100);
-	}
-	else{
-		if(zombie.direccion == 0 && zombie.movetimer == 0)
-	{
-		zombie.setVelocityY(0);
-		zombie.setVelocityX(100); 
-		zombie.direccion = 90;
-		zombie.movetimer = 100;
-	}
-		if(zombie.direccion == 90 && zombie.movetimer == 0)
-	{
-		zombie.setVelocityY(100);
-		zombie.setVelocityX(0); 
-		zombie.direccion = 180;
-		zombie.movetimer = 100;
-	}
-		if(zombie.direccion == 180 && zombie.movetimer == 0)
-	{
-		zombie.setVelocityY(0);
-		zombie.setVelocityX(-100); 
-		zombie.direccion = 270;
-		zombie.movetimer = 100;
-	}
-		if(zombie.direccion == 270 && zombie.movetimer == 0)
-	{
-		zombie.setVelocityY(-100);
-		zombie.setVelocityX(0); 
-		zombie.direccion = 0;
-		zombie.movetimer = 100;
-	}
-	}
+			atacante.atacar = true;
+		}
+		if(atacante.atacar == true){
+			this.physics.moveToObject(atacante, personaje.player, 100);
+		}
+		else{
+
+			if(zombie.direccion == 0 && zombie.movetimer == 0)
+			{
+				zombie.setVelocityY(0);
+				zombie.setVelocityX(100); 
+				zombie.direccion = 90;
+				zombie.movetimer = 100;
+			}
+
+			if(zombie.direccion == 90 && zombie.movetimer == 0)
+			{
+				zombie.setVelocityY(100);
+				zombie.setVelocityX(0); 
+				zombie.direccion = 180;
+				zombie.movetimer = 100;
+			}
+
+			if(zombie.direccion == 180 && zombie.movetimer == 0)
+			{
+				zombie.setVelocityY(0);
+				zombie.setVelocityX(-100); 
+				zombie.direccion = 270;
+				zombie.movetimer = 100;
+			}
+
+			if(zombie.direccion == 270 && zombie.movetimer == 0)
+			{
+				zombie.setVelocityY(-100);
+				zombie.setVelocityX(0); 
+				zombie.direccion = 0;
+				zombie.movetimer = 100;
+			}
+
+		}
+
 	}
 
 }

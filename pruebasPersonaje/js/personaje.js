@@ -57,12 +57,13 @@ import * as escenaCastillo from './escenaCastillo.js';
 
 export function cargarSprites()
 {
-	this.load.image('player', 'assets/sprites/personaje.png');
+	//this.load.image('player', 'assets/sprites/personaje.png');
 	this.load.image('espada', 'assets/sprites/espada.png');
 	this.load.image('flecha','assets/sprites/flecha.png');
 	this.load.image('bomba','assets/sprites/bomba.png');
 	this.load.image('invisible','assets/sprites/invisible.png');
 	this.load.spritesheet('explosionE', 'assets/sprites/ExplosionE.png',{frameWidth:64, frameHeight:64});
+	this.load.spritesheet('playerAnim', 'assets/sprites/jugador.png',{frameWidth:24, frameHeight:26});
 }
 
 export function cargarInventario(){
@@ -84,12 +85,55 @@ export function createP()
 	pocionSelect = 1;
 	monedasList = this.physics.add.group();
 
+	this.anims.create({
+		key:'idle',
+		frames: this.anims.generateFrameNames('playerAnim',{start:0, end:2}),
+		frameRate: 2.5
+	});
+	this.anims.create({
+		key:'walkLeft',
+		frames: this.anims.generateFrameNames('playerAnim',{start:21, end:29}),
+		frameRate: 10
+	});
+	this.anims.create({
+		key:'walkRight',
+		frames: this.anims.generateFrameNames('playerAnim',{start:40, end:49}),
+		frameRate: 10
+	});
+	this.anims.create({
+		key:'walkDown',
+		frames: this.anims.generateFrameNames('playerAnim',{start:10, end:19}),
+		frameRate: 10
+	});
+	this.anims.create({
+		key:'walkUp',
+		frames: this.anims.generateFrameNames('playerAnim',{start:30, end:39}),
+		frameRate: 10
+	});
+	this.anims.create({
+		key:'idleUp',
+		frames: this.anims.generateFrameNames('playerAnim',{start:6, end:6}),
+		frameRate: 2.5
+	});
+	this.anims.create({
+		key:'idleRight',
+		frames: this.anims.generateFrameNames('playerAnim',{start:7, end:9}),
+		frameRate: 2.5
+	});
+	this.anims.create({
+		key:'idleLeft',
+		frames: this.anims.generateFrameNames('playerAnim',{start:3, end:5}),
+		frameRate: 2.5
+	});
+
+
 	escenaCastillo.spawn.forEach(obj=>{
 
 		obj.setAlpha(0);
 		player=this.physics.add.sprite(obj.x,obj.y,'player').setDepth(2);
+		player.play("idle", true);
 	})
-	
+
 	
 	escala.call(this);
 
@@ -130,7 +174,7 @@ export function createP()
 		frames: this.anims.generateFrameNames('explosionE',{start:1, end:16})
 	});
 
-	
+	this.physics.add.overlap(player, monedasList, recogerDinero);
 
 
 }
@@ -143,13 +187,13 @@ export function crearInventario(){
 	botiquin=botiquinList.create(200,400,'botiquin');
 	this.physics.add.overlap(botiquinList, player, cogerBotiquin, null, this);
 
-	sword=this.add.sprite(0,0,'espada2').setInteractive();
+	sword=this.add.sprite(0,0,'espada2');
 	sword.setOrigin(0.5,0.5);
 	sword.setScale(0.25,0.25);
 	sword.cantidad=1;
 	sword.alpha=0;
 
-	bow=this.add.sprite(0,0,'arco').setInteractive();
+	bow=this.add.sprite(0,0,'arco');
 	bow.setOrigin(0.5,0.5);
 	bow.setScale(0.25,0.25);
 	bow.cantidad=1;
@@ -169,19 +213,21 @@ export function crearInventario(){
 	cura.cantidad=0;
 	cura.alpha = 0;
 	
-	pedestal_escudo=escudoList.create(600,300,'pedestal_escudo');
+	pedestal_escudo=escudoList.create(210,150,'pedestal_escudo');
+	pedestal_escudo.setOrigin(0.5,0.5);
+	pedestal_escudo.setScale(0.5,0.5);
 	this.physics.add.overlap(escudoList,player,cogerEscudo,null,this);
 
 	aura=this.physics.add.sprite(0,0,'aura_escudo');
 	aura.setOrigin(0.5,0.5);
-	aura.setScale(0.3,0.3);
+	aura.setScale(0.15,0.15);
 	aura.alpha = 0;
 
 	lg_escudo=this.add.sprite(0,0,'logo_escudo').setInteractive();
 	lg_escudo.setOrigin(0.5,0.5);
 	lg_escudo.setScale(0.09,0.09);
 	lg_escudo.peso=2;
-	lg_escudo.cantidad=0;
+	lg_escudo.cantidad=1;
 	lg_escudo.alpha = 0;
 
 	soltarObjeto.call(this);
@@ -200,34 +246,41 @@ function recogerDinero(n, s)
 export function movimiento()
 {
 time--;
+var quieto = 0;
 	if (invent==false) {
 		if(UP.isDown)
 		{
 			player.setVelocityY(-200);
 			player.direccion = 270;
 			if (escudoActivo==true) {aura.y=player.y;}
+			player.play("walkUp", true);
 		}
 		else if(DOWN.isDown)
 		{
 			player.setVelocityY(200);
 			player.direccion = 90;
 			if (escudoActivo==true) {aura.y=player.y;}
+			player.play("walkDown", true);
 		}
 		else
 		{
+			quieto++;
 			player.setVelocityY(0);
 		}
+
 		if(RIGHT.isDown)
 		{
 			player.setVelocityX(200); 
 			player.direccion = 0;
 			if (escudoActivo==true) {aura.x=player.x;}
+			player.play("walkRight", true);
 		}
 		else if(LEFT.isDown)
 		{
 			player.setVelocityX(-200);
 			player.direccion = 180;
 			if (escudoActivo==true) {aura.x=player.x;}
+			player.play("walkLeft", true);
 		}
 		else if(KeyZ.isDown && time<0)
 		{	
@@ -242,14 +295,36 @@ time--;
 		}
 		else
 		{
+			quieto++;
 			player.setVelocityX(0);
 		}
+
+		if(quieto == 2 && player.direccion == 90)
+		{
+			player.play("idle", true);
+		}
+		else if(quieto == 2 && player.direccion == 270)
+		{
+			player.play("idleUp", true);
+		}
+		else if(quieto == 2 && player.direccion == 0)
+		{
+			player.play("idleRight", true);
+		}
+		else if(quieto == 2 && player.direccion == 180)
+		{
+			player.play("idleLeft", true);
+		}
+
 	}
 }
 export function perderVida(n, s)
 {
 	vida = vida-s.damage;
-	s.destroy();
+	if(s.flecha == true)
+	{
+		s.destroy();
+	}
 	console.log(vida);
 	
 }
@@ -309,9 +384,9 @@ function pociones()
 
 function escala()
 {
-	var escalaPlayer = 0.1;
+
 	player.setOrigin(0.5,0.7);
-	player.setScale(escalaPlayer,escalaPlayer);
+
 	
 	
 }
@@ -372,8 +447,8 @@ function morir()
 {
 	if(vida <= 0)
 	{
-		player.x = 400;
-		player.y = 300;
+		player.x = 1200;
+		player.y = 1700;
 		vida = 10;
 	}
 }
@@ -501,7 +576,7 @@ function cogerEscudo(e,s){
 export function eliminarEscudo(e,s){
 	console.log("Escudo eliminado");
 	escudoActivo=false;
-	s.destroy();
+	e.destroy();
 	aura.alpha=0;
 	aura.x=0;
 	aura.y=0;
@@ -644,29 +719,8 @@ export function inventario(){
 
 function soltarObjeto(){
 
-	sword.on('pointerdown', function (pointer) {
 
-        if (sword.cantidad>0) {
-			sword.alpha = 0;
-		    console.log("Soltar espada");
-		    sword.cantidad--;
-		    console.log("Eliminado");
-		}
-
-    });
-
-    bow.on('pointerdown', function (pointer) {
-
-       if (bow.cantidad>0) {
-			bow.alpha = 0;
-		    console.log("Soltar arco");
-		    bow.cantidad--;
-		    console.log("Eliminado");
-		}
-
-    });
-
-     bomb.on('pointerdown', function (pointer) {
+    bomb.on('pointerdown', function (pointer) {
 
        if (bomb.cantidad>0) {
 			bomb.alpha = 0;

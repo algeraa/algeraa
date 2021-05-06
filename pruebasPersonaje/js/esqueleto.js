@@ -44,6 +44,7 @@ function dispEnemies()
 					disparoE.angle = 180/Math.PI*Phaser.Math.Angle.Between(disparoE.x, disparoE.y, personaje.player.x, personaje.player.y);
 					disparoE.damage = 1;
 					this.physics.moveToObject(disparoE, personaje.player, 300);
+					disparoE.flecha = true;
 
 				atacante.EnDisp = 100;
 			}
@@ -67,23 +68,6 @@ export function inicio()
 	enemigosList = this.physics.add.group();
 	monedasList = this.physics.add.group();
 
-	/*for(var e = 0; e < 2; e++)
-	{
-		if(e ==0)
-		{
-			esqueleto= enemigosList.create(500,300,'arquero');
-		}
-		else
-		{
-			esqueleto=enemigosList.create(500,100,'arquero');
-		}
-		esqueleto.setScale(0.05, 0.05);
-		esqueleto.vida = 5;
-		esqueleto.distancia = 0;
-		esqueleto.EnDisp = 10;
-	}*/
-		
-	//esqueleto.setScale(0.05, 0.05);
 
 	dispEnlList = this.physics.add.group();
 
@@ -93,8 +77,6 @@ export function inicio()
 	this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.aura, dispEnlList, personaje.eliminarEscudo, null, this);
 	
-	this.physics.add.collider(dispEnlList, escena2.suelo);
-    this.physics.add.collider(dispEnlList, escena2.objetos, destroyShot);
 
 
     escena2.spawnSkeleton.forEach(obj=>{
