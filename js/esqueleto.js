@@ -10,7 +10,7 @@ var s;
 var couldowndamage = 0;
 var muerto;
 var monedasList;
-var dinero;
+var drop;
 import * as escena2 from './escena2.js';
 import * as personaje from './personaje.js';
 
@@ -19,6 +19,9 @@ export function cargarSprites()
 	this.load.image('arquero','assets/sprites/esqueleto.png');
 	this.load.image('flecha','assets/sprites/flecha.png');
 	this.load.image('moneda','assets/sprites/moneda.png');
+	this.load.image('pocionPe','assets/sprites/pocionPequena.png');
+	this.load.image('pocionMe','assets/sprites/pocionMediana.png');
+	this.load.image('pocionGr','assets/sprites/pocionGrande.png')
 }
 
 
@@ -109,13 +112,29 @@ function perderVida(s, n)
 		couldowndamage = 30;
 		if(n.vida <= 0)
 		{
-			var drop = Phaser.Math.Between(1,2);
+			var drop = Phaser.Math.Between(4,4);
 
 			if(drop == 1)
 			{
-				dinero=personaje.monedasList.create(n.x,n.y,'moneda');
-				dinero.setScale(0.01,0.01);
+				drop=personaje.monedasList.create(n.x,n.y,'moneda');
+				drop.setScale(0.01,0.01);
 			}
+			else if(drop == 2)
+			{
+				drop=personaje.pocionPList.create(n.x,n.y,'pocionPe');
+			
+			}
+			else if(drop == 3)
+			{
+				drop=personaje.pocionMList.create(n.x,n.y,'pocionMe');
+			
+			}
+			else if(drop == 4)
+			{
+				drop=personaje.pocionGList.create(n.x,n.y,'pocionGr');
+			
+			}
+
 			n.destroy();
 
 

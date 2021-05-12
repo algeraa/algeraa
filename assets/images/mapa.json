@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"mapa.json"
+         "target":"..\/..\/..\/pruebasMapa\/assets\/images\/mapa.json"
         }
     },
  "height":113,
@@ -111,18 +111,6 @@
          "objects":[
                 {
                  "height":0,
-                 "id":1,
-                 "name":"esqueleto",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":1607.33,
-                 "y":1446.67
-                }, 
-                {
-                 "height":0,
                  "id":10,
                  "name":"esqueleto",
                  "point":true,
@@ -132,18 +120,28 @@
                  "width":0,
                  "x":1735.33,
                  "y":1608
-                }, 
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":19,
+         "name":"cambioNiveles",
+         "objects":[
                 {
                  "height":0,
-                 "id":13,
-                 "name":"esqueleto",
-                 "point":true,
+                 "id":19,
+                 "name":"castillo",
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1500,
-                 "y":1570
+                 "x":1218,
+                 "y":11
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -164,7 +162,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":655.818181818182,
+                 "x":655.818,
                  "y":1082
                 }],
          "opacity":1,
@@ -256,8 +254,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":19,
- "nextobjectid":16,
+ "nextlayerid":20,
+ "nextobjectid":20,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",

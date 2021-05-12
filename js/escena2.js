@@ -5,8 +5,9 @@ var fl;
 var ArbolesC;
 
 export var cameras;
-export var spawnSkeleton, entradaTaberna;
+export var spawnSkeleton, entradaTaberna, entradaCastillo;
 export var spawn;
+import HUD from './HUD.js'
 //var entrarTaberna;
 //export var suelo, objetos, arboles1, arboles2, arboles3, arboles4;
 
@@ -20,6 +21,7 @@ import * as trampas from './trampas.js';
 import * as zombie from './zombie.js';
 
 var entrar = 0;
+export var escenaActual = 1;
 
 export default class Escena2 extends Phaser.Scene {
 	constructor(){
@@ -69,7 +71,7 @@ create()
 	
 
 	entradaTaberna = map.createFromObjects('taberna');
-
+	entradaCastillo = map.createFromObjects('cambioNiveles');
 
 	spawnSkeleton = map.createFromObjects('Esqueletos');
 	spawn = map.createFromObjects('Spawn');
@@ -87,6 +89,9 @@ create()
 	entradaTaberna.forEach(entrada => {
         this.physics.world.enable(entrada);
     })
+    entradaCastillo.forEach(castillo => {
+        this.physics.world.enable(castillo);
+    })
 	
 	
 	cameras = this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
@@ -94,8 +99,8 @@ create()
     
 	personaje.createP.call(this);
 	personaje.crearInventario.call(this);
-	/*esqueleto.inicio.call(this);
-	trampas.crearTrampas.call(this);*/
+	esqueleto.inicio.call(this);
+	/*trampas.crearTrampas.call(this);*/
 
 	this.physics.add.collider(personaje.player, suelo);
 	this.physics.add.collider(personaje.player, objetos);
@@ -103,7 +108,8 @@ create()
 	this.physics.add.collider(personaje.player, Taberna2);
 	this.physics.add.collider(personaje.player, ArbolesC);
 	this.physics.add.overlap(personaje.player, entradaTaberna, entrarTaberna, null, this);
-	//this.physics.add.collider(esqueleto.dispEnlList, objetos, esqueleto.destroyShot);
+	this.physics.add.collider(esqueleto.dispEnlList, objetos, esqueleto.destroyShot);
+	this.physics.add.overlap(personaje.player, entradaCastillo, entrarCastillo, null, this);
 
 	
 	/*planta.inicio.call(this);
@@ -113,6 +119,7 @@ create()
 	zombie.inicio.call(this);*/
 
 	//var pocionP = this.add.sprite(200,300,'pocion');
+	
 }
 
 	update()
@@ -120,8 +127,8 @@ create()
 
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
-		/*esqueleto.acciones.call(this);
-		planta.acciones.call(this);
+		esqueleto.acciones.call(this);
+		/*planta.acciones.call(this);
 		arana.acciones.call(this);*/
 		personaje.acciones.call(this);
 		//zombie.acciones.call(this);
@@ -136,4 +143,10 @@ function entrarTaberna()
 	{
 		
 		this.scene.start("prueba");
+	}
+function entrarCastillo()
+	{
+		escenaActual = 2;
+		this.scene.start("Castillo");
+
 	}

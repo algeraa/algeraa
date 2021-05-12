@@ -1,6 +1,8 @@
 
 import Escena2 from './escena2.js';
 import prueba from './pruebaCambio.js';
+import HUD from './HUD.js'
+import Castillo from './escenaCastillo.js';
 
 var config=
 {
@@ -14,7 +16,7 @@ var config=
 				gravity:{y:0}
 			}
 		},
-		scene: [Escena2, prueba]
+		scene: [Escena2, prueba, HUD, Castillo]
 };
 
 var game=new Phaser.Game(config);
