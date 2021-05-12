@@ -5,11 +5,15 @@ import * as armadura from './armadura.js';
 
 var map;
 var paredes;
+export var escenaActual = 3;
 export var cameras;
 export var spawn;
 export var trampaPinchos;
 export var enemigoArmor;
+export var salidos;
 var animacion;
+var tilesetsCastillo;
+export var salen;
 
 export default class Castillo extends Phaser.Scene {
 
@@ -21,7 +25,7 @@ export default class Castillo extends Phaser.Scene {
 
 		this.load.tilemapTiledJSON('mapa_castillo', 'assets/images/MapaCastillo2.json');
 
-		this.load.image('tiles', 'assets/images/Dungeon_tileset.png');
+		this.load.image('tilesCastillo', 'assets/images/Dungeon_tileset.png');
 
 		this.load.image('flecha', 'assets/sprites/flecha.png');
 
@@ -38,17 +42,16 @@ export default class Castillo extends Phaser.Scene {
 		
 		map = this.make.tilemap({ key: 'mapa_castillo' });
 
-		var tilesets = map.addTilesetImage('castillo_tileset', 'tiles');
+		tilesetsCastillo = map.addTilesetImage('castillo_tileset', 'tilesCastillo');
 
-		var suelo = map.createLayer('Fondo', tilesets, 0, 0);
-		var paredes = map.createLayer('Paredes', tilesets, 0, 0);
-		var decoracion = map.createLayer('Decoracion', tilesets, 0, 0);
-		var pinchos = map.createLayer('Pinchos', tilesets, 0, 0);
+		var suelo = map.createLayer('Fondo', tilesetsCastillo, 0, 0);
+		var paredes = map.createLayer('Paredes', tilesetsCastillo, 0, 0);
+		var decoracion = map.createLayer('Decoracion', tilesetsCastillo, 0, 0);
+		var pinchos = map.createLayer('Pinchos', tilesetsCastillo, 0, 0);
 
 		trampaPinchos= map.createFromObjects('Pinchos');
 		spawn = map.createFromObjects('Inicio');
 		enemigoArmor = map.createFromObjects('Armadura');
-
 		
 		paredes.setCollisionByProperty({ Colisiones: true });
 		decoracion.setCollisionByProperty({ Colisiones: true });
@@ -73,13 +76,14 @@ export default class Castillo extends Phaser.Scene {
 		this.physics.add.collider(armadura.armor, paredes);
 		this.physics.add.collider(personaje.player, decoracion);
 		this.physics.add.overlap(personaje.player, trampaPinchos, trampas.salirPinchos, null, this);
-		//this.physics.add.overlap(personaje.player, armadura.armor, personaje.eliminarEscudo, null, this);
 		
-		
+		salen = map.createFromObjects('Prueba');
 
-		//esqueleto.inicio.call(this);
-		trampas.crearTrampas.call(this);
-		//var pocionP = this.add.sprite(200,300,'pocion');
+		salen.forEach(pinchos_Salidos => {
+			pinchos_Salidos.setAlpha(0);
+	        this.physics.world.enable(pinchos_Salidos);
+	    })
+
 	}
 
 	update()
@@ -97,6 +101,21 @@ export default class Castillo extends Phaser.Scene {
 
 
 	
+}
+
+export function salir_pinchos() {
+
+	salidos = map.createLayer('Pinchos_Salidos', tilesetsCastillo, 0, 0);
+}
+
+export function esconder_pinchos() {
+
+	//salidos.destroy();
+
+	/*salen.forEach(pinchos_Salidos => {
+			pinchos_Salidos.setAlpha(0);
+	        this.physics.world.enable(pinchos_Salidos);
+	    })*/
 }
 
 

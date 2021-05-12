@@ -45,7 +45,6 @@ function dispEnemies()
 					disparoE.damage = 1;
 					this.physics.moveToObject(disparoE, personaje.player, 300);
 					disparoE.flecha = true;
-
 				atacante.EnDisp = 100;
 			}
 		else
@@ -68,6 +67,7 @@ export function inicio()
 	enemigosList = this.physics.add.group();
 	monedasList = this.physics.add.group();
 
+	
 
 	dispEnlList = this.physics.add.group();
 
@@ -77,6 +77,8 @@ export function inicio()
 	this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
 	this.physics.add.overlap(personaje.aura, dispEnlList, personaje.eliminarEscudo, null, this);
 	
+	
+    
 
 
     escena2.spawnSkeleton.forEach(obj=>{
@@ -94,7 +96,7 @@ export function inicio()
 		);
 	 
 }
-function destroyShot(s, n)
+export function destroyShot(s, n)
 {
 	s.destroy();
 }

@@ -74,47 +74,41 @@ function moverzombie(){
 		atacante.distancia = Math.sqrt(Math.pow(personaje.player.x-atacante.x, 2) + Math.pow(personaje.player.y-atacante.y, 2));
 
 		if(atacante.distancia < 200){
-			atacante.atacar = true;
-		}
-		if(atacante.atacar == true){
-			this.physics.moveToObject(atacante, personaje.player, 100);
-		}
-		else{
-
-			if(zombie.direccion == 0 && zombie.movetimer == 0)
-			{
-				zombie.setVelocityY(0);
-				zombie.setVelocityX(100); 
-				zombie.direccion = 90;
-				zombie.movetimer = 100;
-			}
-
-			if(zombie.direccion == 90 && zombie.movetimer == 0)
-			{
-				zombie.setVelocityY(100);
-				zombie.setVelocityX(0); 
-				zombie.direccion = 180;
-				zombie.movetimer = 100;
-			}
-
-			if(zombie.direccion == 180 && zombie.movetimer == 0)
-			{
-				zombie.setVelocityY(0);
-				zombie.setVelocityX(-100); 
-				zombie.direccion = 270;
-				zombie.movetimer = 100;
-			}
-
-			if(zombie.direccion == 270 && zombie.movetimer == 0)
-			{
-				zombie.setVelocityY(-100);
-				zombie.setVelocityX(0); 
-				zombie.direccion = 0;
-				zombie.movetimer = 100;
-			}
-
-		}
-
+		atacante.atacar = true;
+	}
+	if(atacante.atacar == true){
+		this.physics.moveToObject(atacante, personaje.player, 100);
+	}
+	else{
+		if(zombie.direccion == 0 && zombie.movetimer == 0)
+	{
+		zombie.setVelocityY(0);
+		zombie.setVelocityX(100); 
+		zombie.direccion = 90;
+		zombie.movetimer = 100;
+	}
+		if(zombie.direccion == 90 && zombie.movetimer == 0)
+	{
+		zombie.setVelocityY(100);
+		zombie.setVelocityX(0); 
+		zombie.direccion = 180;
+		zombie.movetimer = 100;
+	}
+		if(zombie.direccion == 180 && zombie.movetimer == 0)
+	{
+		zombie.setVelocityY(0);
+		zombie.setVelocityX(-100); 
+		zombie.direccion = 270;
+		zombie.movetimer = 100;
+	}
+		if(zombie.direccion == 270 && zombie.movetimer == 0)
+	{
+		zombie.setVelocityY(-100);
+		zombie.setVelocityX(0); 
+		zombie.direccion = 0;
+		zombie.movetimer = 100;
+	}
+	}
 	}
 
 }

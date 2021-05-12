@@ -3,9 +3,10 @@ var escapaDisparo = 0.05;
 var map;
 var fl;
 var ArbolesC;
+export var escenaActual = 1;
 
 export var cameras;
-export var spawnSkeleton, entradaTaberna;
+export var spawnSkeleton, entradaTaberna, entradaCastillo;
 export var spawn;
 //var entrarTaberna;
 //export var suelo, objetos, arboles1, arboles2, arboles3, arboles4;
@@ -54,15 +55,12 @@ create()
 	map = this.make.tilemap({ key: 'mapa' });
 	var tilesets = map.addTilesetImage('bosque', 'tiles');
 	var tilesets2 = map.addTilesetImage('taberna', 'tiles2');
-
 	var suelo = map.createLayer('Camino', tilesets, 0, 0);
 	var objetos = map.createLayer('Bordes', tilesets, 0, 0);
-
 	var arboles1 = map.createLayer('Arboles/Arboles1', tilesets, 0, 0).setDepth(3);;
 	var arboles2 = map.createLayer('Arboles/Arboles2', tilesets, 0, 0).setDepth(3);;
 	var arboles3 = map.createLayer('Arboles/Arboles3', tilesets, 0, 0).setDepth(3);;
 	var arboles4 = map.createLayer('Arboles/Arboles4', tilesets, 0, 0).setDepth(3);;
-	
 	var piedras = map.createLayer('Piedras', tilesets, 0, 0);
 	var Taberna = map.createLayer('Taberna', tilesets2, 0, 0);
 	var Taberna2 = map.createLayer('Taberna2', tilesets2, 0, 0);
@@ -72,6 +70,7 @@ create()
 	
 
 	entradaTaberna = map.createFromObjects('taberna');
+	entradaCastillo = map.createFromObjects('cambioNiveles');
 
 
 	spawnSkeleton = map.createFromObjects('Esqueletos');
@@ -90,6 +89,10 @@ create()
 	entradaTaberna.forEach(entrada => {
         this.physics.world.enable(entrada);
     })
+    entradaCastillo.forEach(castillo => {
+        this.physics.world.enable(castillo);
+    })
+	
 	
 	
 	cameras = this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
@@ -97,6 +100,8 @@ create()
     
 	personaje.createP.call(this);
 	personaje.crearInventario.call(this);
+	/*esqueleto.inicio.call(this);
+	trampas.crearTrampas.call(this);*/
 
 	this.physics.add.collider(personaje.player, suelo);
 	this.physics.add.collider(personaje.player, objetos);
@@ -104,16 +109,15 @@ create()
 	this.physics.add.collider(personaje.player, Taberna2);
 	this.physics.add.collider(personaje.player, ArbolesC);
 	this.physics.add.overlap(personaje.player, entradaTaberna, entrarTaberna, null, this);
-
+	this.physics.add.overlap(personaje.player, entradaCastillo, entrarCastillo, null, this);
+	//this.physics.add.collider(esqueleto.dispEnlList, objetos, esqueleto.destroyShot);
 
 	
-	
-	
-
-	//esqueleto.inicio.call(this);
 	/*planta.inicio.call(this);
+	this.physics.add.collider(planta.venenoso, objetos, planta.destroyShot);
 	arana.inicio.call(this);
-	pared.inicio.call(this);*/
+	pared.inicio.call(this);
+	zombie.inicio.call(this);*/
 
 	//var pocionP = this.add.sprite(200,300,'pocion');
 }
@@ -123,15 +127,12 @@ create()
 
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
-		//esqueleto.acciones.call(this);
-		/*planta.acciones.call(this);
+		/*esqueleto.acciones.call(this);
+		planta.acciones.call(this);
 		arana.acciones.call(this);*/
 		personaje.acciones.call(this);
-		if(entrar == 1)
-		{
-			this.scene.start("prueba");
-		}
-		
+		//zombie.acciones.call(this);
+	
 	}
 
 
@@ -140,5 +141,12 @@ create()
 
 function entrarTaberna()
 	{
-		entrar = 1;
+		
+		this.scene.start("prueba");
+	}
+function entrarCastillo()
+	{
+		escenaActual = 2;
+		this.scene.start("Castillo");
+
 	}

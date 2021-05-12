@@ -1,7 +1,7 @@
 
 import Escena2 from './escena2.js';
-import Castillo from './escenaCastillo.js';
 import prueba from './pruebaCambio.js';
+import Castillo from './escenaCastillo.js';
 
 var config=
 {
@@ -15,7 +15,7 @@ var config=
 				gravity:{y:0}
 			}
 		},
-		scene: [Castillo, prueba, Escena2]
+		scene: [Escena2, prueba, Castillo]
 };
 
 var game=new Phaser.Game(config);
