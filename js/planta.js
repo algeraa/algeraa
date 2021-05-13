@@ -10,7 +10,7 @@ var plantasList;
 var monedasList;
 var dinero;
 var couldowndamage = 0;
-import * as escena2 from './escena2.js';
+import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 
 
@@ -87,7 +87,7 @@ export function inicio() {
 	this.physics.add.overlap(personaje.flechasList, plantasList, perderVida, null, this);
 	this.physics.add.overlap(personaje.bombas, plantasList, perderVida, null, this);
 
-	this.physics.add.collider(venenoso, escena2.suelo);
+	this.physics.add.collider(venenoso, Bosque.suelo);
     
 }
 export function destroyShot(s, n)

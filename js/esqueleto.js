@@ -11,7 +11,7 @@ var couldowndamage = 0;
 var muerto;
 var monedasList;
 var drop;
-import * as escena2 from './escena2.js';
+import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 
 export function cargarSprites()
@@ -84,7 +84,7 @@ export function inicio()
     
 
 
-    escena2.spawnSkeleton.forEach(obj=>{
+    Bosque.spawnSkeleton.forEach(obj=>{
 
 		obj.setAlpha(0);
 		esqueleto= enemigosList.create(obj.x, obj.y,'arquero');
@@ -112,28 +112,34 @@ function perderVida(s, n)
 		couldowndamage = 30;
 		if(n.vida <= 0)
 		{
-			var drop = Phaser.Math.Between(4,4);
-
+			var drop = Phaser.Math.Between(4,5);
+			var dropeado;
 			if(drop == 1)
 			{
-				drop=personaje.monedasList.create(n.x,n.y,'moneda');
-				drop.setScale(0.01,0.01);
+				dropeado=personaje.monedasList.create(n.x,n.y,'moneda');
+				dropeado.setScale(0.01,0.01);
 			}
 			else if(drop == 2)
 			{
-				drop=personaje.pocionPList.create(n.x,n.y,'pocionPe');
+				dropeado=personaje.pocionPList.create(n.x,n.y,'pocionPe');
 			
 			}
 			else if(drop == 3)
 			{
-				drop=personaje.pocionMList.create(n.x,n.y,'pocionMe');
+				dropeado=personaje.pocionMList.create(n.x,n.y,'pocionMe');
 			
 			}
 			else if(drop == 4)
 			{
-				drop=personaje.pocionGList.create(n.x,n.y,'pocionGr');
+				dropeado=personaje.pocionGList.create(n.x,n.y,'pocionGr');
 			
 			}
+			else if(drop == 5)
+			{
+				dropeado=personaje.flechasInventario.create(n.x,n.y,'flecha');
+				dropeado.setScale(0.1,0.1);
+			}
+
 
 			n.destroy();
 

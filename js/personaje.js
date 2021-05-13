@@ -19,7 +19,7 @@ var couldownDisp = 0;
 var disparo, disparoJ;
 export var flechasList;
 var BombasList;
-export var pocionPList, pocionMList, pocionGList;
+export var pocionPList, pocionMList, pocionGList, flechasInventario;
 
 export var monedasList;
 
@@ -34,12 +34,12 @@ var KeyZ;
 var sword;
 var bow;
 var bomb;
-var curaP, curaM, curaG;
+var curaP, curaM, curaG, flechaI;
 var pedestal_escudo;
 var lg_escudo;
 export var aura;
 var text;
-
+export var hacha;
 var botiquin;
 var botiquinList;
 var escudoList;
@@ -47,13 +47,13 @@ var invent=false;
 var inven;
 var time=30;
 var nuevo=true;
-var pesoInventario=5;
-let objetos=['espada','arco','bomba','escudo', 'pocionP', 'pocionM', 'pocionG'];
+var pesoInventario=15;
+let objetos=['espada','arco','bomba','escudo', 'pocionP', 'pocionM', 'pocionG', 'flechas'];
 var escudoActivo=false;
 
 import * as esqueleto from './esqueleto.js';
 import * as arana from './arana.js';
-import * as escena2 from './escena2.js';
+import * as Bosque from './escenaBosque.js';
 import * as escenaCastillo from './escenaCastillo.js';
 
 export function cargarSprites()
@@ -85,10 +85,12 @@ export function cargarInventario(){
 	escudoList=this.physics.add.group();
 }
 
+
 export function createP()
 {
 	pocionSelect = 1;
 	monedasList = this.physics.add.group();
+	flechasInventario = this.physics.add.group();
 
 	this.anims.create({
 		key:'idle',
@@ -131,9 +133,9 @@ export function createP()
 		frameRate: 2.5
 	});
 	
-	if(escena2.escenaActual == 1)
+	if(Bosque.escenaActual == 1)
 	{
-		escena2.spawn.forEach(obj=>{
+		Bosque.spawn.forEach(obj=>{
 
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
@@ -164,6 +166,7 @@ export function createP()
 	ataque=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
 	disparo=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
 	explosion=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+	hacha=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.H);
 
 	player.setCollideWorldBounds(true);
 	this.cameras.main.startFollow(player, true, 0.1, 0.1);
@@ -196,10 +199,22 @@ export function createP()
 	this.physics.add.overlap(player, pocionPList, cogerPocionP);
 	this.physics.add.overlap(player, pocionMList, cogerPocionM);
 	this.physics.add.overlap(player, pocionGList, cogerPocionG);
+	this.physics.add.overlap(player, flechasInventario, cogerFlecha);
 
 	player.couldownDamage = 100;
+	player.hachaR = false;
 
+}
+export function recogerHacha()
+{
+	if(hacha.isDown && player.hachaR == false)
+	{
+	
+		player.hachaR = true;
 
+		Bosque.hachaSprite.setAlpha(0)
+		Bosque.troncoSprite.setAlpha(1)
+	}
 }
 
 export function crearInventario(){
@@ -245,6 +260,19 @@ export function crearInventario(){
 	curaG.peso=4;
 	curaG.cantidad=0;
 	curaG.alpha = 0;
+
+	curaG=this.add.sprite(0,0,'pocionGr').setInteractive();
+	curaG.setOrigin(0.5,0.5);
+	curaG.peso=4;
+	curaG.cantidad=0;
+	curaG.alpha = 0;
+
+	flechaI=this.add.sprite(0,0,'flecha').setInteractive();
+	flechaI.setOrigin(0.5,0.5);
+	flechaI.peso=1;
+	flechaI.cantidad=0;
+	flechaI.alpha = 0;
+
 
 	pedestal_escudo=escudoList.create(600,300,'pedestal_escudo');
 	this.physics.add.overlap(escudoList,player,cogerEscudo,null,this);
@@ -395,18 +423,21 @@ function pociones()
 		{
 			vida = vida + 2;
 			curaP.cantidad--;
+			pesoInventario+=curaP.peso;
 			
 		}
 		else if(pocionSelect == 2 && curaM.cantidad > 0)
 		{
 			vida = vida + 4;
 			curaM.cantidad--;
+			pesoInventario+=curaM.peso;
 		
 		}
 		else if(pocionSelect == 3 && curaG.cantidad > 0)
 		{
 			vida = vida + 8;
 			curaG.cantidad--;
+			pesoInventario+=curaG.peso;
 		}
 		if(vida > 10)
 		{
@@ -482,7 +513,7 @@ function morir()
 {
 	if(vida <= 0)
 	{
-		escena2.spawn.forEach(obj=>{
+		Bosque.spawn.forEach(obj=>{
 
 		
 		player.x=obj.x;
@@ -500,7 +531,7 @@ function disparar()
 	}
 
 
-	if(disparo.isDown && couldownDisp <= 0)
+	if(disparo.isDown && couldownDisp <= 0 && flechaI.cantidad > 0)
 	{	
 			
 			disparoJ=flechasList.create(player.x, player.y,'flecha');
@@ -535,7 +566,7 @@ function disparar()
 				disparoJ.body.setSize(disparoJ.height, disparoJ.width);
 				disparoJ.angle = -player.direccion;
 			}		
-		
+		flechaI.cantidad--;
 
 	}
 }
@@ -597,7 +628,7 @@ function cogerPocionP(e,s){
 		
 		curaP.cantidad++;
 	
-		pocionPList.destroy(s);
+		s.destroy();
 		
 	}
 
@@ -611,7 +642,7 @@ function cogerPocionM(e,s){
 		
 		curaM.cantidad++;
 	
-		pocionMList.destroy(s);
+		s.destroy();
 		
 	}
 
@@ -625,7 +656,21 @@ function cogerPocionG(e,s){
 		
 		curaG.cantidad++;
 	
-		pocionGList.destroy(s);
+		s.destroy();
+		
+	}
+
+}
+function cogerFlecha(e,s){
+
+	
+	pesoInventario-=flechaI.peso;
+
+	if (pesoInventario>=0){
+		
+		flechaI.cantidad++;
+	
+		s.destroy();
 		
 	}
 
@@ -656,6 +701,7 @@ var cantidadPocionP;
 var cantidadPocionM;
 var cantidadPocionG;
 var cantidadEscudo;
+var cantidadflechas;
 var posYObjetos=160;
 
 export function inventario(){
@@ -670,8 +716,8 @@ export function inventario(){
 		inven=this.add.sprite(0,0,'inventario');
 		inven.setOrigin(0.5,0.5);
 		inven.setScale(0.5,0.5);
-		inven.x=escena2.cameras.scrollX+400;
-		inven.y=escena2.cameras.scrollY+300;
+		inven.x=Bosque.cameras.scrollX+400;
+		inven.y=Bosque.cameras.scrollY+300;
 		inven.setDepth(3);
 
 		player.setVelocityX(0);
@@ -742,6 +788,18 @@ export function inventario(){
 				
 			}
 
+			if(objetos[i]=='flechas' && flechaI.cantidad>0){
+
+				flechaI.x=inven.x+125;
+				flechaI.y=inven.y+posYObjetos;
+				flechaI.setDepth(4);
+				flechaI.setScale(0.1,0.1);
+				flechaI.alpha = 1;
+				cantidadflechas=this.add.text(flechaI.x+10,flechaI.y+8,flechaI.cantidad,{fontsize:'40px',fill:'#000000'});
+				cantidadflechas.setDepth(4);
+				
+			}
+
 			if(objetos[i]=='escudo' && lg_escudo.cantidad>0){
 
 				lg_escudo.x=inven.x-10;
@@ -801,6 +859,14 @@ export function inventario(){
 
 				if(curaG.cantidad>0){
 					cantidadPocionG.alpha=0;
+				}
+				
+			}
+			if(objetos[i]=='flechas' && flechaI.cantidad >0){
+				flechaI.alpha = 0;
+
+				if(flechaI.cantidad>0){
+					cantidadflechas.alpha=0;
 				}
 				
 			}

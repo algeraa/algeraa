@@ -3,7 +3,7 @@ var heartList, heartList2;
 
 
 
-import * as escena2 from './escena2.js';
+import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 
 var entrar = 0;

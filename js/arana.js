@@ -17,7 +17,7 @@ var cono;
 var dinero;
 
 
-import * as escena2 from './escena2.js';
+import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 
 export function cargarSprites() {
@@ -36,8 +36,8 @@ export function inicio() {
     this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);
     this.physics.add.overlap(personaje.bombas, enemigosList, perderVida, null, this);
     this.physics.add.overlap(personaje.flechasList, enemigosList, perderVida, null, this);
-    this.physics.add.collider(dispEnlList, escena2.suelo);
-    this.physics.add.collider(dispEnlList, escena2.objetos, destroyShot);
+    this.physics.add.collider(dispEnlList, Bosque.suelo);
+    this.physics.add.collider(dispEnlList, Bosque.objetos, destroyShot);
    
 }
 function destroyShot(s, n)

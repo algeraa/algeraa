@@ -1,7 +1,7 @@
 var rocasList;
 var paredes
 
-import * as escena2 from './escena2.js';
+import * as escenaBosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 import * as aranas from './arana.js';
 import * as esqueleto from './esqueleto.js';
@@ -15,7 +15,7 @@ export function cargarSprites() {
 export function inicio() {
     rocasList = this.physics.add.group();
     crearroca.call(this);
-    console.log(paredes);
+    
 
     this.physics.add.overlap(personaje.bombas, rocasList, DestruirRoca, null, this);
     this.physics.add.collider(personaje.player, rocasList);

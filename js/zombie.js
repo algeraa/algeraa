@@ -5,7 +5,7 @@ var monedasList;
 var i;
 var couldowndamage = 0;
 
-import * as escena2 from './escena2.js';
+import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 
 export function cargarSprites()
