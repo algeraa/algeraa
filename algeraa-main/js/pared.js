@@ -6,6 +6,8 @@ import * as personaje from './personaje.js';
 import * as aranas from './arana.js';
 import * as esqueleto from './esqueleto.js';
 import * as plantas from './planta.js';
+import * as Cueva from './cueva.js';
+import * as zombie from './zombie.js';
 
 
 export function cargarSprites() {
@@ -22,15 +24,20 @@ export function inicio() {
     this.physics.add.collider(personaje.flechasList, rocasList, destruirproyectiles);
     this.physics.add.collider(aranas.dispEnlList, rocasList, destruirproyectiles);
     this.physics.add.overlap(esqueleto.dispEnlList, rocasList, destruirproyectiles, null, this);
+    this.physics.add.overlap(esqueleto.dispEnlList, rocasList, destruirproyectiles, null, this);
+    this.physics.add.collider(zombie.enemigosList, rocasList);
     //this.physics.add.overlap(plantas.venenoso, rocasList, destruirproyectiles, null, this);
     //eso de arriba no va
 
 }
 
 function crearroca() {
-    paredes = rocasList.create(2150, 300, 'roca');
-    paredes.setScale(0.3, 0.3);
-    paredes.setImmovable(true);
+    Cueva.spawnRocas.forEach(obj => {
+        obj.setAlpha(0);
+        paredes = rocasList.create(obj.x, obj.y, 'roca');
+        paredes.setScale(0.15, 0.15);
+        paredes.setImmovable(true);
+    })
 }
 
 function DestruirRoca(s,n) {

@@ -5,7 +5,7 @@ var fl;
 var ArbolesC;
 
 export var cameras;
-export var spawnSkeleton, entradaTaberna, spawnZombie, spawnSpider, spawnKey, spawnVagabundo;
+export var spawnSkeleton, entradaTaberna, spawnZombie, spawnSpider, spawnKey, spawnVagabundo, spawnRocas;
 export var spawn;
 
 
@@ -18,6 +18,7 @@ import prueba from './pruebaCambio.js';
 import * as trampas from './trampas.js';
 import * as zombie from './zombie.js';
 import * as llave from './llave.js';
+import * as vagabundo from './vagabundo.js';
 
 var entrar = 0;
 
@@ -44,6 +45,8 @@ export default class Cueva extends Phaser.Scene {
 		pared.cargarSprites.call(this);
 		zombie.cargarSprites.call(this);
 		llave.cargarSprites.call(this);
+		pared.cargarSprites.call(this);
+		vagabundo.cargarSprites.call(this);
 	}
 
 
@@ -64,6 +67,7 @@ create()
 	spawnSpider = map.createFromObjects('SpawnArana');
 	spawnKey = map.createFromObjects('SpawnLlave');
 	spawnVagabundo = map.createFromObjects('SpawnVagabundo');
+	spawnRocas = map.createFromObjects('SpawnRoca');
 
 	
 
@@ -86,6 +90,9 @@ create()
 	zombie.inicio.call(this);
 	arana.inicio.call(this);
 	llave.inicio.call(this);
+	pared.inicio.call(this);
+	pared.inicio.call(this);
+	vagabundo.inicio.call(this);
 
 
 	this.physics.add.collider(personaje.player, suelo);
