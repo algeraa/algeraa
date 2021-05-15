@@ -55,6 +55,7 @@ import * as esqueleto from './esqueleto.js';
 import * as arana from './arana.js';
 import * as Bosque from './escenaBosque.js';
 import * as escenaCastillo from './escenaCastillo.js';
+import * as cueva from './cueva.js';
 
 export function cargarSprites()
 {
@@ -88,6 +89,7 @@ export function cargarInventario(){
 
 export function createP()
 {
+	
 	pocionSelect = 1;
 	monedasList = this.physics.add.group();
 	flechasInventario = this.physics.add.group();
@@ -143,9 +145,19 @@ export function createP()
 			
 		})
 	}
-	else
+	else if(Bosque.escenaActual == 2)
 	{
 		escenaCastillo.spawn.forEach(obj=>{
+
+			obj.setAlpha(0);
+			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
+			player.play("idle", true);
+			
+		})
+	}
+	else if (Bosque.escenaActual == 3)
+	{
+		cueva.spawn.forEach(obj=>{
 
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
@@ -203,6 +215,7 @@ export function createP()
 
 	player.couldownDamage = 100;
 	player.hachaR = false;
+	player.tienellave = false;
 
 }
 export function recogerHacha()
@@ -376,10 +389,17 @@ var quieto = 0;
 }
 export function perderVida(n, s)
 {
-	vida = vida-s.damage;
-	if(s.flecha == true && player.couldownDamage <= 0)
+	if(player.couldownDamage <= 0)
+	{
+		vida = vida-s.damage;
+		player.couldownDamage = 100;
+	
+	}
+	
+	if(s.flecha == true)
 	{
 		s.destroy();
+		
 	}
 	
 	console.log(vida);

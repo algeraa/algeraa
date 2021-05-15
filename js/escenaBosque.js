@@ -5,7 +5,7 @@ var fl;
 var ArbolesC;
 
 export var cameras;
-export var spawnSkeleton, entradaTaberna, entradaCastillo, arbolesSpawn;
+export var spawnSkeleton, entradaTaberna, entradaCastillo, arbolesSpawn, entradaCueva, spawnZombie;
 export var spawn;
 import HUD from './HUD.js'
 //var entrarTaberna;
@@ -73,9 +73,10 @@ create()
 	
 	
 	
-
+	spawnZombie = map.createFromObjects('SpawnZombie');
 	entradaTaberna = map.createFromObjects('taberna');
-	entradaCastillo = map.createFromObjects('cambioNiveles');
+	entradaCastillo = map.createFromObjects('cambioCastillo');
+	entradaCueva = map.createFromObjects('cambioCueva');
 
 	spawnSkeleton = map.createFromObjects('Esqueletos');
 	spawn = map.createFromObjects('Spawn');
@@ -91,11 +92,14 @@ create()
 	
 	arbolesList = this.physics.add.group();
 	
-	entradaTaberna.forEach(entrada => {
+	/*entradaTaberna.forEach(entrada => {
         this.physics.world.enable(entrada);
-    })
+    })*/
     entradaCastillo.forEach(castillo => {
         this.physics.world.enable(castillo);
+    })
+    entradaCueva.forEach(cueva => {
+        this.physics.world.enable(cueva);
     })
     var detecArbol = 0;
 	arbolesSpawn.forEach(obj => {
@@ -133,13 +137,14 @@ create()
 	this.physics.add.overlap(personaje.player, entradaTaberna, entrarTaberna, null, this);
 	this.physics.add.collider(esqueleto.dispEnlList, objetos, esqueleto.destroyShot);
 	this.physics.add.overlap(personaje.player, entradaCastillo, entrarCastillo, null, this);
+	this.physics.add.overlap(personaje.player, entradaCueva, entrarCueva, null, this);
 
 	
 	/*planta.inicio.call(this);
 	this.physics.add.collider(planta.venenoso, objetos, planta.destroyShot);
 	arana.inicio.call(this);
-	pared.inicio.call(this);
-	zombie.inicio.call(this);*/
+	pared.inicio.call(this);*/
+	zombie.inicio.call(this);
 
 	//var pocionP = this.add.sprite(200,300,'pocion');
 	
@@ -156,7 +161,7 @@ create()
 		/*planta.acciones.call(this);
 		arana.acciones.call(this);*/
 		personaje.acciones.call(this);
-		//zombie.acciones.call(this);
+		zombie.acciones.call(this);
 	
 	}
 
@@ -166,7 +171,6 @@ create()
 
 function entrarTaberna()
 	{
-		
 		this.scene.start("prueba");
 	}
 function entrarCastillo()
@@ -175,6 +179,11 @@ function entrarCastillo()
 		this.scene.start("Castillo");
 
 	}
+function entrarCueva()
+{
+	escenaActual = 3;
+	this.scene.start("Cueva");
+}
 function derribarArbol(s,n)
 {
 	if(personaje.hacha.isDown && personaje.player.hachaR == true)

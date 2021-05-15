@@ -13,6 +13,7 @@ var monedasList;
 var drop;
 import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
+import * as cueva from './cueva.js';
 
 export function cargarSprites()
 {
@@ -83,8 +84,25 @@ export function inicio()
 	
     
 
+	if(Bosque.escenaActual == 1)
+	{
+	    Bosque.spawnSkeleton.forEach(obj=>{
 
-    Bosque.spawnSkeleton.forEach(obj=>{
+			obj.setAlpha(0);
+			esqueleto= enemigosList.create(obj.x, obj.y,'arquero');
+			esqueleto.setScale(0.05, 0.05);
+			esqueleto.vida = 5;
+			esqueleto.distancia = 0;
+			esqueleto.EnDisp = 10;
+			esqueleto.setScale(0.05, 0.05);
+
+
+	}
+		);
+	}
+	else if(Bosque.escenaActual == 3)
+	{
+    cueva.spawnSkeleton.forEach(obj=>{
 
 		obj.setAlpha(0);
 		esqueleto= enemigosList.create(obj.x, obj.y,'arquero');
@@ -97,7 +115,7 @@ export function inicio()
 
 	}
 		);
-	 
+	 }
 }
 export function destroyShot(s, n)
 {

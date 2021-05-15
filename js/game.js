@@ -3,6 +3,7 @@ import Bosque from './escenaBosque.js';
 import prueba from './pruebaCambio.js';
 import HUD from './HUD.js'
 import Castillo from './escenaCastillo.js';
+import Cueva from './cueva.js';
 
 var config=
 {
@@ -16,7 +17,7 @@ var config=
 				gravity:{y:0}
 			}
 		},
-		scene: [Bosque, prueba, HUD, Castillo]
+		scene: [Bosque, prueba, HUD, Castillo, Cueva]
 };
 
 var game=new Phaser.Game(config);
