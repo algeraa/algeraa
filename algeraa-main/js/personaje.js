@@ -31,10 +31,9 @@ var s;
 
 var Inventory;
 var KeyZ;
-var sword;
-var bow;
-var bomb;
-var curaP, curaM, curaG, flechaI;
+var pesoFuturo = 0;
+
+var curaP, curaM, curaG, flechaI, bomb, sword, bow;
 var pedestal_escudo;
 var lg_escudo;
 export var aura;
@@ -50,12 +49,14 @@ var nuevo=true;
 var pesoInventario=15;
 let objetos=['espada','arco','bomba','escudo', 'pocionP', 'pocionM', 'pocionG', 'flechas'];
 var escudoActivo=false;
+export var llaveCueva;
 
 import * as esqueleto from './esqueleto.js';
 import * as arana from './arana.js';
 import * as Bosque from './escenaBosque.js';
 import * as escenaCastillo from './escenaCastillo.js';
 import * as cueva from './cueva.js';
+import * as games from './game.js';
 
 export function cargarSprites()
 {
@@ -71,7 +72,6 @@ export function cargarSprites()
 export function cargarInventario(){
 	this.load.image('espada2','assets/sprites/espada_in.png');
 	this.load.image('arco','assets/sprites/arco.png');
-	this.load.image('bomba_in','assets/sprites/bomba_in.png');
 	this.load.image('pocionPe','assets/sprites/pocionPequena.png');
 	this.load.image('pocionMe','assets/sprites/pocionMediana.png');
 	this.load.image('pocionGr','assets/sprites/pocionGrande.png');
@@ -134,8 +134,9 @@ export function createP()
 		frames: this.anims.generateFrameNames('playerAnim',{start:3, end:5}),
 		frameRate: 2.5
 	});
+
 	
-	if(Bosque.escenaActual == 1)
+	if(games.escenaActual == 1 && games.escenaPasada == 0)
 	{
 		Bosque.spawn.forEach(obj=>{
 
@@ -145,7 +146,7 @@ export function createP()
 			
 		})
 	}
-	else if(Bosque.escenaActual == 2)
+	/*else if(Bosque.escenaActual == 2)
 	{
 		escenaCastillo.spawn.forEach(obj=>{
 
@@ -154,8 +155,8 @@ export function createP()
 			player.play("idle", true);
 			
 		})
-	}
-	else if (Bosque.escenaActual == 3)
+	}*/
+	else if (games.escenaActual == 2)
 	{
 		cueva.spawn.forEach(obj=>{
 
@@ -165,7 +166,26 @@ export function createP()
 			
 		})
 	}
-	
+	else if (games.escenaActual == 1 && games.escenaPasada == 2)
+	{
+		Bosque.volverDeCueva.forEach(obj=>{
+
+			obj.setAlpha(0);
+			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
+			player.play("idle", true);
+			
+		})
+	}
+	if(games.escenaPasada == 0)
+	{
+		player.hachaR = false;
+		llaveCueva = false;
+	}
+	else
+	{
+		player.hachaR = true;
+		llaveCueva = true;
+	}
 	
 	escala.call(this);
 
@@ -214,7 +234,7 @@ export function createP()
 	this.physics.add.overlap(player, flechasInventario, cogerFlecha);
 
 	player.couldownDamage = 100;
-	player.hachaR = false;
+	
 	player.tienellave = false;
 
 }
@@ -249,7 +269,7 @@ export function crearInventario(){
 	bow.cantidad=1;
 	bow.alpha=0;
 
-	bomb=this.add.sprite(0,0,'bomba_in').setInteractive();
+	bomb=this.add.sprite(0,0,'bomba').setInteractive();
 	bomb.setOrigin(0.5,0.5);
 	bomb.setScale(0.07,0.07);
 	bomb.peso=2;
@@ -287,7 +307,7 @@ export function crearInventario(){
 	flechaI.alpha = 0;
 
 
-	pedestal_escudo=escudoList.create(600,300,'pedestal_escudo');
+	
 	this.physics.add.overlap(escudoList,player,cogerEscudo,null,this);
 
 	aura=this.physics.add.sprite(0,0,'aura_escudo');
@@ -312,7 +332,10 @@ export function recogerDinero(n, s)
 
 	s.destroy();
 }
-
+export function cuevaDesbloqueada()
+{
+	llaveCueva = true;
+}
 
 
 export function movimiento()
@@ -531,9 +554,20 @@ function desaparecer()
 }
 function morir()
 {
-	if(vida <= 0)
+	if(vida <= 0 && games.escenaActual == 1)
 	{
 		Bosque.spawn.forEach(obj=>{
+
+		
+		player.x=obj.x;
+		player.y=obj.y;
+		
+	})
+		vida = 10;
+	}
+	if(vida <= 0 && games.escenaActual == 2)
+	{
+		cueva.spawn.forEach(obj=>{
 
 		
 		player.x=obj.x;
@@ -587,6 +621,7 @@ function disparar()
 				disparoJ.angle = -player.direccion;
 			}		
 		flechaI.cantidad--;
+		pesoInventario+= flechaI.peso;
 
 	}
 }
@@ -642,12 +677,12 @@ function finexplosion(){
 function cogerPocionP(e,s){
 
 	
-	pesoInventario-=curaP.peso;
+	pesoFuturo = pesoInventario - curaP.peso;
 
-	if (pesoInventario>=0){
+	if (pesoFuturo>=0){
 		
 		curaP.cantidad++;
-	
+		pesoInventario-=curaP.peso;
 		s.destroy();
 		
 	}
@@ -655,13 +690,13 @@ function cogerPocionP(e,s){
 }
 function cogerPocionM(e,s){
 
+	pesoFuturo = pesoInventario - curaM.peso;
 	
-	pesoInventario-=curaM.peso;
 
-	if (pesoInventario>=0){
+	if (pesoFuturo>=0){
 		
 		curaM.cantidad++;
-	
+		pesoInventario-=curaM.peso;
 		s.destroy();
 		
 	}
@@ -669,13 +704,13 @@ function cogerPocionM(e,s){
 }
 function cogerPocionG(e,s){
 
+	pesoFuturo = pesoInventario - curaG.peso;
 	
-	pesoInventario-=curaG.peso;
+	
+	if (pesoFuturo>=0){
 
-	if (pesoInventario>=0){
-		
 		curaG.cantidad++;
-	
+		pesoInventario-=curaG.peso;
 		s.destroy();
 		
 	}
@@ -683,23 +718,24 @@ function cogerPocionG(e,s){
 }
 function cogerFlecha(e,s){
 
+	pesoFuturo = pesoInventario - flechaI.peso;
 	
-	pesoInventario-=flechaI.peso;
 
-	if (pesoInventario>=0){
+	if (pesoFuturo>=0){
 		
 		flechaI.cantidad++;
-	
+		pesoInventario-=flechaI.peso;
 		s.destroy();
 		
 	}
 
 }
 function cogerEscudo(e,s){
-	pesoInventario-=lg_escudo.peso;
 
-	if (pesoInventario>=0){
+	pesoFuturo = pesoInventario - lg_escudo.peso;
 
+	if (pesoFuturo>=0){
+		pesoInventario-=lg_escudo.peso;
 		lg_escudo.cantidad++;
 		s.destroy();
 	}

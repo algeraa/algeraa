@@ -5,11 +5,9 @@ var fl;
 var ArbolesC;
 
 export var cameras;
-export var spawnSkeleton, entradaTaberna, entradaCastillo, arbolesSpawn, entradaCueva, spawnZombie;
+export var spawnSkeleton, entradaTaberna, entradaCastillo, arbolesSpawn, entradaCueva, spawnZombie, volverDeCueva;
 export var spawn;
 import HUD from './HUD.js'
-//var entrarTaberna;
-//export var suelo, objetos, arboles1, arboles2, arboles3, arboles4;
 
 import * as esqueleto from './esqueleto.js';
 import * as personaje from './personaje.js';
@@ -20,10 +18,12 @@ import prueba from './pruebaCambio.js';
 import * as trampas from './trampas.js';
 import * as zombie from './zombie.js';
 
+import * as games from './game.js';
+
 var entrar = 0;
-export var escenaActual = 1;
-var arbolesList;
-export var hachaSprite, troncoSprite;
+
+export var arbolesList, pedestalList, pedestalListActive;
+export var hachaSprite, troncoSprite, pedestalSprite, pedestalSprite2;
 
 
 export default class Bosque extends Phaser.Scene {
@@ -42,6 +42,8 @@ export default class Bosque extends Phaser.Scene {
 		this.load.image('arbolH', 'assets/sprites/arbol.png');
 		this.load.image('hacha', 'assets/sprites/Hacha.png');
 		this.load.image('tronco', 'assets/sprites/Tronco.png');
+		this.load.image('pedestal', 'assets/sprites/Pedestal.png');
+		this.load.image('pedestalAct', 'assets/sprites/PedestalActivo.png');
 
 		esqueleto.cargarSprites.call(this);
 		personaje.cargarSprites.call(this);
@@ -74,6 +76,7 @@ create()
 	
 	
 	spawnZombie = map.createFromObjects('SpawnZombie');
+	volverDeCueva = map.createFromObjects('volverC');
 	entradaTaberna = map.createFromObjects('taberna');
 	entradaCastillo = map.createFromObjects('cambioCastillo');
 	entradaCueva = map.createFromObjects('cambioCueva');
@@ -91,10 +94,9 @@ create()
 	Taberna.setCollisionByProperty({ collide: true });
 	
 	arbolesList = this.physics.add.group();
+	pedestalList = this.physics.add.group();
+	pedestalListActive = this.physics.add.group();
 	
-	/*entradaTaberna.forEach(entrada => {
-        this.physics.world.enable(entrada);
-    })*/
     entradaCastillo.forEach(castillo => {
         this.physics.world.enable(castillo);
     })
@@ -120,12 +122,50 @@ create()
 	personaje.createP.call(this);
 	personaje.crearInventario.call(this);
 	esqueleto.inicio.call(this);
-	/*trampas.crearTrampas.call(this);*/
 	
-	hachaSprite = this.physics.add.sprite(2250,175, 'hacha');
-	troncoSprite = this.physics.add.sprite(2250,175, 'tronco');
-	troncoSprite.setAlpha(0);
-	troncoSprite.setImmovable(true);
+	if(games.escenaPasada == 0)
+	{
+		hachaSprite = this.physics.add.sprite(2250,175, 'hacha');
+		pedestalSprite = pedestalList.create(800, 1600,'pedestal');
+		
+		pedestalSprite = pedestalList.create(1400, 800,'pedestal');
+	
+
+		pedestalSprite2 = pedestalListActive.create(800, 1600,'pedestalAct');
+		pedestalSprite2.setAlpha(0);
+		pedestalSprite2.setImmovable(true);
+		pedestalSprite2.activo = false;
+		pedestalSprite2 = pedestalListActive.create(1400, 800,'pedestalAct');
+		pedestalSprite2.setAlpha(0);
+		pedestalSprite2.setImmovable(true);
+		pedestalSprite2.activo = false;
+		troncoSprite = this.physics.add.sprite(2250,175, 'tronco');
+		troncoSprite.recogido = 0;
+		troncoSprite.setAlpha(0);
+		troncoSprite.setImmovable(true);
+	}
+	else
+	{
+		pedestalSprite = pedestalList.create(800, 1600,'pedestal');
+		
+		pedestalSprite.setAlpha(0);
+		pedestalSprite = pedestalList.create(1400, 800,'pedestal');
+		
+		pedestalSprite.setAlpha(0);
+
+
+		pedestalSprite2 = pedestalListActive.create(800, 1600,'pedestalAct');
+		pedestalSprite2.setImmovable(true);
+		pedestalSprite2.activo = true;
+		pedestalSprite2 = pedestalListActive.create(1400, 800,'pedestalAct');
+		pedestalSprite2.setImmovable(true);
+		pedestalSprite2.activo = true;
+		troncoSprite = this.physics.add.sprite(2250,175, 'tronco');
+		troncoSprite.recogido = 1;
+	}
+	
+
+	zombie.inicio.call(this);
 
 	this.physics.add.collider(personaje.player, suelo);
 	this.physics.add.collider(personaje.player, objetos);
@@ -133,20 +173,15 @@ create()
 	this.physics.add.collider(personaje.player, Taberna2);
 	this.physics.add.collider(personaje.player, arbolesList, derribarArbol);
 	this.physics.add.collider(personaje.player, troncoSprite, personaje.recogerHacha);
+	this.physics.add.collider(personaje.player, pedestalListActive, pedestales);
 	
-	this.physics.add.overlap(personaje.player, entradaTaberna, entrarTaberna, null, this);
+	
 	this.physics.add.collider(esqueleto.dispEnlList, objetos, esqueleto.destroyShot);
-	this.physics.add.overlap(personaje.player, entradaCastillo, entrarCastillo, null, this);
-	this.physics.add.overlap(personaje.player, entradaCueva, entrarCueva, null, this);
+	//this.physics.add.overlap(personaje.player, entradaCastillo, entrarCastillo, null, this);
+	this.physics.add.overlap(personaje.player, entradaCueva, games.iniciarCueva, null, this);
+	this.physics.add.collider(zombie.enemigosList, objetos);
 
 	
-	/*planta.inicio.call(this);
-	this.physics.add.collider(planta.venenoso, objetos, planta.destroyShot);
-	arana.inicio.call(this);
-	pared.inicio.call(this);*/
-	zombie.inicio.call(this);
-
-	//var pocionP = this.add.sprite(200,300,'pocion');
 	
 
 
@@ -154,7 +189,7 @@ create()
 
 	update()
 	{
-
+		abrirCueva.call(this);
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
 		esqueleto.acciones.call(this);
@@ -168,22 +203,27 @@ create()
 
 	
 }
-
-function entrarTaberna()
-	{
-		this.scene.start("prueba");
-	}
-function entrarCastillo()
-	{
-		escenaActual = 2;
-		this.scene.start("Castillo");
-
-	}
-function entrarCueva()
+function pedestales(s, n)
 {
-	escenaActual = 3;
-	this.scene.start("Cueva");
+	if(personaje.hacha.isDown && n.activo == false)
+	{
+		n.setAlpha(1);
+		n.activo = true;
+	}
+
+	
+		abrirCueva.call(this);
+	
 }
+function abrirCueva()
+{
+	if(pedestalListActive.getChildren()[0].activo && pedestalListActive.getChildren()[1].activo)
+	{
+		personaje.cuevaDesbloqueada.call(this);
+	}
+}
+
+
 function derribarArbol(s,n)
 {
 	if(personaje.hacha.isDown && personaje.player.hachaR == true)

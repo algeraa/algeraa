@@ -4,8 +4,9 @@ var map;
 var fl;
 var ArbolesC;
 
+
 export var cameras;
-export var spawnSkeleton, entradaTaberna, spawnZombie, spawnSpider, spawnKey, spawnVagabundo, spawnRocas;
+export var spawnSkeleton, entradaTaberna, spawnZombie, spawnSpider, spawnKey, spawnVagabundo, volverBosque;
 export var spawn;
 
 
@@ -15,10 +16,10 @@ import * as planta from './planta.js';
 import * as arana from './arana.js';
 import * as pared from './pared.js';
 import prueba from './pruebaCambio.js';
+import * as games from './game.js';
 import * as trampas from './trampas.js';
 import * as zombie from './zombie.js';
 import * as llave from './llave.js';
-import * as vagabundo from './vagabundo.js';
 
 var entrar = 0;
 
@@ -45,8 +46,6 @@ export default class Cueva extends Phaser.Scene {
 		pared.cargarSprites.call(this);
 		zombie.cargarSprites.call(this);
 		llave.cargarSprites.call(this);
-		pared.cargarSprites.call(this);
-		vagabundo.cargarSprites.call(this);
 	}
 
 
@@ -62,12 +61,12 @@ create()
 	var lamparas = map.createLayer('lamparas', tilesets, 0, 0);
 
 	spawn = map.createFromObjects('Spawn');
+	volverBosque = map.createFromObjects('Volver');
 	spawnZombie = map.createFromObjects('SpawnZombie');
 	spawnSkeleton = map.createFromObjects('SpawnEsqueleto');
 	spawnSpider = map.createFromObjects('SpawnArana');
 	spawnKey = map.createFromObjects('SpawnLlave');
 	spawnVagabundo = map.createFromObjects('SpawnVagabundo');
-	spawnRocas = map.createFromObjects('SpawnRoca');
 
 	
 
@@ -78,7 +77,10 @@ create()
 	
 
 
-	
+	volverBosque.forEach(obj => {
+        this.physics.world.enable(obj);
+        obj.setAlpha(0);
+    })
 	
 	
 	cameras = this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
@@ -90,15 +92,13 @@ create()
 	zombie.inicio.call(this);
 	arana.inicio.call(this);
 	llave.inicio.call(this);
-	pared.inicio.call(this);
-	pared.inicio.call(this);
-	vagabundo.inicio.call(this);
 
 
 	this.physics.add.collider(personaje.player, suelo);
 	this.physics.add.collider(personaje.player, paredes);
 	this.physics.add.collider(personaje.player, decoracion);
 	this.physics.add.collider(personaje.player, lamparas);
+	this.physics.add.collider(personaje.player, volverBosque, games.iniciarBosque, null, this);
 	this.physics.add.collider(arana.enemigosList , lamparas);
 	this.physics.add.collider(esqueleto.dispEnlList , paredes, destroyShot);
 	this.physics.add.collider(arana.dispEnlList , paredes, destroyShot);
@@ -131,7 +131,6 @@ create()
 
 	
 }
-
 
 
 export function destroyShot(s, n)

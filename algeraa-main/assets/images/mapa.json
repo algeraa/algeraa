@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"F:\/XAMPP\/htdocs\/pruebasHUD\/assets\/images\/mapa.json"
+         "target":"mapa.json"
         }
     },
  "height":113,
@@ -99,18 +99,6 @@
          "objects":[
                 {
                  "height":0,
-                 "id":10,
-                 "name":"esqueleto",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":1584.33,
-                 "y":1494
-                }, 
-                {
-                 "height":0,
                  "id":30,
                  "name":"esqueleto",
                  "point":true,
@@ -118,8 +106,90 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1743,
-                 "y":1616
+                 "x":1702,
+                 "y":1473
+                }, 
+                {
+                 "height":0,
+                 "id":45,
+                 "name":"esqueleto",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":312,
+                 "y":1632
+                }, 
+                {
+                 "height":0,
+                 "id":46,
+                 "name":"esqueleto",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":276,
+                 "y":218
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":25,
+         "name":"plantas",
+         "objects":[
+                {
+                 "height":0,
+                 "id":55,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":718,
+                 "y":1636
+                }, 
+                {
+                 "height":0,
+                 "id":56,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1497,
+                 "y":842
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":24,
+         "name":"volverC",
+         "objects":[
+                {
+                 "height":0,
+                 "id":50,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":62,
+                 "y":897
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -135,14 +205,146 @@
                 {
                  "height":0,
                  "id":33,
-                 "name":"",
+                 "name":"zombi",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":928,
-                 "y":952
+                 "x":1519,
+                 "y":1652
+                }, 
+                {
+                 "height":0,
+                 "id":34,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1551,
+                 "y":1487
+                }, 
+                {
+                 "height":0,
+                 "id":35,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2159,
+                 "y":1083
+                }, 
+                {
+                 "height":0,
+                 "id":36,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1902,
+                 "y":931
+                }, 
+                {
+                 "height":0,
+                 "id":37,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2208,
+                 "y":213
+                }, 
+                {
+                 "height":0,
+                 "id":38,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2078,
+                 "y":94
+                }, 
+                {
+                 "height":0,
+                 "id":39,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1946,
+                 "y":171
+                }, 
+                {
+                 "height":0,
+                 "id":40,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":628,
+                 "y":125
+                }, 
+                {
+                 "height":0,
+                 "id":41,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":383,
+                 "y":269
+                }, 
+                {
+                 "height":0,
+                 "id":42,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":332,
+                 "y":126
+                }, 
+                {
+                 "height":0,
+                 "id":43,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":143,
+                 "y":1569
+                }, 
+                {
+                 "height":0,
+                 "id":44,
+                 "name":"zombi",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":182,
+                 "y":1678
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -265,8 +467,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":808,
-                 "y":999.333
+                 "x":1169,
+                 "y":1806.33
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -336,8 +538,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":24,
- "nextobjectid":34,
+ "nextlayerid":26,
+ "nextobjectid":57,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",

@@ -8,6 +8,8 @@ var couldowndamage = 0;
 import * as Cueva from './cueva.js';
 import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
+import * as games from './game.js';
+
 
 export function cargarSprites()
 {
@@ -21,26 +23,7 @@ export function inicio()
 	enemigosList = this.physics.add.group();
 	monedasList = this.physics.add.group();
 
-	if(Bosque.escenaActual == 3)
-	{
-		Cueva.spawnZombie.forEach(obj => {
-
-			obj.setAlpha(0);
-
-			zombie= enemigosList.create(obj.x,obj.y,'zombie');
-
-			zombie.setScale(0.03, 0.03);
-			zombie.vida = 5;
-			zombie.distancia = 0;
-			zombie.damage = 1;
-			zombie.damagetimer = 10;
-			zombie.movetimer = 20;
-			zombie.direccion = 0;
-			zombie.flecha = false;
-			
-		})
-	}
-	else if(Bosque.escenaActual == 1)
+	if(games.escenaActual == 1)
 	{
 		Bosque.spawnZombie.forEach(obj => {
 
@@ -59,6 +42,26 @@ export function inicio()
 			
 		})
 	}
+	else if(games.escenaActual == 2)
+	{
+		Cueva.spawnZombie.forEach(obj => {
+
+			obj.setAlpha(0);
+
+			zombie= enemigosList.create(obj.x,obj.y,'zombie');
+
+			zombie.setScale(0.03, 0.03);
+			zombie.vida = 5;
+			zombie.distancia = 0;
+			zombie.damage = 1;
+			zombie.damagetimer = 10;
+			zombie.movetimer = 20;
+			zombie.direccion = 0;
+			zombie.flecha = false;
+			
+		})
+	}
+	
 
 	this.physics.add.overlap(personaje.player, enemigosList, personaje.perderVida, null, this);
 	this.physics.add.overlap(personaje.arma, enemigosList, perderVida, null, this);

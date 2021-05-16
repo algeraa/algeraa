@@ -14,7 +14,7 @@ var drop;
 import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 import * as cueva from './cueva.js';
-
+import * as games from './game.js';
 export function cargarSprites()
 {
 	this.load.image('arquero','assets/sprites/esqueleto.png');
@@ -84,7 +84,7 @@ export function inicio()
 	
     
 
-	if(Bosque.escenaActual == 1)
+	if(games.escenaActual == 1)
 	{
 	    Bosque.spawnSkeleton.forEach(obj=>{
 
@@ -100,7 +100,7 @@ export function inicio()
 	}
 		);
 	}
-	else if(Bosque.escenaActual == 3)
+	else if(games.escenaActual == 2)
 	{
     cueva.spawnSkeleton.forEach(obj=>{
 
