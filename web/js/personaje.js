@@ -33,7 +33,7 @@ var Inventory;
 var KeyZ;
 var pesoFuturo = 0;
 
-var curaP, curaM, curaG, flechaI, bomb, sword, bow;
+export var curaP, curaM, curaG, flechaI, bomb, sword, bow;
 var pedestal_escudo;
 var lg_escudo;
 export var aura;
@@ -214,7 +214,7 @@ export function createP()
 	arma.allowRotation = true;
 	flechasList = this.physics.add.group();
 	arma.flecha = false;
-	player.dinero = 0;
+	player.dinero = games.dineroC;
 	bombas=this.physics.add.sprite(player.x, player.y, 'bomba');
 	bombas.visible = false;
 	bombas.body.enable = false;
@@ -236,7 +236,7 @@ export function createP()
 	player.couldownDamage = 100;
 	
 	player.tienellave = false;
-
+	////console.log(games.FlechaC)
 }
 export function recogerHacha()
 {
@@ -273,37 +273,31 @@ export function crearInventario(){
 	bomb.setOrigin(0.5,0.5);
 	bomb.setScale(0.07,0.07);
 	bomb.peso=2;
-	bomb.cantidad=1;
+	bomb.cantidad= games.BombasC;
 	bomb.alpha = 0;
 
 	curaP=this.add.sprite(0,0,'pocionPe').setInteractive();
 	curaP.setOrigin(0.5,0.5);
 	curaP.peso=2;
-	curaP.cantidad=0;
+	curaP.cantidad= games.curaPC;
 	curaP.alpha = 0;
 
 	curaM=this.add.sprite(0,0,'pocionMe').setInteractive();
 	curaM.setOrigin(0.5,0.5);
 	curaM.peso=3;
-	curaM.cantidad=0;
+	curaM.cantidad= games.curaMC;
 	curaM.alpha = 0;
 
 	curaG=this.add.sprite(0,0,'pocionGr').setInteractive();
 	curaG.setOrigin(0.5,0.5);
 	curaG.peso=4;
-	curaG.cantidad=0;
-	curaG.alpha = 0;
-
-	curaG=this.add.sprite(0,0,'pocionGr').setInteractive();
-	curaG.setOrigin(0.5,0.5);
-	curaG.peso=4;
-	curaG.cantidad=0;
+	curaG.cantidad= games.curaGC;
 	curaG.alpha = 0;
 
 	flechaI=this.add.sprite(0,0,'flecha').setInteractive();
 	flechaI.setOrigin(0.5,0.5);
 	flechaI.peso=1;
-	flechaI.cantidad=0;
+	flechaI.cantidad= games.FlechasC;
 	flechaI.alpha = 0;
 
 
@@ -793,6 +787,20 @@ export function inventario(){
 		inven.y=Bosque.cameras.scrollY+300;
 		inven.setDepth(3);
 
+		if(games.escenaActual == 1){
+
+			inven.x=Bosque.cameras.scrollX+400;
+			inven.y=Bosque.cameras.scrollY+300;
+			inven.setDepth(5);
+
+		}else if(games.escenaActual==2){
+
+			inven.x=cueva.cameras.scrollX+400;
+			inven.y=cueva.cameras.scrollY+300;
+			inven.setDepth(5);
+			
+		}
+
 		player.setVelocityX(0);
 		player.setVelocityY(0);
 
@@ -805,7 +813,7 @@ export function inventario(){
 				
 				sword.x=inven.x-190;
 				sword.y=inven.y+posYObjetos;
-				sword.setDepth(4);
+				sword.setDepth(6);
 				sword.alpha = 1;
 						
 			}
@@ -814,7 +822,7 @@ export function inventario(){
 
 				bow.x=inven.x-145;
 				bow.y=inven.y+posYObjetos;
-				bow.setDepth(4);
+				bow.setDepth(6);
 				bow.alpha = 1;
 				
 			}
@@ -823,7 +831,7 @@ export function inventario(){
 
 				bomb.x=inven.x-100;
 				bomb.y=inven.y+posYObjetos;
-				bomb.setDepth(4);
+				bomb.setDepth(6);
 				bomb.alpha = 1;
 				cantidadBomba=this.add.text(bomb.x+10,bomb.y+8,bomb.cantidad,{fontsize:'32px',fill:'#000000'});
 				cantidadBomba.setDepth(2);
@@ -834,7 +842,7 @@ export function inventario(){
 
 				curaP.x=inven.x-55;
 				curaP.y=inven.y+posYObjetos;
-				curaP.setDepth(4);
+				curaP.setDepth(6);
 				curaP.alpha = 1;
 				cantidadPocionP=this.add.text(curaP.x+10,curaP.y+8,curaP.cantidad,{fontsize:'40px',fill:'#000000'});
 				cantidadPocionP.setDepth(4);
@@ -844,7 +852,7 @@ export function inventario(){
 
 				curaM.x=inven.x+35;
 				curaM.y=inven.y+posYObjetos;
-				curaM.setDepth(4);
+				curaM.setDepth(6);
 				curaM.alpha = 1;
 				cantidadPocionM=this.add.text(curaM.x+10,curaM.y+8,curaM.cantidad,{fontsize:'40px',fill:'#000000'});
 				cantidadPocionM.setDepth(4);
@@ -854,7 +862,7 @@ export function inventario(){
 
 				curaG.x=inven.x+80;
 				curaG.y=inven.y+posYObjetos;
-				curaG.setDepth(4);
+				curaG.setDepth(6);
 				curaG.alpha = 1;
 				cantidadPocionG=this.add.text(curaG.x+10,curaG.y+8,curaG.cantidad,{fontsize:'40px',fill:'#000000'});
 				cantidadPocionG.setDepth(4);
@@ -865,7 +873,7 @@ export function inventario(){
 
 				flechaI.x=inven.x+125;
 				flechaI.y=inven.y+posYObjetos;
-				flechaI.setDepth(4);
+				flechaI.setDepth(6);
 				flechaI.setScale(0.1,0.1);
 				flechaI.alpha = 1;
 				cantidadflechas=this.add.text(flechaI.x+10,flechaI.y+8,flechaI.cantidad,{fontsize:'40px',fill:'#000000'});
@@ -877,7 +885,7 @@ export function inventario(){
 
 				lg_escudo.x=inven.x-10;
 				lg_escudo.y=inven.y+posYObjetos;
-				lg_escudo.setDepth(4);
+				lg_escudo.setDepth(6);
 				lg_escudo.alpha = 1;
 				cantidadEscudo=this.add.text(lg_escudo.x+10,lg_escudo.y+8,lg_escudo.cantidad,{fontsize:'40px',fill:'#000000'});
 				cantidadEscudo.setDepth(2);

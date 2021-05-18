@@ -24,11 +24,24 @@ var config=
 var game=new Phaser.Game(config);
 export var escenaActual = 1;
 export var escenaPasada = 0;
+export var FlechasC = 0;
+export var BombasC = 0;
+export var curaPC = 0;
+export var curaMC = 0;
+export var curaGC = 0;
+export var dineroC = 0;
 
 export function iniciarCueva()
 {
+
 	if(personaje.llaveCueva)
 	{
+		FlechasC = personaje.flechaI.cantidad;
+		BombasC = personaje.bomb.cantidad;
+		curaPC = personaje.curaP.cantidad;
+		curaMC = personaje.curaM.cantidad;
+		curaGC = personaje.curaG.cantidad;
+		dineroC = personaje.player.dinero;
 		escenaActual = 2;
 		this.scene.start("Cueva");
 	}
