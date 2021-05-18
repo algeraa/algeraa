@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8'/>	
-<title>Login</title>
-
-</head>
+	<head>
+		<meta charset='utf-8'/>	
+		<title>Login</title>
+	</head>
 	<body>
 		<form action="juego.html" method="POST">
 			Usuario: <input type="text" name="user" required=""><br>
