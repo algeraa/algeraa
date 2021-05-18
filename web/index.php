@@ -7,7 +7,7 @@
 </head>
 <body>
  
-	<form action="login.proc.php" method="POST">
+	<form action="juego.html" method="POST">
 		Usuario: <input type="text" name="user" required=""><br>
 		Contraseña: <input type="password" name="contra" required=""><br>	
 		<input type="submit" name="Enviar" value="Enviar">
