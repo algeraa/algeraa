@@ -17,7 +17,7 @@ print "<pre>\n";
 if (!pg_num_rows($result)) {
   print("La conexión funciona, pero la base de datos está vacía..\n\n");
 } else {
-  print "Tablas en la base de datos:\n";
+  print "Tablas en la base de datos: PRUEBA\n";
   while ($row = pg_fetch_row($result)) { print("- $row[0]\n"); }
 }
 print "\n";
