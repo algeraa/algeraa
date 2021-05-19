@@ -5,7 +5,7 @@ var fl;
 var ArbolesC;
 
 export var cameras;
-export var spawnSkeleton, entradaTaberna, entradaCastillo, arbolesSpawn, entradaCueva, spawnZombie, volverDeCueva;
+export var spawnSkeleton, entradaTaberna, entradaCastillo, arbolesSpawn, entradaCueva, spawnZombie, volverDeCueva, volverdeCastillo;
 export var spawn;
 import HUD from './HUD.js'
 
@@ -74,12 +74,28 @@ create()
 	var Arbustos = map.createLayer('Arbustos', tilesets, 0, 0);
 	
 	
-	
+	volverdeCastillo=map.createFromObjects('volverCas');
+	volverdeCastillo.forEach(obj => {
+
+        obj.setAlpha(0);
+    })
 	spawnZombie = map.createFromObjects('SpawnZombie');
 	volverDeCueva = map.createFromObjects('volverC');
+	volverDeCueva.forEach(obj => {
+
+        obj.setAlpha(0);
+    })
 	entradaTaberna = map.createFromObjects('taberna');
 	entradaCastillo = map.createFromObjects('cambioCastillo');
+	entradaCastillo.forEach(obj => {
+
+        obj.setAlpha(0);
+    })
 	entradaCueva = map.createFromObjects('cambioCueva');
+	entradaCueva.forEach(obj => {
+
+        obj.setAlpha(0);
+    })
 
 	spawnSkeleton = map.createFromObjects('Esqueletos');
 	spawn = map.createFromObjects('Spawn');
@@ -118,8 +134,9 @@ create()
 	
 	cameras = this.cameras.main.setBounds(0, 0, 800 * 3, 600 * 3);
     this.physics.world.setBounds(0, 0, 800 * 3, 600 * 3);
-    
+    console.log("adios");
 	personaje.createP.call(this);
+
 	personaje.crearInventario.call(this);
 	esqueleto.inicio.call(this);
 	
@@ -177,7 +194,7 @@ create()
 	
 	
 	this.physics.add.collider(esqueleto.dispEnlList, objetos, esqueleto.destroyShot);
-	//this.physics.add.overlap(personaje.player, entradaCastillo, entrarCastillo, null, this);
+	this.physics.add.overlap(personaje.player, entradaCastillo, games.entrarCastillo, null, this);
 	this.physics.add.overlap(personaje.player, entradaCueva, games.iniciarCueva, null, this);
 	this.physics.add.collider(zombie.enemigosList, objetos);
 
@@ -189,12 +206,11 @@ create()
 
 	update()
 	{
-		abrirCueva.call(this);
+	
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
 		esqueleto.acciones.call(this);
-		/*planta.acciones.call(this);
-		arana.acciones.call(this);*/
+		//planta.acciones.call(this);
 		personaje.acciones.call(this);
 		zombie.acciones.call(this);
 	
@@ -211,8 +227,11 @@ function pedestales(s, n)
 		n.activo = true;
 	}
 
-	
+	if(pedestalListActive.getChildren()[0].activo && pedestalListActive.getChildren()[1].activo)
+	{
+		console.log("hola");
 		abrirCueva.call(this);
+	}
 	
 }
 function abrirCueva()

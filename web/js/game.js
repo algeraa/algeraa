@@ -30,18 +30,15 @@ export var curaPC = 0;
 export var curaMC = 0;
 export var curaGC = 0;
 export var dineroC = 0;
+export var llaveCastillo = false;
 
 export function iniciarCueva()
 {
 
 	if(personaje.llaveCueva)
 	{
-		FlechasC = personaje.flechaI.cantidad;
-		BombasC = personaje.bomb.cantidad;
-		curaPC = personaje.curaP.cantidad;
-		curaMC = personaje.curaM.cantidad;
-		curaGC = personaje.curaG.cantidad;
-		dineroC = personaje.player.dinero;
+		guardInventario.call(this);
+
 		escenaActual = 2;
 		this.scene.start("Cueva");
 	}
@@ -49,7 +46,38 @@ export function iniciarCueva()
 
 export function iniciarBosque()
 {
+	guardInventario.call(this);
 	escenaPasada = 2;
 	escenaActual = 1;
+	console.log("vuelta bosque");
 	this.scene.start("Bosque");
+}
+export function entrarCastillo()
+{
+	if(personaje.player.tienellave)
+	{
+		guardInventario.call(this);
+		escenaPasada = 1;
+		escenaActual = 3;
+
+		this.scene.start("Castillo");
+	}
+}
+export function VolverBosqueCueva()
+{
+	guardInventario.call(this);
+	escenaPasada = 3;
+	escenaActual = 1;
+
+	this.scene.start("Bosque");
+}
+function guardInventario()
+{
+	FlechasC = personaje.flechaI.cantidad;
+	BombasC = personaje.bomb.cantidad;
+	curaPC = personaje.curaP.cantidad;
+	curaMC = personaje.curaM.cantidad;
+	curaGC = personaje.curaG.cantidad;
+	dineroC = personaje.player.dinero;
+	llaveCastillo = personaje.player.tienellave;
 }

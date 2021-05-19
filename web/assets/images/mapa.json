@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"mapa.json"
+         "target":"E:\/XAMPP\/htdocs\/algeraa-main\/assets\/images\/mapa.json"
         }
     },
  "height":113,
@@ -167,6 +167,29 @@
                  "width":0,
                  "x":1497,
                  "y":842
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":26,
+         "name":"volverCas",
+         "objects":[
+                {
+                 "height":0,
+                 "id":57,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1215,
+                 "y":81
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -435,21 +458,10 @@
          "draworder":"topdown",
          "id":18,
          "name":"taberna",
-         "objects":[
-                {
-                 "height":0,
-                 "id":15,
-                 "name":"entrada",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":655.818,
-                 "y":1082
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -538,17 +550,17 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":26,
- "nextobjectid":57,
+ "nextlayerid":27,
+ "nextobjectid":58,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.5.0",
+ "tiledversion":"1.6.0",
  "tileheight":16,
  "tilesets":[
         {
          "columns":22,
          "firstgid":1,
-         "image":"F:\/Nueva carpeta\/Proyecto\/MApa\/tf_jungle_tileset.png",
+         "image":"E:\/Nueva carpeta\/Proyecto\/MApa\/tf_jungle_tileset.png",
          "imageheight":336,
          "imagewidth":352,
          "margin":0,
@@ -2803,7 +2815,7 @@
         {
          "columns":19,
          "firstgid":463,
-         "image":"F:\/Nueva carpeta\/Proyecto\/MApa\/village-palette01-day.png",
+         "image":"E:\/Nueva carpeta\/Proyecto\/MApa\/village-palette01-day.png",
          "imageheight":320,
          "imagewidth":304,
          "margin":0,
@@ -6236,6 +6248,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":1.5,
+ "version":"1.6",
  "width":150
 }

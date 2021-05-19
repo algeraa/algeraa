@@ -143,19 +143,10 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
-			
+			console.log("hola1");
 		})
 	}
-	/*else if(Bosque.escenaActual == 2)
-	{
-		escenaCastillo.spawn.forEach(obj=>{
-
-			obj.setAlpha(0);
-			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
-			player.play("idle", true);
-			
-		})
-	}*/
+	
 	else if (games.escenaActual == 2)
 	{
 		cueva.spawn.forEach(obj=>{
@@ -163,6 +154,7 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
+			console.log("hola2");
 			
 		})
 	}
@@ -173,6 +165,29 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
+			console.log("hola3");
+			
+		})
+	}
+	else if (games.escenaActual == 1 && games.escenaPasada == 3)
+	{
+		Bosque.volverdeCastillo.forEach(obj=>{
+
+			obj.setAlpha(0);
+			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
+			player.play("idle", true);
+			console.log("hola3");
+			
+		})
+	}
+	else if(games.escenaActual == 3)
+	{
+		escenaCastillo.spawn.forEach(obj=>{
+
+			obj.setAlpha(0);
+			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
+			player.play("idle", true);
+			console.log("hola4");
 			
 		})
 	}
@@ -210,7 +225,7 @@ export function createP()
 	arma.setOrigin(0, 0.5);
 	arma.setScale(0.1,0.1);
 	arma.body.enable = false;
-	arma.damage = 1;
+	arma.damage = 3;
 	arma.allowRotation = true;
 	flechasList = this.physics.add.group();
 	arma.flecha = false;
@@ -235,7 +250,7 @@ export function createP()
 
 	player.couldownDamage = 100;
 	
-	player.tienellave = false;
+	player.tienellave = games.llaveCastillo;
 	////console.log(games.FlechaC)
 }
 export function recogerHacha()
@@ -571,6 +586,17 @@ function morir()
 	})
 		vida = 10;
 	}
+	if(vida <= 0 && games.escenaActual == 3)
+	{
+		escenaCastillo.spawn.forEach(obj=>{
+
+		
+		player.x=obj.x;
+		player.y=obj.y;
+		
+	})
+		vida = 10;
+	}
 }
 function disparar()
 {
@@ -649,6 +675,7 @@ function Bombs(){
 		this.time.delayedCall(1000, explosao, [], this);
 		couldownBombs = 100;
 		bomb.cantidad--;
+		pesoInventario+=bomb.peso;
 	}
 }
 
@@ -800,6 +827,13 @@ export function inventario(){
 			inven.setDepth(5);
 			
 		}
+		else if(games.escenaActual==3){
+
+			inven.x=escenaCastillo.cameras.scrollX+400;
+			inven.y=escenaCastillo.cameras.scrollY+300;
+			inven.setDepth(5);
+			
+		}
 
 		player.setVelocityX(0);
 		player.setVelocityY(0);
@@ -834,7 +868,7 @@ export function inventario(){
 				bomb.setDepth(6);
 				bomb.alpha = 1;
 				cantidadBomba=this.add.text(bomb.x+10,bomb.y+8,bomb.cantidad,{fontsize:'32px',fill:'#000000'});
-				cantidadBomba.setDepth(2);
+				cantidadBomba.setDepth(7);
 				
 			}
 
@@ -845,7 +879,7 @@ export function inventario(){
 				curaP.setDepth(6);
 				curaP.alpha = 1;
 				cantidadPocionP=this.add.text(curaP.x+10,curaP.y+8,curaP.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadPocionP.setDepth(4);
+				cantidadPocionP.setDepth(7);
 				
 			}
 			if(objetos[i]=='pocionM' && curaM.cantidad>0){
@@ -855,7 +889,7 @@ export function inventario(){
 				curaM.setDepth(6);
 				curaM.alpha = 1;
 				cantidadPocionM=this.add.text(curaM.x+10,curaM.y+8,curaM.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadPocionM.setDepth(4);
+				cantidadPocionM.setDepth(7);
 				
 			}
 			if(objetos[i]=='pocionG' && curaG.cantidad>0){
@@ -865,7 +899,7 @@ export function inventario(){
 				curaG.setDepth(6);
 				curaG.alpha = 1;
 				cantidadPocionG=this.add.text(curaG.x+10,curaG.y+8,curaG.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadPocionG.setDepth(4);
+				cantidadPocionG.setDepth(7);
 				
 			}
 
@@ -877,7 +911,7 @@ export function inventario(){
 				flechaI.setScale(0.1,0.1);
 				flechaI.alpha = 1;
 				cantidadflechas=this.add.text(flechaI.x+10,flechaI.y+8,flechaI.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadflechas.setDepth(4);
+				cantidadflechas.setDepth(7);
 				
 			}
 
@@ -888,7 +922,7 @@ export function inventario(){
 				lg_escudo.setDepth(6);
 				lg_escudo.alpha = 1;
 				cantidadEscudo=this.add.text(lg_escudo.x+10,lg_escudo.y+8,lg_escudo.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadEscudo.setDepth(2);
+				cantidadEscudo.setDepth(7);
 				
 			}
 

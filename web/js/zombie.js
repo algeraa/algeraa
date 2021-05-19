@@ -9,6 +9,7 @@ import * as Cueva from './cueva.js';
 import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 import * as games from './game.js';
+import * as Castillo from './escenaCastillo.js';
 
 
 export function cargarSprites()
@@ -45,6 +46,25 @@ export function inicio()
 	else if(games.escenaActual == 2)
 	{
 		Cueva.spawnZombie.forEach(obj => {
+
+			obj.setAlpha(0);
+
+			zombie= enemigosList.create(obj.x,obj.y,'zombie');
+
+			zombie.setScale(0.03, 0.03);
+			zombie.vida = 5;
+			zombie.distancia = 0;
+			zombie.damage = 1;
+			zombie.damagetimer = 10;
+			zombie.movetimer = 20;
+			zombie.direccion = 0;
+			zombie.flecha = false;
+			
+		})
+	}
+	else if(games.escenaActual == 3)
+	{
+		Castillo.spawnZombie.forEach(obj => {
 
 			obj.setAlpha(0);
 

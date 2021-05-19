@@ -54,7 +54,6 @@ export default class Cueva extends Phaser.Scene {
 
 create()
 {
-	console.log("hola");
 	map = this.make.tilemap({ key: 'mapaC' });
 	var tilesets = map.addTilesetImage('cueva', 'tilesCueva');
 	//var tilesets2 = map.addTilesetImage('taberna', 'tiles2');
@@ -127,7 +126,6 @@ create()
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
 		esqueleto.acciones.call(this);
-		//planta.acciones.call(this);
 		arana.acciones.call(this);
 		personaje.acciones.call(this);
 		zombie.acciones.call(this);
