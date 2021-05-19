@@ -46,7 +46,7 @@ var invent=false;
 var inven;
 var time=30;
 var nuevo=true;
-var pesoInventario=15;
+var pesoInventario;
 export let objetos=['espada','arco','bomba','escudo', 'pocionP', 'pocionM', 'pocionG', 'flechas'];
 var escudoActivo=false;
 export var llaveCueva;
@@ -89,7 +89,7 @@ export function cargarInventario(){
 
 export function createP()
 {
-	
+	pesoInventario = games.pesoInvent;
 	pocionSelect = 1;
 	monedasList = this.physics.add.group();
 	flechasInventario = this.physics.add.group();
@@ -143,7 +143,7 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
-			console.log("hola1");
+			
 		})
 	}
 	
@@ -154,7 +154,7 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
-			console.log("hola2");
+			
 			
 		})
 	}
@@ -165,7 +165,7 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
-			console.log("hola3");
+			
 			
 		})
 	}
@@ -176,7 +176,6 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
-			console.log("hola3");
 			
 		})
 	}
@@ -187,7 +186,7 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
-			console.log("hola4");
+		
 			
 		})
 	}
@@ -218,7 +217,7 @@ export function createP()
 	player.setCollideWorldBounds(true);
 	this.cameras.main.startFollow(player, true, 0.1, 0.1);
 	player.direccion = 0;
-	vida = 10;
+	vida = games.vidaPer;
 
 	arma=this.physics.add.sprite(0,0,'espada');
 	arma.visible = false;
@@ -806,7 +805,7 @@ export function inventario(){
 
 		invent=true;
 		time=30;
-
+		console.log(pesoInventario);
 		inven=this.add.sprite(0,0,'inventario');
 		inven.setOrigin(0.5,0.5);
 		inven.setScale(0.5,0.5);
@@ -841,7 +840,7 @@ export function inventario(){
 
 		for (var i = 0; i<objetos.length; i++) {
 			
-			console.log(objetos[i]);
+
 
 			if(objetos[i]=='espada' && sword.cantidad>0){
 				

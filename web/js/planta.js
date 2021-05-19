@@ -73,14 +73,23 @@ export function acciones() {
 }
 
 export function inicio() {
-	plantasList = this.physics.add.group();
-	planta = plantasList.create(300, 1650, 'planta');
-
-	planta.setScale(0.02, 0.02);
-	planta.distancia = 0;
-	planta.EnDisp = 10;
-	planta.vida = 3;
+	
 	venenoso = this.physics.add.group();
+
+	 Bosque.spawnplantas.forEach(obj=>{
+
+			obj.setAlpha(0);
+			plantasList = this.physics.add.group();
+			planta = plantasList.create(obj.x, obj.y, 'planta');
+		
+			planta.setScale(0.02, 0.02);
+			planta.distancia = 0;
+			planta.EnDisp = 10;
+			planta.vida = 3;
+
+
+	}
+		);
 
 	this.physics.add.overlap(personaje.player, venenoso, envenenar, null, this);
 	this.physics.add.overlap(personaje.arma, plantasList, perderVida, null, this);

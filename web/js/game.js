@@ -31,6 +31,8 @@ export var curaMC = 0;
 export var curaGC = 0;
 export var dineroC = 0;
 export var llaveCastillo = false;
+export var pesoInvent = 15;
+export var vidaPer = 10;
 
 export function iniciarCueva()
 {
@@ -80,4 +82,6 @@ function guardInventario()
 	curaGC = personaje.curaG.cantidad;
 	dineroC = personaje.player.dinero;
 	llaveCastillo = personaje.player.tienellave;
+	pesoInvent = personaje.pesoInventario;
+	vidaPer = personaje.vida;
 }

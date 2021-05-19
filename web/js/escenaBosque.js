@@ -5,7 +5,7 @@ var fl;
 var ArbolesC;
 
 export var cameras;
-export var spawnSkeleton, entradaTaberna, entradaCastillo, arbolesSpawn, entradaCueva, spawnZombie, volverDeCueva, volverdeCastillo;
+export var spawnSkeleton, entradaTaberna, entradaCastillo, arbolesSpawn, entradaCueva, spawnZombie, volverDeCueva, volverdeCastillo, spawnplantas;
 export var spawn;
 import HUD from './HUD.js'
 
@@ -42,8 +42,8 @@ export default class Bosque extends Phaser.Scene {
 		this.load.image('arbolH', 'assets/sprites/arbol.png');
 		this.load.image('hacha', 'assets/sprites/Hacha.png');
 		this.load.image('tronco', 'assets/sprites/Tronco.png');
-		this.load.image('pedestal', 'assets/sprites/Pedestal.png');
-		this.load.image('pedestalAct', 'assets/sprites/PedestalActivo.png');
+		this.load.image('pedestal', 'assets/sprites/pedestal.png');
+		this.load.image('pedestalAct', 'assets/sprites/pedestal_activo.png');
 
 		esqueleto.cargarSprites.call(this);
 		personaje.cargarSprites.call(this);
@@ -102,7 +102,7 @@ create()
 
 	arbolesSpawn = map.createFromObjects('ArbolesHacha');
 
-	
+	spawnplantas = map.createFromObjects('plantas');
 
 	
 	objetos.setCollisionByProperty({ collide: true });
@@ -139,6 +139,7 @@ create()
 
 	personaje.crearInventario.call(this);
 	esqueleto.inicio.call(this);
+	planta.inicio.call(this);
 	
 	if(games.escenaPasada == 0)
 	{
@@ -210,7 +211,7 @@ create()
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
 		esqueleto.acciones.call(this);
-		//planta.acciones.call(this);
+		planta.acciones.call(this);
 		personaje.acciones.call(this);
 		zombie.acciones.call(this);
 	
