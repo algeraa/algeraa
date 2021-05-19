@@ -54,6 +54,7 @@ export default class Cueva extends Phaser.Scene {
 
 create()
 {
+	this.scene.sendToBack('Cueva');
 	map = this.make.tilemap({ key: 'mapaC' });
 	var tilesets = map.addTilesetImage('cueva', 'tilesCueva');
 	//var tilesets2 = map.addTilesetImage('taberna', 'tiles2');

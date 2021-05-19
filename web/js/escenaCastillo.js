@@ -53,6 +53,7 @@ export default class Castillo extends Phaser.Scene {
 
 	create()
 	{
+		this.scene.sendToBack('Castillo');
 		
 		map = this.make.tilemap({ key: 'mapa_castillo' });
 
@@ -99,7 +100,7 @@ export default class Castillo extends Phaser.Scene {
 		trampas.crearTrampas.call(this);
 
 		this.physics.add.collider(personaje.player, suelo);
-		this.physics.add.collider(personaje.player,salidaCastillo, games.VolverBosqueCueva, null, this);
+		this.physics.add.collider(personaje.player,salidaCastillo, games.VolverBosqueCastillo, null, this);
 		this.physics.add.collider(personaje.player, paredes);
 		this.physics.add.collider(armadura.armor, paredes);
 		this.physics.add.collider(personaje.player, decoracion);
@@ -107,7 +108,7 @@ export default class Castillo extends Phaser.Scene {
 		this.physics.add.collider(armadura.shotList , paredes, armadura.destroyShot);
 		this.physics.add.collider(armadura.shotGuiadoList , paredes, armadura.destroyShot);
 
-		this.physics.add.overlap(personaje.player,pedestal_escudo,personaje.cogerEscudo,null,this);
+		this.physics.add.overlap(personaje.player,escudoList,personaje.cogerEscudo,null,this);
 
 		this.physics.add.overlap(personaje.player,invisible,armadura.activarArmadura,null,this);
 

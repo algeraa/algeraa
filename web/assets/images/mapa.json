@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"E:\/XAMPP\/htdocs\/algeraa-main\/assets\/images\/mapa.json"
+         "target":"..\/..\/..\/algeraa-main\/assets\/images\/mapa.json"
         }
     },
  "height":113,
@@ -167,6 +167,42 @@
                  "width":0,
                  "x":1497,
                  "y":842
+                }, 
+                {
+                 "height":0,
+                 "id":58,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2099,
+                 "y":116
+                }, 
+                {
+                 "height":0,
+                 "id":59,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":557,
+                 "y":138
+                }, 
+                {
+                 "height":0,
+                 "id":60,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":872,
+                 "y":1004
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -287,18 +323,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":38,
-                 "name":"zombi",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":2078,
-                 "y":94
-                }, 
-                {
-                 "height":0,
                  "id":39,
                  "name":"zombi",
                  "point":true,
@@ -308,18 +332,6 @@
                  "width":0,
                  "x":1946,
                  "y":171
-                }, 
-                {
-                 "height":0,
-                 "id":40,
-                 "name":"zombi",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":628,
-                 "y":125
                 }, 
                 {
                  "height":0,
@@ -551,16 +563,16 @@
          "y":0
         }],
  "nextlayerid":27,
- "nextobjectid":58,
+ "nextobjectid":61,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.6.0",
+ "tiledversion":"1.5.0",
  "tileheight":16,
  "tilesets":[
         {
          "columns":22,
          "firstgid":1,
-         "image":"E:\/Nueva carpeta\/Proyecto\/MApa\/tf_jungle_tileset.png",
+         "image":"F:\/Nueva carpeta\/Proyecto\/MApa\/tf_jungle_tileset.png",
          "imageheight":336,
          "imagewidth":352,
          "margin":0,
@@ -2815,7 +2827,7 @@
         {
          "columns":19,
          "firstgid":463,
-         "image":"E:\/Nueva carpeta\/Proyecto\/MApa\/village-palette01-day.png",
+         "image":"F:\/Nueva carpeta\/Proyecto\/MApa\/village-palette01-day.png",
          "imageheight":320,
          "imagewidth":304,
          "margin":0,
@@ -6248,6 +6260,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.6",
+ "version":1.5,
  "width":150
 }

@@ -149,31 +149,10 @@ function perderVida(s, n)
 		{
 			var drop = Phaser.Math.Between(4,5);
 			var dropeado;
-			if(drop == 1)
-			{
-				dropeado=personaje.monedasList.create(n.x,n.y,'moneda');
-				dropeado.setScale(0.01,0.01);
-			}
-			else if(drop == 2)
-			{
-				dropeado=personaje.pocionPList.create(n.x,n.y,'pocionPe');
-			
-			}
-			else if(drop == 3)
-			{
-				dropeado=personaje.pocionMList.create(n.x,n.y,'pocionMe');
-			
-			}
-			else if(drop == 4)
-			{
-				dropeado=personaje.pocionGList.create(n.x,n.y,'pocionGr');
-			
-			}
-			else if(drop == 5)
-			{
+		
 				dropeado=personaje.flechasInventario.create(n.x,n.y,'flecha');
 				dropeado.setScale(0.1,0.1);
-			}
+			
 
 
 			n.destroy();

@@ -85,10 +85,15 @@ function perderVida(s, n) {
         couldownMal = 30;
         if (n.vida <= 0) {
             var drop = Phaser.Math.Between(1, 2);
-
+            var dropeado;
             if (drop == 1) {
-                dinero = personaje.monedasList.create(n.x, n.y, 'moneda');
-                dinero.setScale(0.01, 0.01);
+                dropeado=personaje.flechasInventario.create(n.x,n.y,'flecha');
+                dropeado.setScale(0.1,0.1);
+            }
+            else if(drop == 2)
+            {
+                dropeado=personaje.pocionGList.create(n.x,n.y,'pocionGr');
+            
             }
             n.disableBody(true, true);
 

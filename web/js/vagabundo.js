@@ -21,9 +21,9 @@ export function inicio() {
 
 
 function VenderBombas() {
-	if(personaje.player.dinero >= 1 && personaje.hacha.isDown){
-		personaje.player.dinero--;
+	if(personaje.mon.cantidad >= 1 && personaje.hacha.isDown){
+		personaje.mon.cantidad--;
 		personaje.cogerBombs.call(this);
-		console.log("dinero = "+personaje.dinero)
+	
 	}
 }

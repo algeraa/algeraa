@@ -14,7 +14,7 @@ var config=
 		physics:{
 			default:'arcade',
 			arcade:{
-				debug: false,
+				debug: true,
 				gravity:{y:0}
 			}
 		},
@@ -65,7 +65,7 @@ export function entrarCastillo()
 		this.scene.start("Castillo");
 	}
 }
-export function VolverBosqueCueva()
+export function VolverBosqueCastillo()
 {
 	guardInventario.call(this);
 	escenaPasada = 3;
@@ -75,13 +75,18 @@ export function VolverBosqueCueva()
 }
 function guardInventario()
 {
+	console.log("pesoInventario="+personaje.pesoInventario)
+	console.log("pesoInvent="+pesoInvent);
 	FlechasC = personaje.flechaI.cantidad;
 	BombasC = personaje.bomb.cantidad;
 	curaPC = personaje.curaP.cantidad;
 	curaMC = personaje.curaM.cantidad;
 	curaGC = personaje.curaG.cantidad;
-	dineroC = personaje.player.dinero;
+	dineroC = personaje.mon.cantidad;
 	llaveCastillo = personaje.player.tienellave;
 	pesoInvent = personaje.pesoInventario;
 	vidaPer = personaje.vida;
+	
+	console.log("pesoInventario="+personaje.pesoInventario)
+	console.log("pesoInvent="+pesoInvent);
 }

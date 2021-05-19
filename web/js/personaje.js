@@ -33,7 +33,7 @@ var Inventory;
 var KeyZ;
 var pesoFuturo = 0;
 
-export var curaP, curaM, curaG, flechaI, bomb, sword, bow;
+export var curaP, curaM, curaG, flechaI, bomb, sword, bow, mon;
 var pedestal_escudo;
 var lg_escudo;
 export var aura;
@@ -46,8 +46,8 @@ var invent=false;
 var inven;
 var time=30;
 var nuevo=true;
-var pesoInventario;
-export let objetos=['espada','arco','bomba','escudo', 'pocionP', 'pocionM', 'pocionG', 'flechas'];
+export var pesoInventario;
+export let objetos=['espada','arco','bomba','escudo', 'pocionP', 'pocionM', 'pocionG', 'flechas', 'monedas'];
 var escudoActivo=false;
 export var llaveCueva;
 
@@ -67,6 +67,7 @@ export function cargarSprites()
 	this.load.image('invisible','assets/sprites/invisible.png');
 	this.load.spritesheet('explosionE', 'assets/sprites/ExplosionE.png',{frameWidth:64, frameHeight:64});
 	this.load.spritesheet('playerAnim', 'assets/sprites/jugador.png',{frameWidth:24, frameHeight:26});
+	this.load.image('moneda','assets/sprites/moneda.png');
 }
 
 export function cargarInventario(){
@@ -193,7 +194,7 @@ export function createP()
 	if(games.escenaPasada == 0)
 	{
 		player.hachaR = false;
-		llaveCueva = false;
+		llaveCueva = true;
 	}
 	else
 	{
@@ -228,7 +229,7 @@ export function createP()
 	arma.allowRotation = true;
 	flechasList = this.physics.add.group();
 	arma.flecha = false;
-	player.dinero = games.dineroC;
+
 	bombas=this.physics.add.sprite(player.x, player.y, 'bomba');
 	bombas.visible = false;
 	bombas.body.enable = false;
@@ -314,6 +315,11 @@ export function crearInventario(){
 	flechaI.cantidad= games.FlechasC;
 	flechaI.alpha = 0;
 
+	mon=this.add.sprite(0,0,'moneda').setInteractive();
+	mon.setOrigin(0.5,0.5);
+	mon.peso=0;
+	mon.cantidad= games.dineroC;
+	mon.alpha = 0;
 
 	
 	this.physics.add.overlap(escudoList,player,cogerEscudo,null,this);
@@ -335,8 +341,8 @@ export function crearInventario(){
 
 export function recogerDinero(n, s)
 {
-	player.dinero = player.dinero + 1;
-	console.log("dinero = "+player.dinero)
+	mon.cantidad++;
+
 
 	s.destroy();
 }
@@ -767,8 +773,8 @@ function cogerFlecha(e,s){
 	}
 
 }
-function cogerEscudo(e,s){
-
+export function cogerEscudo(e,s){
+	console.log("Recoger escudo")
 	pesoFuturo = pesoInventario - lg_escudo.peso;
 
 	if (pesoFuturo>=0){
@@ -795,6 +801,7 @@ var cantidadPocionM;
 var cantidadPocionG;
 var cantidadEscudo;
 var cantidadflechas;
+var cantidadmonedas;
 var posYObjetos=160;
 
 export function inventario(){
@@ -805,7 +812,7 @@ export function inventario(){
 
 		invent=true;
 		time=30;
-		console.log(pesoInventario);
+		console.log("peso="+pesoInventario);
 		inven=this.add.sprite(0,0,'inventario');
 		inven.setOrigin(0.5,0.5);
 		inven.setScale(0.5,0.5);
@@ -924,6 +931,17 @@ export function inventario(){
 				cantidadEscudo.setDepth(7);
 				
 			}
+			if(objetos[i]=='monedas' && mon.cantidad>0){
+
+				mon.x=inven.x+170;
+				mon.y=inven.y+posYObjetos;
+				mon.setDepth(6);
+				mon.alpha = 1;
+				mon.setScale(0.01,0.01);
+				cantidadmonedas=this.add.text(mon.x+10,mon.y+8,mon.cantidad,{fontsize:'40px',fill:'#000000'});
+				cantidadmonedas.setDepth(7);
+				
+			}
 
 		}
 		
@@ -992,6 +1010,13 @@ export function inventario(){
 					cantidadEscudo.alpha=0;
 				}
 			}
+			if(objetos[i]=='monedas'){
+				mon.alpha = 0;
+
+				if(mon.cantidad>0){
+					cantidadmonedas.alpha=0;
+				}
+			}
 
 		}
 
@@ -1046,11 +1071,7 @@ function soltarObjeto(){
 			
 			curaP.cantidad--;
 
-			/*botiquin=botiquinList.create(0,0,'botiquin');
-			botiquin.x=player.x + 60;
-		    botiquin.y=player.y;
-		    botiquin.alpha=1;
-		    botiquin.disableBody(false,false);*/
+		
 		}
 
     });
@@ -1062,11 +1083,19 @@ function soltarObjeto(){
 			
 			curaM.cantidad--;
 
-			/*botiquin=botiquinList.create(0,0,'botiquin');
-			botiquin.x=player.x + 60;
-		    botiquin.y=player.y;
-		    botiquin.alpha=1;
-		    botiquin.disableBody(false,false);*/
+		
+		}
+
+    });
+    curaG.on('pointerdown', function (pointer) {
+
+        if (curaG.cantidad>0) {
+			curaG.alpha = 0;
+			cantidadPocionG.alpha=0;
+			
+			curaG.cantidad--;
+
+		
 		}
 
     });
