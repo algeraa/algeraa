@@ -8,7 +8,7 @@
 
   $sql = INSERT INTO public."JUGADORES"
 (usuario, contrasenia, codigo_jugadores)
-VALUES('$usuario', '$cont', 1)"
+VALUES('$usuario', '$cont', 1);
 
     $conec=pg_query($pg_conn, $sql);
     header("Location: ../juego.html");
