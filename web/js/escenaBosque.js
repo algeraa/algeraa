@@ -40,8 +40,8 @@ export default class Bosque extends Phaser.Scene {
 		this.load.image('tiles2', 'assets/images/village-palette01-day.png');
 
 		this.load.image('arbolH', 'assets/sprites/arbol.png');
-		this.load.image('hacha', 'assets/sprites/Hacha.png');
-		this.load.image('tronco', 'assets/sprites/Tronco.png');
+		this.load.image('hacha', 'assets/sprites/hacha.png');
+		this.load.image('tronco', 'assets/sprites/tronco.png');
 		this.load.image('pedestal', 'assets/sprites/pedestal.png');
 		this.load.image('pedestalAct', 'assets/sprites/pedestal_activo.png');
 
