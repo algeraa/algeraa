@@ -8,6 +8,6 @@
 
   $sql = "INSERT INTO `JUGADORES`(`usuario`, `contraseña`, `codigo_jugadores`) VALUES ('$usuario', '$cont', '1')";
     $conec=pg_query($pg_conn, $sql);
-    
+    header("Location: ../juego.html");
     
 ?>
