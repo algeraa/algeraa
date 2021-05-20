@@ -10,6 +10,6 @@
 			Contraseña: <input type="password" name="contra" required=""><br>	
 			<input type="submit" name="Enviar" value="Enviar">
 		</form>
-		<a href="registro.php" type="button">Registrarse</a>
+		<a href="php/registro.php" type="button">Registrarse</a>
 	</body>
 </html>
