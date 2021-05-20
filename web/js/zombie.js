@@ -9,11 +9,13 @@ import * as Cueva from './cueva.js';
 import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 import * as games from './game.js';
+import * as Castillo from './escenaCastillo.js';
 
 
 export function cargarSprites()
 {
 	this.load.image('zombie','assets/sprites/zombi.png');
+	this.load.image('pocionPe','assets/sprites/pocionPequena.png');
 	this.load.image('moneda','assets/sprites/moneda.png');
 }
 
@@ -61,6 +63,25 @@ export function inicio()
 			
 		})
 	}
+	else if(games.escenaActual == 3)
+	{
+		Castillo.spawnZombie.forEach(obj => {
+
+			obj.setAlpha(0);
+
+			zombie= enemigosList.create(obj.x,obj.y,'zombie');
+
+			zombie.setScale(0.03, 0.03);
+			zombie.vida = 5;
+			zombie.distancia = 0;
+			zombie.damage = 1;
+			zombie.damagetimer = 10;
+			zombie.movetimer = 20;
+			zombie.direccion = 0;
+			zombie.flecha = false;
+			
+		})
+	}
 	
 
 	this.physics.add.overlap(personaje.player, enemigosList, personaje.perderVida, null, this);
@@ -77,10 +98,15 @@ function perderVida(s, n) {
 		couldowndamage = 30;
 		if (n.vida <= 0) {
 			var drop = Phaser.Math.Between(1, 2);
-
+			var dropeado;
 			if (drop == 1) {
 				dinero = personaje.monedasList.create(n.x, n.y, 'moneda');
 				dinero.setScale(0.01, 0.01);
+			}
+			else if(drop == 2)
+			{
+				dropeado=personaje.pocionPList.create(n.x,n.y,'pocionPe');
+			
 			}
 			n.destroy();
 		}

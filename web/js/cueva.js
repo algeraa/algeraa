@@ -6,7 +6,7 @@ var ArbolesC;
 
 
 export var cameras;
-export var spawnSkeleton, entradaTaberna, spawnZombie, spawnSpider, spawnKey, spawnVagabundo, volverBosque;
+export var spawnSkeleton, entradaTaberna, spawnZombie, spawnSpider, spawnKey, spawnVagabundo, volverBosque, spawnRoca;
 export var spawn;
 
 
@@ -20,6 +20,7 @@ import * as games from './game.js';
 import * as trampas from './trampas.js';
 import * as zombie from './zombie.js';
 import * as llave from './llave.js';
+import * as vagabundo from './vagabundo.js';
 
 var entrar = 0;
 
@@ -46,12 +47,14 @@ export default class Cueva extends Phaser.Scene {
 		pared.cargarSprites.call(this);
 		zombie.cargarSprites.call(this);
 		llave.cargarSprites.call(this);
+		pared.cargarSprites.call(this);
+		vagabundo.cargarSprites.call(this);
 	}
 
 
 create()
 {
-	console.log("hola");
+	this.scene.sendToBack('Cueva');
 	map = this.make.tilemap({ key: 'mapaC' });
 	var tilesets = map.addTilesetImage('cueva', 'tilesCueva');
 	//var tilesets2 = map.addTilesetImage('taberna', 'tiles2');
@@ -67,6 +70,7 @@ create()
 	spawnSpider = map.createFromObjects('SpawnArana');
 	spawnKey = map.createFromObjects('SpawnLlave');
 	spawnVagabundo = map.createFromObjects('SpawnVagabundo');
+	spawnRoca = map.createFromObjects('SpawnRoca');
 
 	
 
@@ -92,6 +96,8 @@ create()
 	zombie.inicio.call(this);
 	arana.inicio.call(this);
 	llave.inicio.call(this);
+	pared.inicio.call(this);
+	vagabundo.inicio.call(this);
 
 
 	this.physics.add.collider(personaje.player, suelo);
@@ -121,7 +127,6 @@ create()
 		personaje.movimiento.call(this);
 		personaje.inventario.call(this);
 		esqueleto.acciones.call(this);
-		//planta.acciones.call(this);
 		arana.acciones.call(this);
 		personaje.acciones.call(this);
 		zombie.acciones.call(this);

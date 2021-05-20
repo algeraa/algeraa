@@ -1,11 +1,11 @@
 var rocasList;
 var paredes
 
-import * as escenaBosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 import * as aranas from './arana.js';
 import * as esqueleto from './esqueleto.js';
 import * as plantas from './planta.js';
+import * as Cueva from './cueva.js';
 
 
 export function cargarSprites() {
@@ -28,9 +28,12 @@ export function inicio() {
 }
 
 function crearroca() {
-    paredes = rocasList.create(2150, 300, 'roca');
-    paredes.setScale(0.3, 0.3);
-    paredes.setImmovable(true);
+    Cueva.spawnRoca.forEach(obj => {
+        obj.setAlpha(0);
+        paredes = rocasList.create(obj.x, obj.y, 'roca');
+        paredes.setScale(0.15, 0.15);
+        paredes.setImmovable(true);
+	})
 }
 
 function DestruirRoca(s,n) {

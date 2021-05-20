@@ -15,6 +15,7 @@ import * as Bosque from './escenaBosque.js';
 import * as personaje from './personaje.js';
 import * as cueva from './cueva.js';
 import * as games from './game.js';
+import * as escenaCastillo from './escenaCastillo.js';
 export function cargarSprites()
 {
 	this.load.image('arquero','assets/sprites/esqueleto.png');
@@ -116,6 +117,22 @@ export function inicio()
 	}
 		);
 	 }
+	 else if(games.escenaActual == 3)
+	{
+    escenaCastillo.spawnSkeleton.forEach(obj=>{
+
+		obj.setAlpha(0);
+		esqueleto= enemigosList.create(obj.x, obj.y,'arquero');
+		esqueleto.setScale(0.05, 0.05);
+		esqueleto.vida = 5;
+		esqueleto.distancia = 0;
+		esqueleto.EnDisp = 10;
+		esqueleto.setScale(0.05, 0.05);
+
+
+	}
+		);
+	 }
 }
 export function destroyShot(s, n)
 {
@@ -132,31 +149,10 @@ function perderVida(s, n)
 		{
 			var drop = Phaser.Math.Between(4,5);
 			var dropeado;
-			if(drop == 1)
-			{
-				dropeado=personaje.monedasList.create(n.x,n.y,'moneda');
-				dropeado.setScale(0.01,0.01);
-			}
-			else if(drop == 2)
-			{
-				dropeado=personaje.pocionPList.create(n.x,n.y,'pocionPe');
-			
-			}
-			else if(drop == 3)
-			{
-				dropeado=personaje.pocionMList.create(n.x,n.y,'pocionMe');
-			
-			}
-			else if(drop == 4)
-			{
-				dropeado=personaje.pocionGList.create(n.x,n.y,'pocionGr');
-			
-			}
-			else if(drop == 5)
-			{
+		
 				dropeado=personaje.flechasInventario.create(n.x,n.y,'flecha');
 				dropeado.setScale(0.1,0.1);
-			}
+			
 
 
 			n.destroy();

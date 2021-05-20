@@ -33,7 +33,7 @@ var Inventory;
 var KeyZ;
 var pesoFuturo = 0;
 
-var curaP, curaM, curaG, flechaI, bomb, sword, bow;
+export var curaP, curaM, curaG, flechaI, bomb, sword, bow, mon;
 var pedestal_escudo;
 var lg_escudo;
 export var aura;
@@ -46,8 +46,8 @@ var invent=false;
 var inven;
 var time=30;
 var nuevo=true;
-var pesoInventario=15;
-let objetos=['espada','arco','bomba','escudo', 'pocionP', 'pocionM', 'pocionG', 'flechas'];
+export var pesoInventario;
+export let objetos=['espada','arco','bomba','escudo', 'pocionP', 'pocionM', 'pocionG', 'flechas', 'monedas'];
 var escudoActivo=false;
 export var llaveCueva;
 
@@ -67,6 +67,7 @@ export function cargarSprites()
 	this.load.image('invisible','assets/sprites/invisible.png');
 	this.load.spritesheet('explosionE', 'assets/sprites/ExplosionE.png',{frameWidth:64, frameHeight:64});
 	this.load.spritesheet('playerAnim', 'assets/sprites/jugador.png',{frameWidth:24, frameHeight:26});
+	this.load.image('moneda','assets/sprites/moneda.png');
 }
 
 export function cargarInventario(){
@@ -89,7 +90,7 @@ export function cargarInventario(){
 
 export function createP()
 {
-	
+	pesoInventario = games.pesoInvent;
 	pocionSelect = 1;
 	monedasList = this.physics.add.group();
 	flechasInventario = this.physics.add.group();
@@ -146,16 +147,7 @@ export function createP()
 			
 		})
 	}
-	/*else if(Bosque.escenaActual == 2)
-	{
-		escenaCastillo.spawn.forEach(obj=>{
-
-			obj.setAlpha(0);
-			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
-			player.play("idle", true);
-			
-		})
-	}*/
+	
 	else if (games.escenaActual == 2)
 	{
 		cueva.spawn.forEach(obj=>{
@@ -163,6 +155,7 @@ export function createP()
 			obj.setAlpha(0);
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
+			
 			
 		})
 	}
@@ -174,12 +167,34 @@ export function createP()
 			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
 			player.play("idle", true);
 			
+			
+		})
+	}
+	else if (games.escenaActual == 1 && games.escenaPasada == 3)
+	{
+		Bosque.volverdeCastillo.forEach(obj=>{
+
+			obj.setAlpha(0);
+			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
+			player.play("idle", true);
+			
+		})
+	}
+	else if(games.escenaActual == 3)
+	{
+		escenaCastillo.spawn.forEach(obj=>{
+
+			obj.setAlpha(0);
+			player=this.physics.add.sprite(obj.x,obj.y,'playerAnim').setDepth(2);
+			player.play("idle", true);
+		
+			
 		})
 	}
 	if(games.escenaPasada == 0)
 	{
 		player.hachaR = false;
-		llaveCueva = false;
+		llaveCueva = true;
 	}
 	else
 	{
@@ -203,18 +218,18 @@ export function createP()
 	player.setCollideWorldBounds(true);
 	this.cameras.main.startFollow(player, true, 0.1, 0.1);
 	player.direccion = 0;
-	vida = 10;
+	vida = games.vidaPer;
 
 	arma=this.physics.add.sprite(0,0,'espada');
 	arma.visible = false;
 	arma.setOrigin(0, 0.5);
 	arma.setScale(0.1,0.1);
 	arma.body.enable = false;
-	arma.damage = 1;
+	arma.damage = 3;
 	arma.allowRotation = true;
 	flechasList = this.physics.add.group();
 	arma.flecha = false;
-	player.dinero = 0;
+
 	bombas=this.physics.add.sprite(player.x, player.y, 'bomba');
 	bombas.visible = false;
 	bombas.body.enable = false;
@@ -235,8 +250,8 @@ export function createP()
 
 	player.couldownDamage = 100;
 	
-	player.tienellave = false;
-
+	player.tienellave = games.llaveCastillo;
+	////console.log(games.FlechaC)
 }
 export function recogerHacha()
 {
@@ -273,39 +288,38 @@ export function crearInventario(){
 	bomb.setOrigin(0.5,0.5);
 	bomb.setScale(0.07,0.07);
 	bomb.peso=2;
-	bomb.cantidad=0;
+	bomb.cantidad= games.BombasC;
 	bomb.alpha = 0;
 
 	curaP=this.add.sprite(0,0,'pocionPe').setInteractive();
 	curaP.setOrigin(0.5,0.5);
 	curaP.peso=2;
-	curaP.cantidad=0;
+	curaP.cantidad= games.curaPC;
 	curaP.alpha = 0;
 
 	curaM=this.add.sprite(0,0,'pocionMe').setInteractive();
 	curaM.setOrigin(0.5,0.5);
 	curaM.peso=3;
-	curaM.cantidad=0;
+	curaM.cantidad= games.curaMC;
 	curaM.alpha = 0;
 
 	curaG=this.add.sprite(0,0,'pocionGr').setInteractive();
 	curaG.setOrigin(0.5,0.5);
 	curaG.peso=4;
-	curaG.cantidad=0;
-	curaG.alpha = 0;
-
-	curaG=this.add.sprite(0,0,'pocionGr').setInteractive();
-	curaG.setOrigin(0.5,0.5);
-	curaG.peso=4;
-	curaG.cantidad=0;
+	curaG.cantidad= games.curaGC;
 	curaG.alpha = 0;
 
 	flechaI=this.add.sprite(0,0,'flecha').setInteractive();
 	flechaI.setOrigin(0.5,0.5);
 	flechaI.peso=1;
-	flechaI.cantidad=0;
+	flechaI.cantidad= games.FlechasC;
 	flechaI.alpha = 0;
 
+	mon=this.add.sprite(0,0,'moneda').setInteractive();
+	mon.setOrigin(0.5,0.5);
+	mon.peso=0;
+	mon.cantidad= games.dineroC;
+	mon.alpha = 0;
 
 	
 	this.physics.add.overlap(escudoList,player,cogerEscudo,null,this);
@@ -327,11 +341,12 @@ export function crearInventario(){
 
 export function recogerDinero(n, s)
 {
-	player.dinero = player.dinero + 1;
-	console.log("dinero = "+player.dinero)
+	mon.cantidad++;
+
 
 	s.destroy();
 }
+
 export function cuevaDesbloqueada()
 {
 	llaveCueva = true;
@@ -576,6 +591,17 @@ function morir()
 	})
 		vida = 10;
 	}
+	if(vida <= 0 && games.escenaActual == 3)
+	{
+		escenaCastillo.spawn.forEach(obj=>{
+
+		
+		player.x=obj.x;
+		player.y=obj.y;
+		
+	})
+		vida = 10;
+	}
 }
 function disparar()
 {
@@ -647,12 +673,14 @@ function movDisparos()
 
 function Bombs(){
 	couldownBombs = couldownBombs -1;
-	if(explosion.isDown && couldownBombs <= 0){
+	if(explosion.isDown && couldownBombs <= 0 && bomb.cantidad > 0){
 		bombas.x = player.x;
 		bombas.y = player.y;
 		bombas.visible = true;
 		this.time.delayedCall(1000, explosao, [], this);
 		couldownBombs = 100;
+		bomb.cantidad--;
+		pesoInventario+=bomb.peso;
 	}
 }
 
@@ -688,6 +716,21 @@ function cogerPocionP(e,s){
 	}
 
 }
+
+export function cogerBombs(){
+
+	
+	pesoFuturo = pesoInventario - bomb.peso;
+
+	if (pesoFuturo>=0){
+		
+		bomb.cantidad++;
+		pesoInventario-=bomb.peso;
+		
+	}
+
+}
+
 function cogerPocionM(e,s){
 
 	pesoFuturo = pesoInventario - curaM.peso;
@@ -730,8 +773,8 @@ function cogerFlecha(e,s){
 	}
 
 }
-function cogerEscudo(e,s){
-
+export function cogerEscudo(e,s){
+	console.log("Recoger escudo")
 	pesoFuturo = pesoInventario - lg_escudo.peso;
 
 	if (pesoFuturo>=0){
@@ -758,6 +801,7 @@ var cantidadPocionM;
 var cantidadPocionG;
 var cantidadEscudo;
 var cantidadflechas;
+var cantidadmonedas;
 var posYObjetos=160;
 
 export function inventario(){
@@ -768,7 +812,7 @@ export function inventario(){
 
 		invent=true;
 		time=30;
-
+		console.log("peso="+pesoInventario);
 		inven=this.add.sprite(0,0,'inventario');
 		inven.setOrigin(0.5,0.5);
 		inven.setScale(0.5,0.5);
@@ -776,19 +820,40 @@ export function inventario(){
 		inven.y=Bosque.cameras.scrollY+300;
 		inven.setDepth(3);
 
+		if(games.escenaActual == 1){
+
+			inven.x=Bosque.cameras.scrollX+400;
+			inven.y=Bosque.cameras.scrollY+300;
+			inven.setDepth(5);
+
+		}else if(games.escenaActual==2){
+
+			inven.x=cueva.cameras.scrollX+400;
+			inven.y=cueva.cameras.scrollY+300;
+			inven.setDepth(5);
+			
+		}
+		else if(games.escenaActual==3){
+
+			inven.x=escenaCastillo.cameras.scrollX+400;
+			inven.y=escenaCastillo.cameras.scrollY+300;
+			inven.setDepth(5);
+			
+		}
+
 		player.setVelocityX(0);
 		player.setVelocityY(0);
 
 
 		for (var i = 0; i<objetos.length; i++) {
 			
-			console.log(objetos[i]);
+
 
 			if(objetos[i]=='espada' && sword.cantidad>0){
 				
 				sword.x=inven.x-190;
 				sword.y=inven.y+posYObjetos;
-				sword.setDepth(4);
+				sword.setDepth(6);
 				sword.alpha = 1;
 						
 			}
@@ -797,7 +862,7 @@ export function inventario(){
 
 				bow.x=inven.x-145;
 				bow.y=inven.y+posYObjetos;
-				bow.setDepth(4);
+				bow.setDepth(6);
 				bow.alpha = 1;
 				
 			}
@@ -806,10 +871,10 @@ export function inventario(){
 
 				bomb.x=inven.x-100;
 				bomb.y=inven.y+posYObjetos;
-				bomb.setDepth(4);
+				bomb.setDepth(6);
 				bomb.alpha = 1;
 				cantidadBomba=this.add.text(bomb.x+10,bomb.y+8,bomb.cantidad,{fontsize:'32px',fill:'#000000'});
-				cantidadBomba.setDepth(2);
+				cantidadBomba.setDepth(7);
 				
 			}
 
@@ -817,30 +882,30 @@ export function inventario(){
 
 				curaP.x=inven.x-55;
 				curaP.y=inven.y+posYObjetos;
-				curaP.setDepth(4);
+				curaP.setDepth(6);
 				curaP.alpha = 1;
 				cantidadPocionP=this.add.text(curaP.x+10,curaP.y+8,curaP.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadPocionP.setDepth(4);
+				cantidadPocionP.setDepth(7);
 				
 			}
 			if(objetos[i]=='pocionM' && curaM.cantidad>0){
 
 				curaM.x=inven.x+35;
 				curaM.y=inven.y+posYObjetos;
-				curaM.setDepth(4);
+				curaM.setDepth(6);
 				curaM.alpha = 1;
 				cantidadPocionM=this.add.text(curaM.x+10,curaM.y+8,curaM.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadPocionM.setDepth(4);
+				cantidadPocionM.setDepth(7);
 				
 			}
 			if(objetos[i]=='pocionG' && curaG.cantidad>0){
 
 				curaG.x=inven.x+80;
 				curaG.y=inven.y+posYObjetos;
-				curaG.setDepth(4);
+				curaG.setDepth(6);
 				curaG.alpha = 1;
 				cantidadPocionG=this.add.text(curaG.x+10,curaG.y+8,curaG.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadPocionG.setDepth(4);
+				cantidadPocionG.setDepth(7);
 				
 			}
 
@@ -848,11 +913,11 @@ export function inventario(){
 
 				flechaI.x=inven.x+125;
 				flechaI.y=inven.y+posYObjetos;
-				flechaI.setDepth(4);
+				flechaI.setDepth(6);
 				flechaI.setScale(0.1,0.1);
 				flechaI.alpha = 1;
 				cantidadflechas=this.add.text(flechaI.x+10,flechaI.y+8,flechaI.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadflechas.setDepth(4);
+				cantidadflechas.setDepth(7);
 				
 			}
 
@@ -860,10 +925,21 @@ export function inventario(){
 
 				lg_escudo.x=inven.x-10;
 				lg_escudo.y=inven.y+posYObjetos;
-				lg_escudo.setDepth(4);
+				lg_escudo.setDepth(6);
 				lg_escudo.alpha = 1;
 				cantidadEscudo=this.add.text(lg_escudo.x+10,lg_escudo.y+8,lg_escudo.cantidad,{fontsize:'40px',fill:'#000000'});
-				cantidadEscudo.setDepth(2);
+				cantidadEscudo.setDepth(7);
+				
+			}
+			if(objetos[i]=='monedas' && mon.cantidad>0){
+
+				mon.x=inven.x+170;
+				mon.y=inven.y+posYObjetos;
+				mon.setDepth(6);
+				mon.alpha = 1;
+				mon.setScale(0.01,0.01);
+				cantidadmonedas=this.add.text(mon.x+10,mon.y+8,mon.cantidad,{fontsize:'40px',fill:'#000000'});
+				cantidadmonedas.setDepth(7);
 				
 			}
 
@@ -934,6 +1010,13 @@ export function inventario(){
 					cantidadEscudo.alpha=0;
 				}
 			}
+			if(objetos[i]=='monedas'){
+				mon.alpha = 0;
+
+				if(mon.cantidad>0){
+					cantidadmonedas.alpha=0;
+				}
+			}
 
 		}
 
@@ -988,11 +1071,7 @@ function soltarObjeto(){
 			
 			curaP.cantidad--;
 
-			/*botiquin=botiquinList.create(0,0,'botiquin');
-			botiquin.x=player.x + 60;
-		    botiquin.y=player.y;
-		    botiquin.alpha=1;
-		    botiquin.disableBody(false,false);*/
+		
 		}
 
     });
@@ -1004,11 +1083,19 @@ function soltarObjeto(){
 			
 			curaM.cantidad--;
 
-			/*botiquin=botiquinList.create(0,0,'botiquin');
-			botiquin.x=player.x + 60;
-		    botiquin.y=player.y;
-		    botiquin.alpha=1;
-		    botiquin.disableBody(false,false);*/
+		
+		}
+
+    });
+    curaG.on('pointerdown', function (pointer) {
+
+        if (curaG.cantidad>0) {
+			curaG.alpha = 0;
+			cantidadPocionG.alpha=0;
+			
+			curaG.cantidad--;
+
+		
 		}
 
     });

@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"mapa.json"
+         "target":"..\/..\/..\/algeraa-main\/assets\/images\/mapa.json"
         }
     },
  "height":113,
@@ -167,6 +167,65 @@
                  "width":0,
                  "x":1497,
                  "y":842
+                }, 
+                {
+                 "height":0,
+                 "id":58,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":2099,
+                 "y":116
+                }, 
+                {
+                 "height":0,
+                 "id":59,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":557,
+                 "y":138
+                }, 
+                {
+                 "height":0,
+                 "id":60,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":872,
+                 "y":1004
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":26,
+         "name":"volverCas",
+         "objects":[
+                {
+                 "height":0,
+                 "id":57,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1215,
+                 "y":81
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -264,18 +323,6 @@
                 }, 
                 {
                  "height":0,
-                 "id":38,
-                 "name":"zombi",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":2078,
-                 "y":94
-                }, 
-                {
-                 "height":0,
                  "id":39,
                  "name":"zombi",
                  "point":true,
@@ -285,18 +332,6 @@
                  "width":0,
                  "x":1946,
                  "y":171
-                }, 
-                {
-                 "height":0,
-                 "id":40,
-                 "name":"zombi",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":628,
-                 "y":125
                 }, 
                 {
                  "height":0,
@@ -435,21 +470,10 @@
          "draworder":"topdown",
          "id":18,
          "name":"taberna",
-         "objects":[
-                {
-                 "height":0,
-                 "id":15,
-                 "name":"entrada",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":655.818,
-                 "y":1082
-                }],
+         "objects":[],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -538,8 +562,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":26,
- "nextobjectid":57,
+ "nextlayerid":27,
+ "nextobjectid":61,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.5.0",
