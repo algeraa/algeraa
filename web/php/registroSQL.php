@@ -9,7 +9,7 @@ $pg_conn = pg_connect(pg_connection_string_from_database_url());
   $cont = $_POST['contra'];
   $contCon = $_POST['contraCon'];
 
-  $sql = "INSERT INTO JUGADORES public. (usuario, contrasenia, codigo_jugadores) VALUES ('$usuario', '$cont', 1)";
+  $sql = "INSERT INTO public.JUGADORES  (usuario, contrasenia, codigo_jugadores) VALUES ('$usuario', '$cont', 1)";
 
     $conec=pg_query($pg_conn, $sql);
     header("Location: ../juego.html");
