@@ -6,7 +6,7 @@ function pg_connection_string_from_database_url() {
 
 $pg_conn = pg_connect(pg_connection_string_from_database_url());
   $usuario = $_POST['user'];
- // console.log($usuario);
+ echo "".$usuario."" ;
   $cont = $_POST['contra'];
   $contCon = $_POST['contraCon'];
 
