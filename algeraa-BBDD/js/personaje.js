@@ -58,6 +58,24 @@ import * as escenaCastillo from './escenaCastillo.js';
 import * as cueva from './cueva.js';
 import * as games from './game.js';
 
+function objetoAjax(){
+	var xmlhttp=false;
+	try {
+		xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	} catch (e) {
+ 
+		try {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} catch (E) {
+			xmlhttp = false;
+		}
+	}
+	if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+	  xmlhttp = new XMLHttpRequest();
+	}
+	return xmlhttp;
+}
+
 export function cargarSprites()
 {
 	//this.load.image('player', 'assets/sprites/personaje.png');
@@ -253,6 +271,30 @@ export function createP()
 	player.tienellave = games.llaveCastillo;
 	////console.log(games.FlechaC)
 }
+
+/*export function pruebaAjax(c,id){
+
+	var parrafo = document.getElementById('usuarioActual');
+	var contenido = parrafo.innerHTML;
+	console.log(contenido);
+
+	var ajax2=objetoAjax();
+	ajax2.open("_GET", "./php/prueba.php?user="+id,true);
+
+	ajax2.onreadystatechange=function() {
+		if (ajax2.readyState==4 && ajax2.status==200) {
+			var respuesta2=JSON.parse(this.responseText);
+
+			alert(this.responseText);
+			//alert(respuesta2[0].usuario);
+		}
+	}
+
+	//ajax2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	ajax2.send();
+}*/
+
+
 export function recogerHacha()
 {
 	if(hacha.isDown && player.hachaR == false)
