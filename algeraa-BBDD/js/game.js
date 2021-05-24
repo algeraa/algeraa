@@ -24,16 +24,17 @@ var config=
 var game=new Phaser.Game(config);
 export var escenaActual = 1;
 export var escenaPasada = 0;
-export var FlechasC = 0;
+export var FlechasC = parseInt(localStorage.getItem("cantidadFlechas"),10);
 export var BombasC = parseInt(localStorage.getItem("cantidadBomb"),10); 
-export var curaPC = 0;
-export var curaMC = 0;
-export var curaGC = 0;
-export var dineroC = 0;
+export var curaPC = parseInt(localStorage.getItem("cantidadPocionP"),10);
+export var curaMC = parseInt(localStorage.getItem("cantidadPocionM"),10);
+export var curaGC = parseInt(localStorage.getItem("cantidadPocionG"),10);
+export var dineroC = parseInt(localStorage.getItem("cantidadDinero"),10);
 export var llaveCastillo = false;
+export var llaveCueva = false;
 export var pesoInvent = 15;
 export var vidaPer = 10;
-
+export var hachaRecogida = false;
 
 
 
@@ -89,6 +90,8 @@ function guardInventario()
 	llaveCastillo = personaje.player.tienellave;
 	pesoInvent = personaje.pesoInventario;
 	vidaPer = personaje.vida;
+	llaveCueva = personaje.player.cueva;
+	hachaRecogida = personaje.player.hachaR;
 	
 	console.log("pesoInventario="+personaje.pesoInventario)
 	console.log("pesoInvent="+pesoInvent);

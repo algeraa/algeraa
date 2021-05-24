@@ -23,7 +23,7 @@ include 'conexion.php';
 		$sql = "INSERT INTO `jugadores`(`contrasenia`, `usuario`) VALUES ('$encript', '$usuario')";
 		echo $sql;
 		$conec=mysqli_query($conn, $sql);
-   		header("Location: ../juego.php");
+   		header("Location: ../juego.html");
     
 	}
 	else

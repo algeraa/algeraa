@@ -209,16 +209,10 @@ export function createP()
 			
 		})
 	}
-	if(games.escenaPasada == 0)
-	{
-		player.hachaR = false;
-		llaveCueva = true;
-	}
-	else
-	{
-		player.hachaR = true;
-		llaveCueva = true;
-	}
+	
+		player.hachaR = games.hachaRecogida;
+		player.cueva = games.llaveCueva;
+	
 	
 	escala.call(this);
 

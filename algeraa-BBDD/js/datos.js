@@ -9,24 +9,28 @@ export default function login(u,c){
 
 	ajax2.onreadystatechange=function() {
 		if (ajax2.readyState==4 && ajax2.status==200) {
+			if(this.responseText == "No encontrado")
+			{
+				alert("Error");
+				document.location="index.html";
+			}
 
 			var respuesta2=JSON.parse(this.responseText);
 
 			miStorage = window.localStorage;
 
 			miStorage.setItem('cantidadBomb',respuesta2[0].cantidad);
-			//miStorage.setItem('contraseniaJu',respuesta2[0].contrasenia);
-			//miStorage.setItem('usuarioJu',respuesta2[0].usuario);
-			//miStorage.setItem(respuesta2[0].codigo_jugadores,respuesta2[0].contrasenia);
-			//miStorage.setItem(respuesta2[0].contrasenia,respuesta2[0].usuario);
-			//var f =miStorage.getItem('codigoJu');
-			//alert(miStorage.getItem('usuarioJu'));
-
+			miStorage.setItem('cantidadFlechas',respuesta2[1].cantidad);
+			miStorage.setItem('cantidadPocionP',respuesta2[2].cantidad);
+			miStorage.setItem('cantidadPocionM',respuesta2[3].cantidad);
+			miStorage.setItem('cantidadPocionG',respuesta2[4].cantidad);
+			miStorage.setItem('cantidadDinero',respuesta2[5].cantidad);
+			
 			document.location="juego.html";
-			//alert(miStorage.getItem('cantidadBomb'));
+			
 		}
 	}
 
-	//ajax2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
 	ajax2.send();
 }

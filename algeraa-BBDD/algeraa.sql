@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2021 a las 13:55:10
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 7.3.2
+-- Tiempo de generación: 24-05-2021 a las 22:43:01
+-- Versión del servidor: 10.4.14-MariaDB
+-- Versión de PHP: 7.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -41,7 +40,7 @@ CREATE TABLE `inventario` (
 --
 
 INSERT INTO `inventario` (`codigo_inventario`, `peso`, `id_jugadores`) VALUES
-(1, 2, 7);
+(1, 9, 7);
 
 -- --------------------------------------------------------
 
@@ -65,7 +64,9 @@ INSERT INTO `jugadores` (`codigo_jugadores`, `contrasenia`, `usuario`) VALUES
 (3, '123', 'pepe'),
 (4, '125', 'amuno'),
 (5, '202cb962ac59075b964b', 'aaronix'),
-(7, '202cb962ac59075b964b07152d234b70', 'eustakio222');
+(7, '202cb962ac59075b964b07152d234b70', 'eustakio222'),
+(8, 'a08372b70196c21a9229cf04db6b7ceb', 'Alex'),
+(9, '6c8349cc7260ae62e3b1396831a8398f', 'hola');
 
 -- --------------------------------------------------------
 
@@ -84,7 +85,12 @@ CREATE TABLE `objetos` (
 --
 
 INSERT INTO `objetos` (`codigo_objetos`, `peso`, `nombre`) VALUES
-(1, 2, 'bombas');
+(1, 2, 'bombas'),
+(2, 1, 'flechas'),
+(3, 2, 'pocionP'),
+(4, 3, 'pocionM'),
+(5, 4, 'pocionG'),
+(6, 0, 'dinero');
 
 -- --------------------------------------------------------
 
@@ -103,7 +109,12 @@ CREATE TABLE `posesion` (
 --
 
 INSERT INTO `posesion` (`id_objetos`, `id_inventario`, `cantidad`) VALUES
-(1, 1, 1);
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 1),
+(4, 1, 1),
+(5, 1, 1),
+(6, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -174,13 +185,13 @@ ALTER TABLE `inventario`
 -- AUTO_INCREMENT de la tabla `jugadores`
 --
 ALTER TABLE `jugadores`
-  MODIFY `codigo_jugadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codigo_jugadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `objetos`
 --
 ALTER TABLE `objetos`
-  MODIFY `codigo_objetos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `codigo_objetos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `progreso`

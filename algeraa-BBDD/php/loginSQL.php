@@ -15,7 +15,7 @@ WHERE ju.usuario = '$usuario' AND ju.contrasenia = '$encript'";
     $conec=mysqli_query($conn, $sql);
     //echo $sql;
 
- if(!empty($conec) && mysqli_num_rows($conec) == 1)
+ if(!empty($conec) && mysqli_num_rows($conec) == 6)
  {
  	//$a=mysqli_fetch_object($conec);
 
@@ -31,10 +31,10 @@ WHERE ju.usuario = '$usuario' AND ju.contrasenia = '$encript'";
  }
 
 
-/*else
+else
 {
-	header("Location: ../index.html?error=1");
-}*/
+	echo "No encontrado";
+}
 
 
 ?>
