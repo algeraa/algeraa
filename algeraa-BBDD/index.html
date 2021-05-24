@@ -1,15 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8'/>	
-	<script type="text/javascript" src="phaser/dist/phaser.min.js"></script>
-	
+	<head>
+		<meta charset='utf-8'/>	
+		<title>Login</title>
+		<script type="text/javascript" src="phaser/dist/phaser.min.js"></script>
 
-</head>
-<body>
- 
+		
+	</head>
+	<body>
 
-	<script type="module" src="js/game.js"></script>
-	
-</body>
+		Usuario: <input type="text" name="user" id="user" required=""><br>
+		Contraseña: <input type="password" name="contra" id="contra" required=""><br>	
+		<br/>	
+		<button name="Enviar" value="Enviar" id="Enviar">Enviar</button>
+		<br/>	
+
+		<a href="php/registro.php" type="button">Registrarse</a>
+
+		<script type="module">
+
+		import login from './js/datos.js';
+
+		document.getElementById('Enviar').addEventListener("click", function(){llamada()});
+
+		
+			
+		
+		function llamada(){
+
+			var nombreUser = document.getElementById('user').value;
+			var contraUser = document.getElementById('contra').value;
+			login(nombreUser,contraUser);
+		}
+
+		
+			
+
+		</script>
+		
+	</body>
 </html>
