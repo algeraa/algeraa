@@ -2,7 +2,7 @@ var escalaEnemy = 0.4;
 var escapaDisparo = 0.05;
 export let player;
 
-var UP, DOWN, RIGHT, LEFT;
+var UP, DOWN, RIGHT, LEFT, SAVE;
 var pocionSelect;
 var pocion, cPocion;
 
@@ -220,6 +220,7 @@ export function createP()
 	DOWN=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 	RIGHT=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 	LEFT=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+	SAVE=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
 	cPocion=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 	pocion=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 	ataque=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
@@ -354,7 +355,7 @@ export function crearInventario(){
 	mon=this.add.sprite(0,0,'moneda').setInteractive();
 	mon.setOrigin(0.5,0.5);
 	mon.peso=0;
-	mon.cantidad= games.dineroC;
+	mon.cantidad= games.DineroC;
 	mon.alpha = 0;
 
 	
@@ -488,6 +489,14 @@ export function acciones()
 	disparar.call(this);
 	Bombs.call(this);
 	player.couldownDamage--;
+	guardar.call(this);
+}
+function guardar()
+{
+	if(SAVE.isDown)
+	{
+		games.guardar.call(this);
+	}
 }
 function cambioP()
 {

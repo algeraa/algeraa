@@ -14,12 +14,38 @@ var config=
 		physics:{
 			default:'arcade',
 			arcade:{
-				debug: true,
+				debug: false,
 				gravity:{y:0}
 			}
 		},
 		scene: [Bosque, HUD, Castillo, Cueva]
 };
+
+
+export function guardar()
+{
+	guardInventario.call(this);
+	var user = localStorage.getItem("nUsuario");
+	var inventory = localStorage.getItem("cIventario");
+	var xhr=new XMLHttpRequest();	
+
+
+	xhr.open("POST", "http://localhost/algeraa-BBDD/php/guardado.php",true);
+
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	xhr.onreadystatechange=function() {
+		if (xhr.readyState==4 && xhr.status==200) {
+
+			var respuesta2=JSON.parse(this.responseText);
+			alert(respuesta2);
+		}
+	}
+
+
+	xhr.send("flechasC="+FlechasC+"&bombasC="+BombasC+"&curaP="+curaPC+"&curaM="+curaMC+"&curaG="+curaGC+"&dineroC="+DineroC+"&usuario="+user+"&idInvent="+inventory);
+
+}
 
 var game=new Phaser.Game(config);
 export var escenaActual = 1;
@@ -29,7 +55,7 @@ export var BombasC = parseInt(localStorage.getItem("cantidadBomb"),10);
 export var curaPC = parseInt(localStorage.getItem("cantidadPocionP"),10);
 export var curaMC = parseInt(localStorage.getItem("cantidadPocionM"),10);
 export var curaGC = parseInt(localStorage.getItem("cantidadPocionG"),10);
-export var dineroC = parseInt(localStorage.getItem("cantidadDinero"),10);
+export var DineroC = parseInt(localStorage.getItem("cantidadDinero"),10);
 export var llaveCastillo = false;
 export var llaveCueva = false;
 export var pesoInvent = 15;
@@ -86,7 +112,7 @@ function guardInventario()
 	curaPC = personaje.curaP.cantidad;
 	curaMC = personaje.curaM.cantidad;
 	curaGC = personaje.curaG.cantidad;
-	dineroC = personaje.mon.cantidad;
+	DineroC = personaje.mon.cantidad;
 	llaveCastillo = personaje.player.tienellave;
 	pesoInvent = personaje.pesoInventario;
 	vidaPer = personaje.vida;

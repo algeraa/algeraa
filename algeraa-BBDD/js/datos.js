@@ -25,6 +25,8 @@ export default function login(u,c){
 			miStorage.setItem('cantidadPocionM',respuesta2[3].cantidad);
 			miStorage.setItem('cantidadPocionG',respuesta2[4].cantidad);
 			miStorage.setItem('cantidadDinero',respuesta2[5].cantidad);
+			miStorage.setItem('nUsuario',respuesta2[0].usuario);
+			miStorage.setItem('cIventario',respuesta2[0].codigo_inventario);
 			
 			document.location="juego.html";
 			

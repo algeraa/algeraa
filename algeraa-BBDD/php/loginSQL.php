@@ -4,7 +4,7 @@ include'conexion.php';
 $usuario = $_GET['user'];
 $cont = $_GET['contra'];
 $encript = md5($cont);
-$sql = "SELECT cantidad FROM jugadores ju
+$sql = "SELECT cantidad, ju.usuario, inv.codigo_inventario FROM jugadores ju
 INNER JOIN inventario inv ON ju.codigo_jugadores=inv.id_jugadores
 INNER JOIN posesion pos ON inv.codigo_inventario=pos.id_inventario
 INNER JOIN objetos obj ON pos.id_objetos=obj.codigo_objetos
