@@ -14,7 +14,6 @@ import * as personaje from './personaje.js';
 import * as planta from './planta.js';
 import * as arana from './arana.js';
 import * as pared from './pared.js';
-import prueba from './pruebaCambio.js';
 import * as trampas from './trampas.js';
 import * as zombie from './zombie.js';
 
@@ -136,6 +135,7 @@ create()
     this.physics.world.setBounds(0, 0, 800 * 3, 600 * 3);
     console.log("adios");
 	personaje.createP.call(this);
+	//personaje.pruebaAjax.call(this,5);
 
 	personaje.crearInventario.call(this);
 	esqueleto.inicio.call(this);

@@ -15,7 +15,6 @@ import * as personaje from './personaje.js';
 import * as planta from './planta.js';
 import * as arana from './arana.js';
 import * as pared from './pared.js';
-import prueba from './pruebaCambio.js';
 import * as games from './game.js';
 import * as trampas from './trampas.js';
 import * as zombie from './zombie.js';

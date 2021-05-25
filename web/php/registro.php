@@ -11,6 +11,16 @@
 			Confirmar contraseña: <input type="password" name="contraCon" required=""><br>
 			<input type="submit" name="Registrar" value="Registrar">
 		</form>
+
+		<?php 
+		if(isset($_REQUEST['error'])){
+			echo "<p>Las contraseñas tienen que coincidir</p>";
+		}
+		else if(isset($_REQUEST['repetido'])){
+			echo "<p>Este usuario ya existe</p>";
+	}
+
+		?>
 	
 	</body>
 </html>

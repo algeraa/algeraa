@@ -2,7 +2,7 @@ var escalaEnemy = 0.4;
 var escapaDisparo = 0.05;
 export let player;
 
-var UP, DOWN, RIGHT, LEFT;
+var UP, DOWN, RIGHT, LEFT, SAVE;
 var pocionSelect;
 var pocion, cPocion;
 
@@ -57,6 +57,24 @@ import * as Bosque from './escenaBosque.js';
 import * as escenaCastillo from './escenaCastillo.js';
 import * as cueva from './cueva.js';
 import * as games from './game.js';
+
+function objetoAjax(){
+	var xmlhttp=false;
+	try {
+		xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+	} catch (e) {
+ 
+		try {
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		} catch (E) {
+			xmlhttp = false;
+		}
+	}
+	if (!xmlhttp && typeof XMLHttpRequest!='undefined') {
+	  xmlhttp = new XMLHttpRequest();
+	}
+	return xmlhttp;
+}
 
 export function cargarSprites()
 {
@@ -191,16 +209,10 @@ export function createP()
 			
 		})
 	}
-	if(games.escenaPasada == 0)
-	{
-		player.hachaR = false;
-		llaveCueva = true;
-	}
-	else
-	{
-		player.hachaR = true;
-		llaveCueva = true;
-	}
+	
+		player.hachaR = games.hachaRecogida;
+		player.cueva = games.llaveCueva;
+	
 	
 	escala.call(this);
 
@@ -208,6 +220,7 @@ export function createP()
 	DOWN=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 	RIGHT=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
 	LEFT=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+	SAVE=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.G);
 	cPocion=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.C);
 	pocion=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 	ataque=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.E);
@@ -253,6 +266,30 @@ export function createP()
 	player.tienellave = games.llaveCastillo;
 	////console.log(games.FlechaC)
 }
+
+/*export function pruebaAjax(c,id){
+
+	var parrafo = document.getElementById('usuarioActual');
+	var contenido = parrafo.innerHTML;
+	console.log(contenido);
+
+	var ajax2=objetoAjax();
+	ajax2.open("_GET", "./php/prueba.php?user="+id,true);
+
+	ajax2.onreadystatechange=function() {
+		if (ajax2.readyState==4 && ajax2.status==200) {
+			var respuesta2=JSON.parse(this.responseText);
+
+			alert(this.responseText);
+			//alert(respuesta2[0].usuario);
+		}
+	}
+
+	//ajax2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+	ajax2.send();
+}*/
+
+
 export function recogerHacha()
 {
 	if(hacha.isDown && player.hachaR == false)
@@ -318,7 +355,7 @@ export function crearInventario(){
 	mon=this.add.sprite(0,0,'moneda').setInteractive();
 	mon.setOrigin(0.5,0.5);
 	mon.peso=0;
-	mon.cantidad= games.dineroC;
+	mon.cantidad= games.DineroC;
 	mon.alpha = 0;
 
 	
@@ -452,6 +489,14 @@ export function acciones()
 	disparar.call(this);
 	Bombs.call(this);
 	player.couldownDamage--;
+	guardar.call(this);
+}
+function guardar()
+{
+	if(SAVE.isDown)
+	{
+		games.guardar.call(this);
+	}
 }
 function cambioP()
 {

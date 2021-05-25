@@ -1,10 +1,10 @@
 
 import Bosque from './escenaBosque.js';
-import prueba from './pruebaCambio.js';
 import HUD from './HUD.js'
 import Castillo from './escenaCastillo.js';
 import Cueva from './cueva.js';
 import * as personaje from './personaje.js';
+import * as datos from './datos.js';
 
 var config=
 {
@@ -14,25 +14,52 @@ var config=
 		physics:{
 			default:'arcade',
 			arcade:{
-				debug: true,
+				debug: false,
 				gravity:{y:0}
 			}
 		},
-		scene: [Bosque, prueba, HUD, Castillo, Cueva]
+		scene: [Bosque, HUD, Castillo, Cueva]
 };
+
+
+export function guardar()
+{
+	guardInventario.call(this);
+	var user = localStorage.getItem("nUsuario");
+
+	var ajax2=new XMLHttpRequest();	
+	
+
+	ajax2.open("GET", "http://localhost/algeraa-BBDD/php/guardado.php?flechasC="+FlechasC+"&bombasC="+BombasC+"&curaP="+curaPC+"&curaM="+curaMC+"&curaG="+curaGC+"&dineroC="+DineroC+"&usuario="+user,true);
+
+	ajax2.onreadystatechange=function() {
+		if (ajax2.readyState==4 && ajax2.status==200) {
+
+	
+		}
+	}
+
+
+	ajax2.send();
+
+}
 
 var game=new Phaser.Game(config);
 export var escenaActual = 1;
 export var escenaPasada = 0;
-export var FlechasC = 0;
-export var BombasC = 0;
-export var curaPC = 0;
-export var curaMC = 0;
-export var curaGC = 0;
-export var dineroC = 0;
+export var FlechasC = parseInt(localStorage.getItem("cantidadFlechas"),10);
+export var BombasC = parseInt(localStorage.getItem("cantidadBomb"),10); 
+export var curaPC = parseInt(localStorage.getItem("cantidadPocionP"),10);
+export var curaMC = parseInt(localStorage.getItem("cantidadPocionM"),10);
+export var curaGC = parseInt(localStorage.getItem("cantidadPocionG"),10);
+export var DineroC = parseInt(localStorage.getItem("cantidadDinero"),10);
 export var llaveCastillo = false;
+export var llaveCueva = false;
 export var pesoInvent = 15;
 export var vidaPer = 10;
+export var hachaRecogida = false;
+
+
 
 export function iniciarCueva()
 {
@@ -82,10 +109,12 @@ function guardInventario()
 	curaPC = personaje.curaP.cantidad;
 	curaMC = personaje.curaM.cantidad;
 	curaGC = personaje.curaG.cantidad;
-	dineroC = personaje.mon.cantidad;
+	DineroC = personaje.mon.cantidad;
 	llaveCastillo = personaje.player.tienellave;
 	pesoInvent = personaje.pesoInventario;
 	vidaPer = personaje.vida;
+	llaveCueva = personaje.player.cueva;
+	hachaRecogida = personaje.player.hachaR;
 	
 	console.log("pesoInventario="+personaje.pesoInventario)
 	console.log("pesoInvent="+pesoInvent);
