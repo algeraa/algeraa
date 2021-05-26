@@ -30,7 +30,7 @@ export function guardar()
 	var ajax2=new XMLHttpRequest();	
 	
 
-	ajax2.open("GET", "http://localhost/algeraa-BBDD/php/guardado.php?flechasC="+FlechasC+"&bombasC="+BombasC+"&curaP="+curaPC+"&curaM="+curaMC+"&curaG="+curaGC+"&dineroC="+DineroC+"&usuario="+user,true);
+	ajax2.open("GET", "./php/guardado.php?flechasC="+FlechasC+"&bombasC="+BombasC+"&curaP="+curaPC+"&curaM="+curaMC+"&curaG="+curaGC+"&dineroC="+DineroC+"&usuario="+user,true);
 
 	ajax2.onreadystatechange=function() {
 		if (ajax2.readyState==4 && ajax2.status==200) {

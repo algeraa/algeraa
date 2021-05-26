@@ -5,7 +5,7 @@ export default function login(u,c){
 	
  
 	var ajax2=new XMLHttpRequest();
-	ajax2.open("_GET", "http://localhost/algeraa-BBDD/php/loginSQL.php?user="+u+"&contra="+c,true);
+	ajax2.open("_GET", "./php/loginSQL.php?user="+u+"&contra="+c,true);
 
 	ajax2.onreadystatechange=function() {
 		if (ajax2.readyState==4 && ajax2.status==200) {
