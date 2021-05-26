@@ -33,23 +33,28 @@ include 'conexion.php';
 		$conec4=mysqli_query($conn, $seleccion2);
 		$row2 = mysqli_fetch_object($conec4);
 
-		$insert2 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (1, 'row2->codigo_inventario', 0)";
+		$insert2 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (1, '$row2->codigo_inventario', 0)";
 		$conec5=mysqli_query($conn, $insert2);
 
-		$insert3 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (2, 'row2->codigo_inventario', 0)";
+		$insert3 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (2, '$row2->codigo_inventario', 0)";
 		$conec6=mysqli_query($conn, $insert3);
 
-		$insert4 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (3, 'row2->codigo_inventario', 0)";
+		$insert4 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (3, '$row2->codigo_inventario', 0)";
 		$conec7=mysqli_query($conn, $insert4);
 
-		$insert5 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (4, 'row2->codigo_inventario', 0)";
+		$insert5 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (4, '$row2->codigo_inventario', 0)";
 		$conec8=mysqli_query($conn, $insert5);
 
-		$insert6 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (5, 'row2->codigo_inventario', 0)";
+		$insert6 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (5, '$row2->codigo_inventario', 0)";
 		$conec9=mysqli_query($conn, $insert6);
 
-		$insert7 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (6, 'row2->codigo_inventario', 0)";
+		$insert7 = "INSERT INTO `posesion`(`id_objetos`, `id_inventario`, `cantidad`) VALUES (6, '$row2->codigo_inventario', 0)";
 		$conec10=mysqli_query($conn, $insert7);
+
+		$insert8 = "INSERT INTO `progreso`(`posicion_x`, `posicion_y`, `castillo_desbloqueado`, `cueva_desbloqueada`, `hacha_recogida`, `nivel_anterior`, `nivel_actual`, `id_jugadores`) VALUES ( NULL, NULL, 0, 0, 0, 0, 1,'$row->codigo_jugadores')";
+
+		$conec11=mysqli_query($conn, $insert8);
+
 
 
 
