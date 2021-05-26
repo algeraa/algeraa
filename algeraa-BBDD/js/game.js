@@ -30,7 +30,7 @@ export function guardar()
 	var xhr=new XMLHttpRequest();	
 
 
-	xhr.open("POST", "http://localhost/algeraa-BBDD/php/guardado.php",true);
+	xhr.open("POST", "./php/guardado.php",true);
 
 	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
@@ -43,7 +43,7 @@ export function guardar()
 	}
 
 
-	xhr.send("flechasC="+FlechasC+"&bombasC="+BombasC+"&curaP="+curaPC+"&curaM="+curaMC+"&curaG="+curaGC+"&dineroC="+DineroC+"&usuario="+user+"&idInvent="+inventory);
+	xhr.send("flechasC="+FlechasC+"&bombasC="+BombasC+"&curaP="+curaPC+"&curaM="+curaMC+"&curaG="+curaGC+"&dineroC="+DineroC+"&usuario="+user+"&idInvent="+inventory+"&escenaA="+escenaActual+"&escenaP="+escenaPasada+"&llaveCastillo="+llaveCastillo+"&llaveCueva="+llaveCueva+"&hachaRecogida="+hachaRecogida);
 
 }
 
@@ -57,10 +57,12 @@ export var curaMC = parseInt(localStorage.getItem("cantidadPocionM"),10);
 export var curaGC = parseInt(localStorage.getItem("cantidadPocionG"),10);
 export var DineroC = parseInt(localStorage.getItem("cantidadDinero"),10);
 export var llaveCastillo = false;
-export var llaveCueva = false;
+export var llaveCueva = 0;
 export var pesoInvent = 15;
 export var vidaPer = 10;
 export var hachaRecogida = false;
+export var posX;
+export var posY;
 
 
 
@@ -116,8 +118,10 @@ function guardInventario()
 	llaveCastillo = personaje.player.tienellave;
 	pesoInvent = personaje.pesoInventario;
 	vidaPer = personaje.vida;
-	llaveCueva = personaje.player.cueva;
+	llaveCueva = personaje.llaveCueva;
 	hachaRecogida = personaje.player.hachaR;
+	posX = personaje.player.x;
+	posY = personaje.player.y;
 	
 	console.log("pesoInventario="+personaje.pesoInventario)
 	console.log("pesoInvent="+pesoInvent);

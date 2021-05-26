@@ -386,7 +386,7 @@ export function recogerDinero(n, s)
 
 export function cuevaDesbloqueada()
 {
-	llaveCueva = true;
+	llaveCueva = 1;
 }
 
 
