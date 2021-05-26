@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2021 a las 22:43:01
--- Versión del servidor: 10.4.14-MariaDB
--- Versión de PHP: 7.4.11
+-- Tiempo de generación: 26-05-2021 a las 12:22:49
+-- Versión del servidor: 10.4.13-MariaDB
+-- Versión de PHP: 7.4.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,9 @@ CREATE TABLE `inventario` (
 --
 
 INSERT INTO `inventario` (`codigo_inventario`, `peso`, `id_jugadores`) VALUES
-(1, 9, 7);
+(1, 9, 7),
+(6, 15, 14),
+(7, 15, 15);
 
 -- --------------------------------------------------------
 
@@ -66,7 +68,9 @@ INSERT INTO `jugadores` (`codigo_jugadores`, `contrasenia`, `usuario`) VALUES
 (5, '202cb962ac59075b964b', 'aaronix'),
 (7, '202cb962ac59075b964b07152d234b70', 'eustakio222'),
 (8, 'a08372b70196c21a9229cf04db6b7ceb', 'Alex'),
-(9, '6c8349cc7260ae62e3b1396831a8398f', 'hola');
+(9, '6c8349cc7260ae62e3b1396831a8398f', 'hola'),
+(14, '202cb962ac59075b964b07152d234b70', 'prueba4'),
+(15, '202cb962ac59075b964b07152d234b70', 'prueba5');
 
 -- --------------------------------------------------------
 
@@ -110,11 +114,23 @@ CREATE TABLE `posesion` (
 
 INSERT INTO `posesion` (`id_objetos`, `id_inventario`, `cantidad`) VALUES
 (1, 1, 1),
+(1, 6, 0),
+(1, 7, 0),
 (2, 1, 2),
+(2, 6, 0),
+(2, 7, 2),
 (3, 1, 1),
+(3, 6, 0),
+(3, 7, 0),
 (4, 1, 1),
+(4, 6, 0),
+(4, 7, 1),
 (5, 1, 1),
-(6, 1, 3);
+(5, 6, 0),
+(5, 7, 0),
+(6, 1, 3),
+(6, 6, 0),
+(6, 7, 7);
 
 -- --------------------------------------------------------
 
@@ -124,8 +140,8 @@ INSERT INTO `posesion` (`id_objetos`, `id_inventario`, `cantidad`) VALUES
 
 CREATE TABLE `progreso` (
   `codigo_progreso` int(11) NOT NULL,
-  `posicion_x` int(11) NOT NULL,
-  `posicion_y` int(11) NOT NULL,
+  `posicion_x` int(11) DEFAULT NULL,
+  `posicion_y` int(11) DEFAULT NULL,
   `castillo_desbloqueado` tinyint(1) NOT NULL,
   `cueva_desbloqueada` tinyint(1) NOT NULL,
   `hacha_recogida` tinyint(1) NOT NULL,
@@ -133,6 +149,14 @@ CREATE TABLE `progreso` (
   `nivel_actual` int(11) NOT NULL,
   `id_jugadores` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `progreso`
+--
+
+INSERT INTO `progreso` (`codigo_progreso`, `posicion_x`, `posicion_y`, `castillo_desbloqueado`, `cueva_desbloqueada`, `hacha_recogida`, `nivel_anterior`, `nivel_actual`, `id_jugadores`) VALUES
+(1, 0, 0, 0, 0, 0, 0, 1, 14),
+(2, NULL, NULL, 0, 1, 1, 0, 2, 15);
 
 --
 -- Índices para tablas volcadas
@@ -179,13 +203,13 @@ ALTER TABLE `progreso`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `codigo_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `codigo_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `jugadores`
 --
 ALTER TABLE `jugadores`
-  MODIFY `codigo_jugadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `codigo_jugadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `objetos`
@@ -197,7 +221,7 @@ ALTER TABLE `objetos`
 -- AUTO_INCREMENT de la tabla `progreso`
 --
 ALTER TABLE `progreso`
-  MODIFY `codigo_progreso` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `codigo_progreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
