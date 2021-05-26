@@ -38,7 +38,6 @@ export function guardar()
 		if (xhr.readyState==4 && xhr.status==200) {
 
 			var respuesta2=JSON.parse(this.responseText);
-			alert(respuesta2);
 		}
 	}
 
