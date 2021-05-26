@@ -11,8 +11,7 @@ export default function login(u,c){
 		if (ajax2.readyState==4 && ajax2.status==200) {
 			if(this.responseText == "No encontrado")
 			{
-
-				alert("Este usuario no existe");
+				alert("Error");
 				document.location="index.html";
 			}
 
@@ -27,8 +26,7 @@ export default function login(u,c){
 			miStorage.setItem('cantidadPocionG',respuesta2[4].cantidad);
 			miStorage.setItem('cantidadDinero',respuesta2[5].cantidad);
 			miStorage.setItem('nUsuario',respuesta2[0].usuario);
-
-	
+			miStorage.setItem('cIventario',respuesta2[0].codigo_inventario);
 			
 			document.location="juego.html";
 			

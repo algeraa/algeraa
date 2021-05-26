@@ -1,20 +1,21 @@
 <?php
 	include 'conexion.php';
 
-	$Cflechas = $_GET['flechasC'];
-	/*$Cbombas = $_GET['bombasC'];
-	$CcuraP = $_GET['curaP'];
-	$CcuraM = $_GET['curaM'];
-	$CcuraG = $_GET['curaG'];
-	$Cdinero = $_GET['dineroC'];
-	$User = $_GET['usuario'];*/
+	$Cflechas = $_POST['flechasC'];
+	$Cbombas = $_POST['bombasC'];
+	$CcuraP = $_POST['curaP'];
+	$CcuraM = $_POST['curaM'];
+	$CcuraG = $_POST['curaG'];
+	$Cdinero = $_POST['dineroC'];
+	$User = $_POST['usuario'];
+	$IdInvent = $_POST['idInvent'];
 
-	echo $Cflechas;
-	/*echo $Cbombas;
-	echo $CcuraP;
-	echo $CcuraM;
-	echo $CcuraG;
-	echo $Cdinero;
-	echo $User;*/
+	$sql = "UPDATE posesion SET cantidad=".$Cbombas." WHERE id_inventario = ".$IdInvent." AND id_objetos = 1 ";
+
+
+	$result = mysqli_query($conn, $sql);
+
+	echo $Cbombas;
+	
 	
 ?>

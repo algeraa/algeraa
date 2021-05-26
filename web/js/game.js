@@ -26,21 +26,24 @@ export function guardar()
 {
 	guardInventario.call(this);
 	var user = localStorage.getItem("nUsuario");
+	var inventory = localStorage.getItem("cIventario");
+	var xhr=new XMLHttpRequest();	
 
-	var ajax2=new XMLHttpRequest();	
-	
 
-	ajax2.open("GET", "./php/guardado.php?flechasC="+FlechasC+"&bombasC="+BombasC+"&curaP="+curaPC+"&curaM="+curaMC+"&curaG="+curaGC+"&dineroC="+DineroC+"&usuario="+user,true);
+	xhr.open("POST", "./php/guardado.php",true);
 
-	ajax2.onreadystatechange=function() {
-		if (ajax2.readyState==4 && ajax2.status==200) {
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-	
+	xhr.onreadystatechange=function() {
+		if (xhr.readyState==4 && xhr.status==200) {
+
+			var respuesta2=JSON.parse(this.responseText);
+			alert(respuesta2);
 		}
 	}
 
 
-	ajax2.send();
+	xhr.send("flechasC="+FlechasC+"&bombasC="+BombasC+"&curaP="+curaPC+"&curaM="+curaMC+"&curaG="+curaGC+"&dineroC="+DineroC+"&usuario="+user+"&idInvent="+inventory);
 
 }
 
