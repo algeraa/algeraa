@@ -114,7 +114,7 @@ export default class Castillo extends Phaser.Scene {
 
 		this.physics.add.collider(esqueleto.dispEnlList, paredes, esqueleto.destroyShot);
 		this.physics.add.collider(zombie.enemigosList, paredes);
-
+		
 	}
 
 	update()

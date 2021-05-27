@@ -176,8 +176,8 @@ export function createP()
 		})
 		if(ini.inicio)
 		{
-			player.x = games.posx;
-			player.y = games.posy;
+			player.x = games.posX;
+			player.y = games.posY;
 		}
 	}
 	else if (games.escenaActual == 1 && games.escenaPasada == 2)
@@ -192,8 +192,8 @@ export function createP()
 		})
 		if(ini.inicio)
 		{
-			player.x = games.posx;
-			player.y = games.posy;
+			player.x = games.posX;
+			player.y = games.posY;
 		}
 	}
 	else if (games.escenaActual == 1 && games.escenaPasada == 3)
@@ -207,8 +207,8 @@ export function createP()
 		})
 		if(ini.inicio)
 		{
-			player.x = games.posx;
-			player.y = games.posy;
+			player.x = games.posX;
+			player.y = games.posY;
 		}
 	}
 	else if(games.escenaActual == 3)
@@ -223,8 +223,8 @@ export function createP()
 		})
 		if(ini.inicio)
 		{
-			player.x = games.posx;
-			player.y = games.posy;
+			player.x = games.posX;
+			player.y = games.posY;
 		}
 	}
 
@@ -298,30 +298,11 @@ export function createP()
 	
 	player.tienellave = games.llaveCastillo;
 	llaveCueva = games.llaveCuevaG;
-	////console.log(games.FlechaC)
+
+
 }
 
-/*export function pruebaAjax(c,id){
 
-	var parrafo = document.getElementById('usuarioActual');
-	var contenido = parrafo.innerHTML;
-	console.log(contenido);
-
-	var ajax2=objetoAjax();
-	ajax2.open("_GET", "./php/prueba.php?user="+id,true);
-
-	ajax2.onreadystatechange=function() {
-		if (ajax2.readyState==4 && ajax2.status==200) {
-			var respuesta2=JSON.parse(this.responseText);
-
-			alert(this.responseText);
-			//alert(respuesta2[0].usuario);
-		}
-	}
-
-	//ajax2.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-	ajax2.send();
-}*/
 
 export function mensH()
 {
@@ -1227,8 +1208,7 @@ export function ayudar(){
 		aiuda=this.add.sprite(0,0,'ayuda');
 		aiuda.setOrigin(0.5,0.5);
 		aiuda.setScale(0.5,0.5);
-		aiuda.x=Bosque.cameras.scrollX+400;
-		aiuda.y=Bosque.cameras.scrollY+300;
+
 		aiuda.setDepth(3);
 
 		if(games.escenaActual == 1){
@@ -1252,10 +1232,14 @@ export function ayudar(){
 			
 		}
 
-		player.setVelocityX(0);
-		player.setVelocityY(0);
+		
+		
 	}
-	else if(help.isDown && helpu==true && taim<0){
+	if(helpu == true)
+	{
+		player.setVelocity(0,0);
+	}
+	if(help.isDown && helpu==true && taim<0){
 
 		helpu=false;
 		taim=30;

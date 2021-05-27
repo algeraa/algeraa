@@ -45,3 +45,7 @@ create()
 
 	
 }
+export function reset()
+{
+	inicio = 0;
+}

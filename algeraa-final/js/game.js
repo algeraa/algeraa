@@ -6,6 +6,7 @@ import Cueva from './cueva.js';
 import Inicio from './inicio.js';
 import * as personaje from './personaje.js';
 import * as datos from './datos.js';
+import * as ini from './inicio.js';
 
 var config=
 {
@@ -25,7 +26,7 @@ var config=
 
 export function guardar()
 {
-	////console.log(vidaPer)
+	
 	guardInventario.call(this);
 	var user = localStorage.getItem("cUsuario");
 	var inventory = localStorage.getItem("cIventario");
@@ -73,7 +74,7 @@ export var posY = parseInt(localStorage.getItem("posy"),10);
 
 export function iniciarCueva()
 {
-
+	ini.reset.call(this);
 	if(personaje.llaveCueva)
 	{
 		guardInventario.call(this);
@@ -86,6 +87,7 @@ export function iniciarCueva()
 
 export function iniciarBosque()
 {
+	ini.reset.call(this);
 	guardInventario.call(this);
 	escenaPasada = 2;
 	escenaActual = 1;
@@ -94,6 +96,7 @@ export function iniciarBosque()
 }
 export function entrarCastillo()
 {
+	ini.reset.call(this);
 	if(personaje.player.tienellave)
 	{
 		guardInventario.call(this);
@@ -105,6 +108,7 @@ export function entrarCastillo()
 }
 export function VolverBosqueCastillo()
 {
+	ini.reset.call(this);
 	guardInventario.call(this);
 	escenaPasada = 3;
 	escenaActual = 1;
