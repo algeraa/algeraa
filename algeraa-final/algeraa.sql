@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2021 a las 12:22:49
+-- Tiempo de generación: 27-05-2021 a las 13:23:59
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.7
 
@@ -42,7 +42,13 @@ CREATE TABLE `inventario` (
 INSERT INTO `inventario` (`codigo_inventario`, `peso`, `id_jugadores`) VALUES
 (1, 9, 7),
 (6, 15, 14),
-(7, 15, 15);
+(7, 15, 15),
+(8, 15, 16),
+(9, 12, 17),
+(10, 10, 18),
+(11, 15, 19),
+(12, 15, 20),
+(13, 15, 21);
 
 -- --------------------------------------------------------
 
@@ -70,7 +76,13 @@ INSERT INTO `jugadores` (`codigo_jugadores`, `contrasenia`, `usuario`) VALUES
 (8, 'a08372b70196c21a9229cf04db6b7ceb', 'Alex'),
 (9, '6c8349cc7260ae62e3b1396831a8398f', 'hola'),
 (14, '202cb962ac59075b964b07152d234b70', 'prueba4'),
-(15, '202cb962ac59075b964b07152d234b70', 'prueba5');
+(15, '202cb962ac59075b964b07152d234b70', 'prueba5'),
+(16, '202cb962ac59075b964b07152d234b70', 'amuno2'),
+(17, '202cb962ac59075b964b07152d234b70', 'bobo'),
+(18, '202cb962ac59075b964b07152d234b70', 'bobo2'),
+(19, '202cb962ac59075b964b07152d234b70', 'bobo3'),
+(20, '202cb962ac59075b964b07152d234b70', 'bobo4'),
+(21, '202cb962ac59075b964b07152d234b70', 'bobo5');
 
 -- --------------------------------------------------------
 
@@ -116,21 +128,57 @@ INSERT INTO `posesion` (`id_objetos`, `id_inventario`, `cantidad`) VALUES
 (1, 1, 1),
 (1, 6, 0),
 (1, 7, 0),
+(1, 8, 0),
+(1, 9, 0),
+(1, 10, 0),
+(1, 11, 0),
+(1, 12, 0),
+(1, 13, 0),
 (2, 1, 2),
 (2, 6, 0),
 (2, 7, 2),
+(2, 8, 0),
+(2, 9, 1),
+(2, 10, 3),
+(2, 11, 0),
+(2, 12, 0),
+(2, 13, 0),
 (3, 1, 1),
 (3, 6, 0),
 (3, 7, 0),
+(3, 8, 2),
+(3, 9, 1),
+(3, 10, 1),
+(3, 11, 0),
+(3, 12, 0),
+(3, 13, 0),
 (4, 1, 1),
 (4, 6, 0),
 (4, 7, 1),
+(4, 8, 1),
+(4, 9, 0),
+(4, 10, 0),
+(4, 11, 0),
+(4, 12, 0),
+(4, 13, 0),
 (5, 1, 1),
 (5, 6, 0),
 (5, 7, 0),
+(5, 8, 0),
+(5, 9, 0),
+(5, 10, 0),
+(5, 11, 0),
+(5, 12, 0),
+(5, 13, 0),
 (6, 1, 3),
 (6, 6, 0),
-(6, 7, 7);
+(6, 7, 7),
+(6, 8, 1),
+(6, 9, 6),
+(6, 10, 2),
+(6, 11, 0),
+(6, 12, 1),
+(6, 13, 0);
 
 -- --------------------------------------------------------
 
@@ -147,16 +195,23 @@ CREATE TABLE `progreso` (
   `hacha_recogida` tinyint(1) NOT NULL,
   `nivel_anterior` int(11) NOT NULL,
   `nivel_actual` int(11) NOT NULL,
-  `id_jugadores` int(11) NOT NULL
+  `id_jugadores` int(11) NOT NULL,
+  `vida` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `progreso`
 --
 
-INSERT INTO `progreso` (`codigo_progreso`, `posicion_x`, `posicion_y`, `castillo_desbloqueado`, `cueva_desbloqueada`, `hacha_recogida`, `nivel_anterior`, `nivel_actual`, `id_jugadores`) VALUES
-(1, 0, 0, 0, 0, 0, 0, 1, 14),
-(2, NULL, NULL, 0, 1, 1, 0, 2, 15);
+INSERT INTO `progreso` (`codigo_progreso`, `posicion_x`, `posicion_y`, `castillo_desbloqueado`, `cueva_desbloqueada`, `hacha_recogida`, `nivel_anterior`, `nivel_actual`, `id_jugadores`, `vida`) VALUES
+(1, 0, 0, 0, 0, 0, 0, 1, 14, 0),
+(2, NULL, NULL, 0, 1, 1, 0, 2, 15, 0),
+(3, NULL, NULL, 0, 1, 1, 1, 2, 16, 9),
+(4, NULL, NULL, 0, 0, 1, 0, 1, 17, 3),
+(5, NULL, NULL, 1, 1, 1, 1, 3, 18, 9),
+(6, NULL, NULL, 0, 0, 0, 0, 1, 19, 10),
+(7, 705, 180, 0, 0, 0, 0, 1, 20, 9),
+(8, 1169, 1792, 0, 0, 0, 0, 1, 21, 10);
 
 --
 -- Índices para tablas volcadas
@@ -203,13 +258,13 @@ ALTER TABLE `progreso`
 -- AUTO_INCREMENT de la tabla `inventario`
 --
 ALTER TABLE `inventario`
-  MODIFY `codigo_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `codigo_inventario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `jugadores`
 --
 ALTER TABLE `jugadores`
-  MODIFY `codigo_jugadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `codigo_jugadores` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de la tabla `objetos`
@@ -221,7 +276,7 @@ ALTER TABLE `objetos`
 -- AUTO_INCREMENT de la tabla `progreso`
 --
 ALTER TABLE `progreso`
-  MODIFY `codigo_progreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `codigo_progreso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
